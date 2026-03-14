@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人类简史 — Sapiens</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --cream: #F5F0E8;
+  --dark: #0a0a08;
+  --warm: #1a1610;
+  --gold: #c9a84c;
+  --amber: #d4a058;
+  --red: #8b2020;
+  --sage: #4a6a50;
+  --stone: #8a8278;
+  --bone: #e8e0d0;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--cream);
+  color: var(--dark);
+  overflow-x: hidden;
+  cursor: default;
+}
+::selection { background: var(--dark); color: var(--cream); }
+
+/* ══ HERO ══ */
+.hero {
+  height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  background: var(--dark); color: var(--cream);
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 30%, rgba(201,168,76,0.08) 0%, transparent 60%);
+}
+.hero-eyebrow {
+  font-size: 11px; letter-spacing: 6px; text-transform: uppercase;
+  color: var(--stone); margin-bottom: 40px; position: relative; z-index: 1;
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(48px, 10vw, 120px); font-weight: 900;
+  line-height: 0.9; text-align: center;
+  position: relative; z-index: 1;
+}
+.hero-title em {
+  font-style: italic; color: var(--gold);
+  display: block; font-size: 0.6em;
+}
+.hero-sub {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(16px, 3vw, 28px); font-weight: 400;
+  color: var(--stone); margin-top: 24px;
+  letter-spacing: 8px; position: relative; z-index: 1;
+}
+.hero-author {
+  font-size: 13px; color: var(--stone); margin-top: 60px;
+  letter-spacing: 3px; text-transform: uppercase;
+  position: relative; z-index: 1;
+}
+.hero-scroll {
+  position: absolute; bottom: 40px;
+  font-size: 10px; letter-spacing: 4px; color: var(--stone);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:0.3} 50%{opacity:0.8} }
+
+/* ══ TIMELINE BAR ══ */
+.timeline-bar {
+  background: var(--warm); color: var(--bone);
+  padding: 20px 0; overflow: hidden; white-space: nowrap;
+}
+.timeline-bar .track {
+  display: inline-block; animation: scroll-left 30s linear infinite;
+  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+}
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ══ SECTIONS ══ */
+section { padding: 120px 24px; max-width: 900px; margin: 0 auto; }
+
+.section-num {
+  font-size: 11px; letter-spacing: 6px; color: var(--stone);
+  text-transform: uppercase; margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 6vw, 64px); font-weight: 900;
+  line-height: 1.05; margin-bottom: 24px;
+}
+.section-title em { font-style: italic; color: var(--gold); }
+.section-lead {
+  font-size: 18px; line-height: 1.8; color: #4a4840;
+  max-width: 640px; margin-bottom: 40px;
+}
+.section-body {
+  font-size: 15px; line-height: 2; color: #5a5850;
+  max-width: 640px;
+}
+.section-body p + p { margin-top: 20px; }
+
+/* ══ FULL-BLEED PANELS ══ */
+.panel {
+  width: 100%; padding: 100px 24px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; position: relative;
+}
+.panel-dark {
+  background: var(--dark); color: var(--cream);
+}
+.panel-warm {
+  background: var(--warm); color: var(--bone);
+}
+.panel-gold {
+  background: linear-gradient(135deg, #2a2418, #1a1610);
+  color: var(--bone);
+}
+.panel-sage {
+  background: #1a2a1e; color: #c8d8c0;
+}
+.panel-red {
+  background: #1a0c0c; color: #e8c8c0;
+}
+
+.panel .big-number {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(64px, 15vw, 180px);
+  font-weight: 900; line-height: 1;
+  opacity: 0.15; position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+}
+.panel .panel-content {
+  position: relative; z-index: 1; max-width: 640px;
+}
+.panel .panel-label {
+  font-size: 10px; letter-spacing: 5px; text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.panel .panel-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 5vw, 48px); font-weight: 700;
+  line-height: 1.15; margin-bottom: 20px;
+}
+.panel .panel-text {
+  font-size: 15px; line-height: 1.9; opacity: 0.8;
+}
+
+/* ══ QUOTE ══ */
+.quote-block {
+  padding: 80px 24px; text-align: center;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.quote-mark {
+  font-family: 'Playfair Display', serif;
+  font-size: 80px; line-height: 1; color: var(--gold); opacity: 0.3;
+}
+.quote-text {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(18px, 3vw, 28px);
+  line-height: 1.8; max-width: 700px; margin: 0 auto;
+  color: var(--dark);
+}
+.quote-attr {
+  font-size: 12px; letter-spacing: 3px; color: var(--stone);
+  margin-top: 24px; text-transform: uppercase;
+}
+
+/* ══ TIMELINE ══ */
+.timeline {
+  max-width: 700px; margin: 0 auto; padding: 0 24px;
+}
+.tl-item {
+  display: grid; grid-template-columns: 120px 1px 1fr;
+  gap: 24px; padding: 32px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.tl-year {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px; font-weight: 700; text-align: right;
+  color: var(--gold);
+}
+.tl-line { background: rgba(0,0,0,0.08); }
+.tl-content {}
+.tl-label {
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--stone); margin-bottom: 6px;
+}
+.tl-desc {
+  font-size: 14px; line-height: 1.8; color: #5a5850;
+}
+
+/* ══ STATS ══ */
+.stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 2px; background: rgba(0,0,0,0.04);
+  max-width: 900px; margin: 60px auto;
+}
+.stat {
+  background: var(--cream); padding: 40px 24px; text-align: center;
+}
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 5vw, 48px); font-weight: 900;
+  color: var(--dark);
+}
+.stat-label {
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--stone); margin-top: 8px;
+}
+
+/* ══ FOOTER ══ */
+.footer {
+  background: var(--dark); color: var(--stone);
+  padding: 80px 24px; text-align: center;
+}
+.footer-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px; letter-spacing: 8px;
+  text-transform: uppercase; margin-bottom: 16px;
+}
+.footer-isbn {
+  font-size: 11px; letter-spacing: 2px;
+  font-family: 'Courier New', monospace;
+}
+.footer-barcode {
+  margin-top: 20px; font-family: 'Courier New', monospace;
+  font-size: 24px; letter-spacing: 2px; opacity: 0.3;
+}
+.footer-note {
+  font-size: 10px; margin-top: 40px; opacity: 0.4;
+  letter-spacing: 2px;
+}
+
+/* ══ MOBILE ══ */
+@media (max-width: 600px) {
+  section { padding: 80px 20px; }
+  .panel { padding: 80px 20px; }
+  .tl-item { grid-template-columns: 80px 1px 1fr; gap: 16px; }
+  .stats { grid-template-columns: 1fr; }
+  .hero-title { padding: 0 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════ HERO ══════ -->
+<div class="hero">
+  <div class="hero-eyebrow">Yuval Noah Harari</div>
+  <h1 class="hero-title">
+    SAPIENS
+    <em>A Brief History of Humankind</em>
+  </h1>
+  <div class="hero-sub">人 类 简 史</div>
+  <div class="hero-author">从动物到上帝</div>
+  <div class="hero-scroll">↓ SCROLL TO EXPLORE</div>
+</div>
+
+<!-- ══════ TIMELINE MARQUEE ══════ -->
+<div class="timeline-bar">
+  <div class="track">
+    &nbsp;&nbsp;认知革命 · 7万年前 &nbsp;—&nbsp; 农业革命 · 1.2万年前 &nbsp;—&nbsp; 人类的融合统一 · 5000年前 &nbsp;—&nbsp; 科学革命 · 500年前 &nbsp;—&nbsp; 工业革命 · 250年前 &nbsp;—&nbsp; 信息革命 · 今天 &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;认知革命 · 7万年前 &nbsp;—&nbsp; 农业革命 · 1.2万年前 &nbsp;—&nbsp; 人类的融合统一 · 5000年前 &nbsp;—&nbsp; 科学革命 · 500年前 &nbsp;—&nbsp; 工业革命 · 250年前 &nbsp;—&nbsp; 信息革命 · 今天 &nbsp;&nbsp;&nbsp;
+  </div>
+</div>
+
+<!-- ══════ PART 1: COGNITIVE REVOLUTION ══════ -->
+<section>
+  <div class="section-num">Part One · 第一部分</div>
+  <h2 class="section-title">The Cognitive<br><em>Revolution</em></h2>
+  <p class="section-lead">
+    大约七万年前，某种偶然的基因突变改变了智人大脑的内部结构，让他们拥有了全新的思维和沟通方式。
+  </p>
+  <div class="section-body">
+    <p>在认知革命之前，人类只是非洲角落里一种毫不起眼的动物。我们和黑猩猩、大猩猩并没有什么本质的不同。但一种新的语言能力——讲述虚构故事的能力——彻底改变了一切。</p>
+    <p>虚构，让陌生人可以合作。一只黑猩猩绝不会为了"天上的猴子乐园"而把香蕉让给另一只猩猩。但智人可以。</p>
+  </div>
+</section>
+
+<div class="quote-block">
+  <div class="quote-mark">"</div>
+  <p class="quote-text">大规模的人类合作——从现代国家到中世纪教堂到古代城市——根基都在于某种只存在于集体想象中的虚构故事。</p>
+  <div class="quote-attr">— Yuval Noah Harari</div>
+</div>
+
+<div class="panel panel-dark">
+  <div class="big-number">70K</div>
+  <div class="panel-content">
+    <div class="panel-label">The Cognitive Revolution · 认知革命</div>
+    <h3 class="panel-heading">七万年前的基因突变<br>造就了历史的分水岭</h3>
+    <p class="panel-text">
+      智人开始能够谈论并不存在的事物——神灵、国家、公司、人权。这些"虚构"让数百万互不相识的人协同合作。没有任何其他动物能做到这一点。
+    </p>
+  </div>
+</div>
+
+<!-- ══════ PART 2: AGRICULTURAL REVOLUTION ══════ -->
+<section>
+  <div class="section-num">Part Two · 第二部分</div>
+  <h2 class="section-title">The Agricultural<br><em>Revolution</em></h2>
+  <p class="section-lead">
+    大约一万两千年前，智人开始投入几乎全部的时间和精力来操控几种动植物的生命。
+  </p>
+  <div class="section-body">
+    <p>赫拉利称农业革命为"史上最大的骗局"。小麦驯化了人类，而不是人类驯化了小麦。农民的生活比采集者更辛苦、饮食更单调、疾病更频繁。</p>
+    <p>但农业让人口爆炸成为可能。更多的人意味着更复杂的社会——也意味着更多的痛苦。进化的成功标准是DNA的拷贝数，不是个体的幸福。</p>
+  </div>
+</section>
+
+<div class="panel panel-gold">
+  <div class="big-number">小麦</div>
+  <div class="panel-content">
+    <div class="panel-label">History's Biggest Fraud · 史上最大骗局</div>
+    <h3 class="panel-heading">不是我们驯化了小麦，<br>是小麦驯化了我们</h3>
+    <p class="panel-text">
+      采集者每天工作3-6小时，饮食多样。农民日出而作日落而息，只吃谷物。农业让更多人活下来——却让每个人活得更糟。这就是进化的残酷逻辑。
+    </p>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">6</div>
+    <div class="stat-label">人类曾共存的物种</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">12K</div>
+    <div class="stat-label">年前 · 农业革命</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">1</div>
+    <div class="stat-label">幸存的人属物种</div>
+  </div>
+</div>
+
+<!-- ══════ PART 3: UNIFICATION ══════ -->
+<section>
+  <div class="section-num">Part Three · 第三部分</div>
+  <h2 class="section-title">The Unification<br><em>of Humankind</em></h2>
+  <p class="section-lead">
+    金钱、帝国和宗教——三种力量推动着分散的人类文化走向统一。
+  </p>
+  <div class="section-body">
+    <p>金钱是有史以来最普世的信任机制。你可以不信上帝，不信人权，但你很难不信金钱。一张美元钞票之所以有价值，只是因为所有人都相信它有价值。</p>
+    <p>帝国是文化融合的引擎。今天我们视为"正宗本土"的文化，往往是过去帝国征服的产物。宗教则提供了超越帝国的合法性框架。</p>
+  </div>
+</section>
+
+<div class="panel panel-warm">
+  <div class="big-number">$</div>
+  <div class="panel-content">
+    <div class="panel-label">Money · 金钱</div>
+    <h3 class="panel-heading">有史以来<br>最成功的虚构故事</h3>
+    <p class="panel-text">
+      贝壳、金币、纸钞、比特币——形式在变，本质不变。金钱的力量在于：它是唯一一个所有人都愿意相信的故事。基督徒和穆斯林可能水火不容，但他们都接受美元。
+    </p>
+  </div>
+</div>
+
+<!-- ══════ TIMELINE ══════ -->
+<section>
+  <div class="section-num">Timeline · 关键时刻</div>
+  <h2 class="section-title" style="margin-bottom:48px">From Animals<br><em>to Gods</em></h2>
+</section>
+
+<div class="timeline">
+  <div class="tl-item">
+    <div class="tl-year">250万</div>
+    <div class="tl-line"></div>
+    <div class="tl-content">
+      <div class="tl-label">起源</div>
+      <div class="tl-desc">人属首次出现于东非。多个人类物种同时并存。</div>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-year">7万</div>
+    <div class="tl-line"></div>
+    <div class="tl-content">
+      <div class="tl-label">认知革命</div>
+      <div class="tl-desc">虚构语言出现。智人走出非洲，其他人类物种灭绝。</div>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-year">1.2万</div>
+    <div class="tl-line"></div>
+    <div class="tl-content">
+      <div class="tl-label">农业革命</div>
+      <div class="tl-desc">驯化动植物。人口爆炸。永久聚落出现。</div>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-year">5000</div>
+    <div class="tl-line"></div>
+    <div class="tl-content">
+      <div class="tl-label">文字与金钱</div>
+      <div class="tl-desc">苏美尔人发明楔形文字。最早的货币在美索不达米亚流通。</div>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-year">500</div>
+    <div class="tl-line"></div>
+    <div class="tl-content">
+      <div class="tl-label">科学革命</div>
+      <div class="tl-desc">承认无知。科学、帝国与资本结盟。人类获得改造世界的能力。</div>
+    </div>
+  </div>
+  <div class="tl-item">
+    <div class="tl-year">今天</div>
+    <div class="tl-line"></div>
+    <div class="tl-content">
+      <div class="tl-label">智人的未来</div>
+      <div class="tl-desc">基因工程、人工智能、半机械人。我们正在成为神，但不知道自己想要什么。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ PART 4: SCIENTIFIC REVOLUTION ══════ -->
+<section>
+  <div class="section-num">Part Four · 第四部分</div>
+  <h2 class="section-title">The Scientific<br><em>Revolution</em></h2>
+  <p class="section-lead">
+    大约五百年前，人类开始承认自己的无知，开始投资研究，获取新的能力。
+  </p>
+  <div class="section-body">
+    <p>科学革命的核心不是知识本身，而是承认无知的意愿。在此之前，人类相信世间所有重要问题的答案都已写在经书里。科学革命说：我们不知道。</p>
+    <p>承认无知，才能提出新问题。提出新问题，才能获得新发现。新发现带来新技术，新技术带来新权力。科学、帝国和资本形成了一个自我加速的正反馈回路。</p>
+  </div>
+</section>
+
+<div class="panel panel-red">
+  <div class="big-number">?</div>
+  <div class="panel-content">
+    <div class="panel-label">The Discovery of Ignorance · 发现自己的无知</div>
+    <h3 class="panel-heading">现代科学的基础<br>不是知识，而是无知</h3>
+    <p class="panel-text">
+      人类花了数千年假装自己什么都知道。直到大约500年前，我们才第一次鼓起勇气说出三个字："我不知道。"这三个字改变了一切。
+    </p>
+  </div>
+</div>
+
+<div class="quote-block">
+  <div class="quote-mark">"</div>
+  <p class="quote-text">我们拥有了神的能力，但依然保有石器时代的情感、中世纪的制度、和成神一般的技术。这是极其危险的组合。</p>
+  <div class="quote-attr">— Yuval Noah Harari</div>
+</div>
+
+<!-- ══════ EPILOGUE ══════ -->
+<div class="panel panel-sage">
+  <div class="panel-content">
+    <div class="panel-label">Epilogue · 尾声</div>
+    <h3 class="panel-heading">The Animal<br>That Became a God</h3>
+    <p class="panel-text" style="margin-top: 20px;">
+      七万年前，智人还只是非洲角落里一种微不足道的动物。而今天，我们站在取代自然选择、用智慧设计重塑生命的门槛上。回望走过的路，最该问的问题不是"我们如何走到这里"，而是——"我们到底想要什么？"
+    </p>
+  </div>
+</div>
+
+<!-- ══════ FOOTER ══════ -->
+<div class="footer">
+  <div class="footer-title">Sapiens · 人类简史</div>
+  <div class="footer-isbn">ISBN 978-0-06-231609-7 · 2011</div>
+  <div class="footer-barcode">| ||| || ||| | || |||</div>
+  <div class="footer-note">A VIBE TRANSLATION · INSPIRED BY VIBARY.ART</div>
+</div>
+
+</body>
+</html>
