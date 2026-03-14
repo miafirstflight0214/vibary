@@ -3,475 +3,456 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>人类简史 — Sapiens</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
+<title>Sapiens — A Brief History of Humankind</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,900;1,400;1,600&family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400;600;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-:root {
-  --cream: #F5F0E8;
-  --dark: #0a0a08;
-  --warm: #1a1610;
-  --gold: #c9a84c;
-  --amber: #d4a058;
-  --red: #8b2020;
-  --sage: #4a6a50;
-  --stone: #8a8278;
-  --bone: #e8e0d0;
-}
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'Inter', sans-serif;
-  background: var(--cream);
-  color: var(--dark);
-  overflow-x: hidden;
-  cursor: default;
-}
-::selection { background: var(--dark); color: var(--cream); }
+  :root {
+    --cream: #F5F0E8;
+    --dark: #0F0F0D;
+    --gold: #C19A6B;
+    --red: #8A2525;
+    --sage: #4A5D4F;
+    --stone: #8C8881;
+  }
+  body { 
+    background-color: var(--cream); 
+    color: var(--dark); 
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+  .serif { font-family: 'Playfair Display', serif; }
+  .serif-sc { font-family: 'Noto Serif SC', serif; }
+  
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb { background: var(--stone); border-radius: 3px; }
 
-/* ══ HERO ══ */
-.hero {
-  height: 100vh; display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  background: var(--dark); color: var(--cream);
-  position: relative; overflow: hidden;
-}
-.hero::before {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 50% 30%, rgba(201,168,76,0.08) 0%, transparent 60%);
-}
-.hero-eyebrow {
-  font-size: 11px; letter-spacing: 6px; text-transform: uppercase;
-  color: var(--stone); margin-bottom: 40px; position: relative; z-index: 1;
-}
-.hero-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(48px, 10vw, 120px); font-weight: 900;
-  line-height: 0.9; text-align: center;
-  position: relative; z-index: 1;
-}
-.hero-title em {
-  font-style: italic; color: var(--gold);
-  display: block; font-size: 0.6em;
-}
-.hero-sub {
-  font-family: 'Noto Serif SC', serif;
-  font-size: clamp(16px, 3vw, 28px); font-weight: 400;
-  color: var(--stone); margin-top: 24px;
-  letter-spacing: 8px; position: relative; z-index: 1;
-}
-.hero-author {
-  font-size: 13px; color: var(--stone); margin-top: 60px;
-  letter-spacing: 3px; text-transform: uppercase;
-  position: relative; z-index: 1;
-}
-.hero-scroll {
-  position: absolute; bottom: 40px;
-  font-size: 10px; letter-spacing: 4px; color: var(--stone);
-  animation: pulse 2s ease-in-out infinite;
-}
-@keyframes pulse { 0%,100%{opacity:0.3} 50%{opacity:0.8} }
+  /* Utilities */
+  .text-gold { color: var(--gold); }
+  .bg-dark { background-color: var(--dark); color: var(--cream); }
+  .bg-gold { background-color: var(--gold); color: var(--dark); }
+  
+  .panel-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    padding: 2rem;
+  }
 
-/* ══ TIMELINE BAR ══ */
-.timeline-bar {
-  background: var(--warm); color: var(--bone);
-  padding: 20px 0; overflow: hidden; white-space: nowrap;
-}
-.timeline-bar .track {
-  display: inline-block; animation: scroll-left 30s linear infinite;
-  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-}
-@keyframes scroll-left {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
+  /* Interaction: Coin Flip */
+  .coin-container { perspective: 1000px; width: 120px; height: 120px; cursor: pointer; }
+  .coin {
+    width: 100%; height: 100%; position: relative;
+    transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .coin.flip { transform: rotateY(1800deg); } /* Many spins */
+  .coin-face {
+    position: absolute; width: 100%; height: 100%;
+    backface-visibility: hidden; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    border: 4px solid var(--gold); background: #E6CFA0;
+  }
+  .coin-front { z-index: 2; transform: rotateY(0deg); }
+  .coin-back { transform: rotateY(180deg); background: var(--dark); color: var(--gold); border-color: var(--stone); }
 
-/* ══ SECTIONS ══ */
-section { padding: 120px 24px; max-width: 900px; margin: 0 auto; }
+  /* Interaction: Engine Spinner */
+  .engine-spinner {
+    width: 200px; height: 200px; border-radius: 50%;
+    border: 1px dashed var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; cursor: pointer;
+    transition: transform 0.1s linear;
+  }
+  .engine-spinner:active { transform: scale(0.95); }
+  .spoke { position: absolute; top: 50%; left: 50%; width: 100%; height: 1px; background: rgba(255,255,255,0.1); transform-origin: 0 0; }
 
-.section-num {
-  font-size: 11px; letter-spacing: 6px; color: var(--stone);
-  text-transform: uppercase; margin-bottom: 16px;
-}
-.section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(32px, 6vw, 64px); font-weight: 900;
-  line-height: 1.05; margin-bottom: 24px;
-}
-.section-title em { font-style: italic; color: var(--gold); }
-.section-lead {
-  font-size: 18px; line-height: 1.8; color: #4a4840;
-  max-width: 640px; margin-bottom: 40px;
-}
-.section-body {
-  font-size: 15px; line-height: 2; color: #5a5850;
-  max-width: 640px;
-}
-.section-body p + p { margin-top: 20px; }
+  /* Nav */
+  .fixed-nav {
+    position: fixed; left: 20px; top: 50%; transform: translateY(-50%);
+    z-index: 50; mix-blend-mode: difference; color: white;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .nav-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: currentColor; opacity: 0.3;
+    transition: all 0.3s; cursor: pointer;
+  }
+  .nav-dot.active { opacity: 1; transform: scale(1.5); }
 
-/* ══ FULL-BLEED PANELS ══ */
-.panel {
-  width: 100%; padding: 100px 24px;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  text-align: center; position: relative;
-}
-.panel-dark {
-  background: var(--dark); color: var(--cream);
-}
-.panel-warm {
-  background: var(--warm); color: var(--bone);
-}
-.panel-gold {
-  background: linear-gradient(135deg, #2a2418, #1a1610);
-  color: var(--bone);
-}
-.panel-sage {
-  background: #1a2a1e; color: #c8d8c0;
-}
-.panel-red {
-  background: #1a0c0c; color: #e8c8c0;
-}
+  /* Slider override */
+  input[type=range] {
+    -webkit-appearance: none; width: 100%; background: transparent;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; height: 24px; width: 24px; border-radius: 50%;
+    background: var(--gold); cursor: pointer; margin-top: -10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+    width: 100%; height: 4px; background: rgba(0,0,0,0.1); border-radius: 2px;
+  }
+  
+  /* Reveal Interaction */
+  .reveal-card {
+    cursor: pointer; transition: all 0.4s;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .reveal-card:hover { border-color: var(--gold); transform: translateY(-5px); }
+  .reveal-content { opacity: 0.4; filter: blur(4px); transition: all 0.5s; }
+  .reveal-card.active .reveal-content { opacity: 1; filter: blur(0); }
+  .reveal-card.active .reveal-hint { display: none; }
 
-.panel .big-number {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(64px, 15vw, 180px);
-  font-weight: 900; line-height: 1;
-  opacity: 0.15; position: absolute;
-  top: 50%; left: 50%; transform: translate(-50%, -50%);
-}
-.panel .panel-content {
-  position: relative; z-index: 1; max-width: 640px;
-}
-.panel .panel-label {
-  font-size: 10px; letter-spacing: 5px; text-transform: uppercase;
-  margin-bottom: 24px;
-}
-.panel .panel-heading {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(28px, 5vw, 48px); font-weight: 700;
-  line-height: 1.15; margin-bottom: 20px;
-}
-.panel .panel-text {
-  font-size: 15px; line-height: 1.9; opacity: 0.8;
-}
-
-/* ══ QUOTE ══ */
-.quote-block {
-  padding: 80px 24px; text-align: center;
-  border-top: 1px solid rgba(0,0,0,0.06);
-  border-bottom: 1px solid rgba(0,0,0,0.06);
-}
-.quote-mark {
-  font-family: 'Playfair Display', serif;
-  font-size: 80px; line-height: 1; color: var(--gold); opacity: 0.3;
-}
-.quote-text {
-  font-family: 'Noto Serif SC', serif;
-  font-size: clamp(18px, 3vw, 28px);
-  line-height: 1.8; max-width: 700px; margin: 0 auto;
-  color: var(--dark);
-}
-.quote-attr {
-  font-size: 12px; letter-spacing: 3px; color: var(--stone);
-  margin-top: 24px; text-transform: uppercase;
-}
-
-/* ══ TIMELINE ══ */
-.timeline {
-  max-width: 700px; margin: 0 auto; padding: 0 24px;
-}
-.tl-item {
-  display: grid; grid-template-columns: 120px 1px 1fr;
-  gap: 24px; padding: 32px 0;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-}
-.tl-year {
-  font-family: 'Playfair Display', serif;
-  font-size: 24px; font-weight: 700; text-align: right;
-  color: var(--gold);
-}
-.tl-line { background: rgba(0,0,0,0.08); }
-.tl-content {}
-.tl-label {
-  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-  color: var(--stone); margin-bottom: 6px;
-}
-.tl-desc {
-  font-size: 14px; line-height: 1.8; color: #5a5850;
-}
-
-/* ══ STATS ══ */
-.stats {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 2px; background: rgba(0,0,0,0.04);
-  max-width: 900px; margin: 60px auto;
-}
-.stat {
-  background: var(--cream); padding: 40px 24px; text-align: center;
-}
-.stat-num {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(28px, 5vw, 48px); font-weight: 900;
-  color: var(--dark);
-}
-.stat-label {
-  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-  color: var(--stone); margin-top: 8px;
-}
-
-/* ══ FOOTER ══ */
-.footer {
-  background: var(--dark); color: var(--stone);
-  padding: 80px 24px; text-align: center;
-}
-.footer-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 14px; letter-spacing: 8px;
-  text-transform: uppercase; margin-bottom: 16px;
-}
-.footer-isbn {
-  font-size: 11px; letter-spacing: 2px;
-  font-family: 'Courier New', monospace;
-}
-.footer-barcode {
-  margin-top: 20px; font-family: 'Courier New', monospace;
-  font-size: 24px; letter-spacing: 2px; opacity: 0.3;
-}
-.footer-note {
-  font-size: 10px; margin-top: 40px; opacity: 0.4;
-  letter-spacing: 2px;
-}
-
-/* ══ MOBILE ══ */
-@media (max-width: 600px) {
-  section { padding: 80px 20px; }
-  .panel { padding: 80px 20px; }
-  .tl-item { grid-template-columns: 80px 1px 1fr; gap: 16px; }
-  .stats { grid-template-columns: 1fr; }
-  .hero-title { padding: 0 16px; }
-}
 </style>
 </head>
 <body>
 
-<!-- ══════ HERO ══════ -->
-<div class="hero">
-  <div class="hero-eyebrow">Yuval Noah Harari</div>
-  <h1 class="hero-title">
-    SAPIENS
-    <em>A Brief History of Humankind</em>
-  </h1>
-  <div class="hero-sub">人 类 简 史</div>
-  <div class="hero-author">从动物到上帝</div>
-  <div class="hero-scroll">↓ SCROLL TO EXPLORE</div>
+<!-- Fixed UI -->
+<div class="fixed top-6 right-6 z-50 flex gap-4 text-xs font-bold tracking-widest mix-blend-difference text-white">
+  <button id="lang-en" class="opacity-100 hover:text-gold transition">EN</button>
+  <span class="opacity-30">/</span>
+  <button id="lang-zh" class="opacity-40 hover:text-gold transition">中</button>
 </div>
 
-<!-- ══════ TIMELINE MARQUEE ══════ -->
-<div class="timeline-bar">
-  <div class="track">
-    &nbsp;&nbsp;认知革命 · 7万年前 &nbsp;—&nbsp; 农业革命 · 1.2万年前 &nbsp;—&nbsp; 人类的融合统一 · 5000年前 &nbsp;—&nbsp; 科学革命 · 500年前 &nbsp;—&nbsp; 工业革命 · 250年前 &nbsp;—&nbsp; 信息革命 · 今天 &nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;认知革命 · 7万年前 &nbsp;—&nbsp; 农业革命 · 1.2万年前 &nbsp;—&nbsp; 人类的融合统一 · 5000年前 &nbsp;—&nbsp; 科学革命 · 500年前 &nbsp;—&nbsp; 工业革命 · 250年前 &nbsp;—&nbsp; 信息革命 · 今天 &nbsp;&nbsp;&nbsp;
+<div class="fixed-nav hidden md:flex">
+  <div class="nav-dot active" data-target="#hero"></div>
+  <div class="nav-dot" data-target="#cognitive"></div>
+  <div class="nav-dot" data-target="#agricultural"></div>
+  <div class="nav-dot" data-target="#unification"></div>
+  <div class="nav-dot" data-target="#scientific"></div>
+  <div class="nav-dot" data-target="#epilogue"></div>
+</div>
+
+<!-- 1. HERO -->
+<section id="hero" class="panel-screen bg-dark text-center">
+  <div class="absolute inset-0 opacity-20 pointer-events-none" id="particles"></div>
+  
+  <div class="z-10 max-w-4xl mx-auto gs-reveal">
+    <p class="text-stone text-xs tracking-[0.4em] uppercase mb-8">Yuval Noah Harari</p>
+    <h1 class="serif text-6xl md:text-9xl font-black leading-tight mb-2">
+      SAPIENS
+    </h1>
+    <p class="serif-sc text-xl md:text-3xl text-gold italic mb-12">从动物到上帝</p>
+    
+    <div class="h-px w-24 bg-stone mx-auto mb-12 opacity-30"></div>
+    
+    <p class="max-w-xl mx-auto text-stone leading-relaxed text-sm md:text-base">
+      七万年前，智人还只是一种微不足道的动物。<br>
+      今天，我们即将成为神。<br>
+      这中间发生了什么？
+    </p>
   </div>
-</div>
-
-<!-- ══════ PART 1: COGNITIVE REVOLUTION ══════ -->
-<section>
-  <div class="section-num">Part One · 第一部分</div>
-  <h2 class="section-title">The Cognitive<br><em>Revolution</em></h2>
-  <p class="section-lead">
-    大约七万年前，某种偶然的基因突变改变了智人大脑的内部结构，让他们拥有了全新的思维和沟通方式。
-  </p>
-  <div class="section-body">
-    <p>在认知革命之前，人类只是非洲角落里一种毫不起眼的动物。我们和黑猩猩、大猩猩并没有什么本质的不同。但一种新的语言能力——讲述虚构故事的能力——彻底改变了一切。</p>
-    <p>虚构，让陌生人可以合作。一只黑猩猩绝不会为了"天上的猴子乐园"而把香蕉让给另一只猩猩。但智人可以。</p>
+  
+  <div class="absolute bottom-8 left-0 w-full text-center animate-bounce">
+    <span class="text-[10px] tracking-[4px] text-stone uppercase opacity-50">Scroll to Explore</span>
   </div>
 </section>
 
-<div class="quote-block">
-  <div class="quote-mark">"</div>
-  <p class="quote-text">大规模的人类合作——从现代国家到中世纪教堂到古代城市——根基都在于某种只存在于集体想象中的虚构故事。</p>
-  <div class="quote-attr">— Yuval Noah Harari</div>
-</div>
+<!-- 2. COGNITIVE REVOLUTION (Interaction: Click to Reveal) -->
+<section id="cognitive" class="panel-screen relative bg-[#1A1A18] text-cream">
+  <div class="max-w-5xl mx-auto w-full grid md:grid-cols-2 gap-16 items-center">
+    <div class="gs-reveal">
+      <div class="text-gold text-xs tracking-widest uppercase mb-4">Part I · 认知革命</div>
+      <h2 class="serif text-5xl md:text-6xl mb-8">The Power of<br><em>Fiction</em></h2>
+      <p class="text-stone leading-relaxed mb-6 serif-sc">
+        智人之所以能统治地球，是因为我们是唯一能大规模灵活合作的物种。而这背后的秘密，是我们能谈论<span class="text-gold">不存在的事物</span>。
+      </p>
+      <p class="text-sm opacity-60 leading-relaxed">
+        点击右侧卡片，看看哪些是"客观真实"，哪些是"互为主体的虚构"。
+      </p>
+    </div>
 
-<div class="panel panel-dark">
-  <div class="big-number">70K</div>
-  <div class="panel-content">
-    <div class="panel-label">The Cognitive Revolution · 认知革命</div>
-    <h3 class="panel-heading">七万年前的基因突变<br>造就了历史的分水岭</h3>
-    <p class="panel-text">
-      智人开始能够谈论并不存在的事物——神灵、国家、公司、人权。这些"虚构"让数百万互不相识的人协同合作。没有任何其他动物能做到这一点。
-    </p>
-  </div>
-</div>
+    <div class="grid gap-4">
+      <div class="reveal-card bg-white/5 p-6 rounded" onclick="this.classList.toggle('active')">
+        <div class="reveal-hint text-center text-xs uppercase tracking-widest text-gold py-4">Click to Analyze: RIVER</div>
+        <div class="reveal-content flex justify-between items-center">
+          <span class="font-bold">River / 河流</span>
+          <span class="text-green-400 text-xs border border-green-400 px-2 py-1 rounded">OBJECTIVE REALITY</span>
+        </div>
+        <p class="reveal-content text-xs text-stone mt-2">即便人类消失，河流依然流淌。这是物理现实。</p>
+      </div>
 
-<!-- ══════ PART 2: AGRICULTURAL REVOLUTION ══════ -->
-<section>
-  <div class="section-num">Part Two · 第二部分</div>
-  <h2 class="section-title">The Agricultural<br><em>Revolution</em></h2>
-  <p class="section-lead">
-    大约一万两千年前，智人开始投入几乎全部的时间和精力来操控几种动植物的生命。
-  </p>
-  <div class="section-body">
-    <p>赫拉利称农业革命为"史上最大的骗局"。小麦驯化了人类，而不是人类驯化了小麦。农民的生活比采集者更辛苦、饮食更单调、疾病更频繁。</p>
-    <p>但农业让人口爆炸成为可能。更多的人意味着更复杂的社会——也意味着更多的痛苦。进化的成功标准是DNA的拷贝数，不是个体的幸福。</p>
+      <div class="reveal-card bg-white/5 p-6 rounded" onclick="this.classList.toggle('active')">
+        <div class="reveal-hint text-center text-xs uppercase tracking-widest text-gold py-4">Click to Analyze: GOOGLE</div>
+        <div class="reveal-content flex justify-between items-center">
+          <span class="font-bold">Google / 公司</span>
+          <span class="text-gold text-xs border border-gold px-2 py-1 rounded">FICTION</span>
+        </div>
+        <p class="reveal-content text-xs text-stone mt-2">公司并不存在于物理世界。它只是法律文件创造的"法人"——一个共同想象的故事。</p>
+      </div>
+
+      <div class="reveal-card bg-white/5 p-6 rounded" onclick="this.classList.toggle('active')">
+        <div class="reveal-hint text-center text-xs uppercase tracking-widest text-gold py-4">Click to Analyze: HUMAN RIGHTS</div>
+        <div class="reveal-content flex justify-between items-center">
+          <span class="font-bold">Human Rights / 人权</span>
+          <span class="text-gold text-xs border border-gold px-2 py-1 rounded">FICTION</span>
+        </div>
+        <p class="reveal-content text-xs text-stone mt-2">生物学上没有"权利"。鸟飞不是因为有飞行权，而是因为它有翅膀。人权是我们发明的最美好的故事。</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<div class="panel panel-gold">
-  <div class="big-number">小麦</div>
-  <div class="panel-content">
-    <div class="panel-label">History's Biggest Fraud · 史上最大骗局</div>
-    <h3 class="panel-heading">不是我们驯化了小麦，<br>是小麦驯化了我们</h3>
-    <p class="panel-text">
-      采集者每天工作3-6小时，饮食多样。农民日出而作日落而息，只吃谷物。农业让更多人活下来——却让每个人活得更糟。这就是进化的残酷逻辑。
+<!-- 3. AGRICULTURAL REVOLUTION (Interaction: Slider) -->
+<section id="agricultural" class="panel-screen bg-[#EBE5CE] text-dark">
+  <div class="max-w-2xl mx-auto text-center gs-reveal">
+    <div class="text-red-800 text-xs tracking-widest uppercase mb-4">Part II · 农业革命</div>
+    <h2 class="serif text-5xl mb-6">The Luxury<br><em>Trap</em></h2>
+    <p class="serif-sc text-lg mb-12 text-[#5A5850]">
+      历史最大的骗局：不是我们驯化了小麦，是小麦驯化了我们。
     </p>
-  </div>
-</div>
 
-<div class="stats">
-  <div class="stat">
-    <div class="stat-num">6</div>
-    <div class="stat-label">人类曾共存的物种</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">12K</div>
-    <div class="stat-label">年前 · 农业革命</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">1</div>
-    <div class="stat-label">幸存的人属物种</div>
-  </div>
-</div>
+    <div class="bg-[#DQD7C2] p-8 rounded-lg border border-[#C9C2B0] relative overflow-hidden">
+      <!-- Dynamic Content Area -->
+      <div id="agri-state" class="mb-10 transition-all duration-500 min-h-[160px]">
+        <h3 class="serif text-2xl mb-2">Forager / 采集者</h3>
+        <p class="text-sm text-stone mb-4">30,000 BC</p>
+        <ul class="text-left text-sm space-y-2 max-w-xs mx-auto opacity-80">
+          <li>🌿 每天工作 3-6 小时</li>
+          <li>🍎 饮食多样化，营养均衡</li>
+          <li>🏃‍♂️ 身体强健，甚至比如今运动员更好</li>
+        </ul>
+      </div>
 
-<!-- ══════ PART 3: UNIFICATION ══════ -->
-<section>
-  <div class="section-num">Part Three · 第三部分</div>
-  <h2 class="section-title">The Unification<br><em>of Humankind</em></h2>
-  <p class="section-lead">
-    金钱、帝国和宗教——三种力量推动着分散的人类文化走向统一。
-  </p>
-  <div class="section-body">
-    <p>金钱是有史以来最普世的信任机制。你可以不信上帝，不信人权，但你很难不信金钱。一张美元钞票之所以有价值，只是因为所有人都相信它有价值。</p>
-    <p>帝国是文化融合的引擎。今天我们视为"正宗本土"的文化，往往是过去帝国征服的产物。宗教则提供了超越帝国的合法性框架。</p>
+      <!-- Slider -->
+      <div class="relative px-4">
+        <input type="range" min="0" max="100" value="0" class="relative z-10" id="agri-slider">
+        <div class="flex justify-between text-[10px] uppercase tracking-widest mt-4 text-stone">
+          <span>Freedom</span>
+          <span>Population</span>
+        </div>
+      </div>
+    </div>
+    
+    <p class="text-xs text-stone mt-8 max-w-md mx-auto leading-relaxed">
+      拖动滑块：农业让<span class="text-dark font-bold">人口(DNA拷贝数)</span>爆炸式增长，但每个个体的<span class="text-dark font-bold">生活质量与自由</span>却急剧下降。这就是进化的陷阱。
+    </p>
   </div>
 </section>
 
-<div class="panel panel-warm">
-  <div class="big-number">$</div>
-  <div class="panel-content">
-    <div class="panel-label">Money · 金钱</div>
-    <h3 class="panel-heading">有史以来<br>最成功的虚构故事</h3>
-    <p class="panel-text">
-      贝壳、金币、纸钞、比特币——形式在变，本质不变。金钱的力量在于：它是唯一一个所有人都愿意相信的故事。基督徒和穆斯林可能水火不容，但他们都接受美元。
-    </p>
-  </div>
-</div>
+<!-- 4. UNIFICATION (Interaction: Coin Flip) -->
+<section id="unification" class="panel-screen bg-warm text-cream" style="background-color:#2C241B">
+  <div class="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-20 items-center">
+    
+    <!-- Coin Interactive -->
+    <div class="flex flex-col items-center justify-center order-2 md:order-1">
+      <div class="coin-container" onclick="flipCoin()">
+        <div class="coin" id="the-coin">
+          <div class="coin-face coin-front">
+            <div class="text-center">
+              <div class="text-[10px] uppercase tracking-widest text-dark/60">Trust</div>
+              <div class="serif text-4xl font-bold text-dark">$</div>
+            </div>
+          </div>
+          <div class="coin-face coin-back">
+            <div class="text-center">
+              <div class="text-[10px] uppercase tracking-widest text-gold/60">Fiction</div>
+              <div class="serif text-sm font-bold text-gold px-2">Mutual<br>Imagination</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="text-xs text-stone mt-8 tracking-widest uppercase animate-pulse">Click to Flip</p>
+    </div>
 
-<!-- ══════ TIMELINE ══════ -->
-<section>
-  <div class="section-num">Timeline · 关键时刻</div>
-  <h2 class="section-title" style="margin-bottom:48px">From Animals<br><em>to Gods</em></h2>
-</section>
+    <!-- Text -->
+    <div class="order-1 md:order-2 gs-reveal">
+      <div class="text-gold text-xs tracking-widest uppercase mb-4">Part III · 人类的融合</div>
+      <h2 class="serif text-5xl md:text-6xl mb-8">The Universal<br><em>Truth</em></h2>
+      <p class="text-[#A8A49D] leading-relaxed mb-6 serif-sc text-lg">
+        金钱是有史以来最成功的虚构故事。
+      </p>
+      <p class="text-sm opacity-60 leading-relaxed mb-4">
+        即使是基地组织恐怖分子，虽然痛恨美国的宗教、政治和文化，却依然热爱美元。金钱是唯一能跨越所有文化鸿沟的互信系统。
+      </p>
+      <p class="text-gold text-sm border-l-2 border-gold pl-4 italic">
+        "金钱不仅是货币，它是一种心理构念：它是人与人之间最普世、最有效的互信系统。"
+      </p>
+    </div>
 
-<div class="timeline">
-  <div class="tl-item">
-    <div class="tl-year">250万</div>
-    <div class="tl-line"></div>
-    <div class="tl-content">
-      <div class="tl-label">起源</div>
-      <div class="tl-desc">人属首次出现于东非。多个人类物种同时并存。</div>
-    </div>
-  </div>
-  <div class="tl-item">
-    <div class="tl-year">7万</div>
-    <div class="tl-line"></div>
-    <div class="tl-content">
-      <div class="tl-label">认知革命</div>
-      <div class="tl-desc">虚构语言出现。智人走出非洲，其他人类物种灭绝。</div>
-    </div>
-  </div>
-  <div class="tl-item">
-    <div class="tl-year">1.2万</div>
-    <div class="tl-line"></div>
-    <div class="tl-content">
-      <div class="tl-label">农业革命</div>
-      <div class="tl-desc">驯化动植物。人口爆炸。永久聚落出现。</div>
-    </div>
-  </div>
-  <div class="tl-item">
-    <div class="tl-year">5000</div>
-    <div class="tl-line"></div>
-    <div class="tl-content">
-      <div class="tl-label">文字与金钱</div>
-      <div class="tl-desc">苏美尔人发明楔形文字。最早的货币在美索不达米亚流通。</div>
-    </div>
-  </div>
-  <div class="tl-item">
-    <div class="tl-year">500</div>
-    <div class="tl-line"></div>
-    <div class="tl-content">
-      <div class="tl-label">科学革命</div>
-      <div class="tl-desc">承认无知。科学、帝国与资本结盟。人类获得改造世界的能力。</div>
-    </div>
-  </div>
-  <div class="tl-item">
-    <div class="tl-year">今天</div>
-    <div class="tl-line"></div>
-    <div class="tl-content">
-      <div class="tl-label">智人的未来</div>
-      <div class="tl-desc">基因工程、人工智能、半机械人。我们正在成为神，但不知道自己想要什么。</div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════ PART 4: SCIENTIFIC REVOLUTION ══════ -->
-<section>
-  <div class="section-num">Part Four · 第四部分</div>
-  <h2 class="section-title">The Scientific<br><em>Revolution</em></h2>
-  <p class="section-lead">
-    大约五百年前，人类开始承认自己的无知，开始投资研究，获取新的能力。
-  </p>
-  <div class="section-body">
-    <p>科学革命的核心不是知识本身，而是承认无知的意愿。在此之前，人类相信世间所有重要问题的答案都已写在经书里。科学革命说：我们不知道。</p>
-    <p>承认无知，才能提出新问题。提出新问题，才能获得新发现。新发现带来新技术，新技术带来新权力。科学、帝国和资本形成了一个自我加速的正反馈回路。</p>
   </div>
 </section>
 
-<div class="panel panel-red">
-  <div class="big-number">?</div>
-  <div class="panel-content">
-    <div class="panel-label">The Discovery of Ignorance · 发现自己的无知</div>
-    <h3 class="panel-heading">现代科学的基础<br>不是知识，而是无知</h3>
-    <p class="panel-text">
-      人类花了数千年假装自己什么都知道。直到大约500年前，我们才第一次鼓起勇气说出三个字："我不知道。"这三个字改变了一切。
+<!-- 5. SCIENTIFIC REVOLUTION (Interaction: Engine) -->
+<section id="scientific" class="panel-screen bg-[#0F0A0A] text-white relative overflow-hidden">
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--red)_0%,_transparent_60%)] opacity-10"></div>
+
+  <div class="relative z-10 max-w-4xl mx-auto text-center gs-reveal">
+    <div class="text-red-500 text-xs tracking-widest uppercase mb-4">Part IV · 科学革命</div>
+    <h2 class="serif text-5xl md:text-7xl mb-12">The Ignorance<br><em>Engine</em></h2>
+    
+    <div class="flex justify-center mb-12">
+      <div class="engine-spinner" id="engine" onclick="spinEngine()">
+        <div class="absolute text-[10px] tracking-widest uppercase text-stone top-4">Science</div>
+        <div class="absolute text-[10px] tracking-widest uppercase text-stone bottom-4 left-8">Empire</div>
+        <div class="absolute text-[10px] tracking-widest uppercase text-stone bottom-4 right-8">Capital</div>
+        
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="w-2 h-2 bg-red-500 rounded-full shadow-[0_0_20px_red]"></div>
+        </div>
+        
+        <!-- Spokes generated by JS -->
+      </div>
+    </div>
+
+    <p class="max-w-lg mx-auto text-stone text-sm leading-relaxed mb-8">
+      现代历史的奇点：科学、帝国与资本形成了一个<span class="text-red-400">正反馈循环</span>。<br>
+      承认无知 → 投入资源 → 获得力量 → 更多资源。
+      <br><br>
+      点击引擎，加速这个循环。
     </p>
+    
+    <div id="engine-status" class="text-xs font-mono text-red-500 opacity-0 transition-opacity">
+      SYSTEM OUTPUT: UNLIMITED POWER
+    </div>
   </div>
-</div>
+</section>
 
-<div class="quote-block">
-  <div class="quote-mark">"</div>
-  <p class="quote-text">我们拥有了神的能力，但依然保有石器时代的情感、中世纪的制度、和成神一般的技术。这是极其危险的组合。</p>
-  <div class="quote-attr">— Yuval Noah Harari</div>
-</div>
-
-<!-- ══════ EPILOGUE ══════ -->
-<div class="panel panel-sage">
-  <div class="panel-content">
-    <div class="panel-label">Epilogue · 尾声</div>
-    <h3 class="panel-heading">The Animal<br>That Became a God</h3>
-    <p class="panel-text" style="margin-top: 20px;">
-      七万年前，智人还只是非洲角落里一种微不足道的动物。而今天，我们站在取代自然选择、用智慧设计重塑生命的门槛上。回望走过的路，最该问的问题不是"我们如何走到这里"，而是——"我们到底想要什么？"
+<!-- 6. EPILOGUE (Input) -->
+<section id="epilogue" class="panel-screen bg-[#4A5D4F] text-[#E8E0D0]">
+  <div class="max-w-2xl mx-auto text-center gs-reveal">
+    <p class="text-[10px] tracking-[4px] uppercase mb-6 opacity-60">The Final Question</p>
+    <h2 class="serif text-4xl md:text-5xl mb-8 leading-tight">
+      我们正成为神<br>但不知道自己想要什么
+    </h2>
+    <p class="text-sm opacity-70 mb-12 leading-relaxed">
+      拥有神的能力，却只有石器时代的冲动。<br>
+      除了这句"想要什么"，再没有更危险的问题了。
     </p>
+    
+    <div class="relative max-w-md mx-auto">
+      <input type="text" placeholder="What do you want to want?" 
+             class="w-full bg-transparent border-b border-[#E8E0D0]/30 py-4 text-center text-xl placeholder-[#E8E0D0]/30 focus:outline-none focus:border-[#E8E0D0] transition-colors font-serif">
+    </div>
+    
+    <div class="mt-20 opacity-30 text-[10px] tracking-widest uppercase">
+      Vibary Project · 2026
+    </div>
   </div>
-</div>
+</section>
 
-<!-- ══════ FOOTER ══════ -->
-<div class="footer">
-  <div class="footer-title">Sapiens · 人类简史</div>
-  <div class="footer-isbn">ISBN 978-0-06-231609-7 · 2011</div>
-  <div class="footer-barcode">| ||| || ||| | || |||</div>
-  <div class="footer-note">A VIBE TRANSLATION · INSPIRED BY VIBARY.ART</div>
-</div>
+<script>
+  // 1. Language Toggle (Simple implementation)
+  const isEn = true; // Default
+  // (Full impl would swap text content arrays)
 
+  // 2. Slider Logic
+  const slider = document.getElementById('agri-slider');
+  const stateContainer = document.getElementById('agri-state');
+  
+  slider.addEventListener('input', (e) => {
+    const val = e.target.value;
+    if (val < 50) {
+      // Forager State
+      stateContainer.innerHTML = `
+        <h3 class="serif text-2xl mb-2">Forager / 采集者</h3>
+        <p class="text-sm text-stone mb-4">30,000 BC</p>
+        <ul class="text-left text-sm space-y-2 max-w-xs mx-auto opacity-80">
+          <li>🌿 每天工作 3-6 小时</li>
+          <li>🍎 饮食多样化，营养均衡</li>
+          <li>🏃‍♂️ 身体强健，甚至比如今运动员更好</li>
+        </ul>
+      `;
+    } else {
+      // Farmer State
+      stateContainer.innerHTML = `
+        <h3 class="serif text-2xl mb-2 text-red-800">Peasant / 农民</h3>
+        <p class="text-sm text-stone mb-4">10,000 BC</p>
+        <ul class="text-left text-sm space-y-2 max-w-xs mx-auto opacity-80">
+          <li>⛏️ 日出而作，日落而息</li>
+          <li>🌾 饮食单一，营养不良</li>
+          <li>🦠 传染病多发，受限于土地</li>
+        </ul>
+      `;
+    }
+  });
+
+  // 3. Coin Logic
+  function flipCoin() {
+    const coin = document.getElementById('the-coin');
+    // Remove class to reset animation if needed, or just toggle
+    coin.classList.remove('flip');
+    void coin.offsetWidth; // trigger reflow
+    coin.classList.add('flip');
+    
+    // Reset after animation
+    setTimeout(() => {
+      coin.classList.remove('flip');
+    }, 1500);
+  }
+
+  // 4. Engine Logic
+  let engineSpeed = 0;
+  const engine = document.getElementById('engine');
+  
+  // Create spokes
+  for(let i=0; i<12; i++) {
+    let s = document.createElement('div');
+    s.className = 'spoke';
+    s.style.transform = `rotate(${i * 30}deg) translateY(-80px)`;
+    s.style.height = '20px';
+    engine.appendChild(s);
+  }
+
+  function spinEngine() {
+    engineSpeed += 500;
+    engine.style.transition = 'transform 3s cubic-bezier(0.25, 1, 0.5, 1)';
+    engine.style.transform = `rotate(${engineSpeed}deg)`;
+    
+    document.getElementById('engine-status').style.opacity = 1;
+  }
+
+  // 5. GSAP Animations
+  gsap.registerPlugin(ScrollTrigger);
+  
+  // Reveal sections
+  gsap.utils.toArray('.gs-reveal').forEach(elem => {
+    gsap.from(elem, {
+      scrollTrigger: {
+        trigger: elem,
+        start: "top 80%",
+      },
+      y: 50,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out"
+    });
+  });
+
+  // Nav Dot Logic
+  const sections = document.querySelectorAll('section');
+  const navDots = document.querySelectorAll('.nav-dot');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      if (scrollY >= sectionTop - 300) {
+        current = '#' + section.getAttribute('id');
+      }
+    });
+
+    navDots.forEach(dot => {
+      dot.classList.remove('active');
+      if (dot.getAttribute('data-target') === current) {
+        dot.classList.add('active');
+      }
+    });
+  });
+
+  // Smooth scroll for nav
+  navDots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const target = document.querySelector(dot.getAttribute('data-target'));
+      target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+</script>
 </body>
 </html>
