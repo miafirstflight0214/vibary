@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ring a DingDing — A24 Style</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --black: #000;
+  --white: #FFF;
+  --gray: #999;
+  --dim: #333;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--black);
+  color: var(--white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: white; color: black; }
+
+a { color: inherit; text-decoration: none; }
+
+/* ═══ NAV ═══ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 20px 32px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase;
+  mix-blend-mode: difference;
+}
+nav .links { display: flex; gap: 24px; }
+nav a { transition: opacity 0.3s; }
+nav a:hover { opacity: 0.5; }
+
+/* ═══ HERO — MASSIVE TYPE ═══ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 32px 48px;
+  position: relative;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
+  z-index: 1;
+}
+.hero-img-bg {
+  position: absolute; inset: 0;
+  background-image: url(img/dingding/film-yolo.jpg);
+  background-size: cover;
+  background-position: center 20%;
+  opacity: 0.4;
+}
+.hero-content {
+  position: relative; z-index: 2;
+}
+.hero-content h1 {
+  font-size: clamp(60px, 12vw, 160px);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -4px;
+  text-transform: uppercase;
+}
+.hero-content .meta {
+  display: flex; gap: 32px;
+  margin-top: 24px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+
+/* ═══ TICKER ═══ */
+.ticker {
+  border-top: 1px solid var(--dim);
+  border-bottom: 1px solid var(--dim);
+  padding: 12px 0;
+  overflow: hidden;
+}
+.ticker-track {
+  display: flex; gap: 48px;
+  animation: tick 15s linear infinite;
+  white-space: nowrap;
+}
+.ticker-track span {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gray);
+}
+@keyframes tick {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ═══ GRID — A24 STYLE ASYMMETRIC ═══ */
+.grid-section {
+  padding: 80px 32px;
+}
+.grid-label {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 32px;
+}
+
+.a24-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2px;
+}
+.a24-item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--dim);
+}
+.a24-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s;
+  opacity: 0.85;
+}
+.a24-item:hover img { transform: scale(1.05); opacity: 1; }
+
+.a24-item .item-info {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  transform: translateY(100%);
+  transition: transform 0.4s;
+}
+.a24-item:hover .item-info { transform: translateY(0); }
+.item-info h3 {
+  font-size: 16px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.item-info p {
+  font-size: 10px; color: var(--gray);
+  letter-spacing: 2px; text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* Grid sizing */
+.g-big { grid-column: span 8; aspect-ratio: 16/9; }
+.g-tall { grid-column: span 4; aspect-ratio: 3/5; }
+.g-half { grid-column: span 6; aspect-ratio: 4/3; }
+.g-wide { grid-column: span 12; aspect-ratio: 21/9; }
+.g-third { grid-column: span 4; aspect-ratio: 1; }
+
+/* ═══ PROJECT DETAIL — HORIZONTAL ═══ */
+.detail-section {
+  padding: 60px 32px;
+  border-top: 1px solid var(--dim);
+}
+.detail-row {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 48px;
+  align-items: start;
+  margin-bottom: 60px;
+}
+.detail-meta {
+  position: sticky; top: 100px;
+}
+.detail-meta h2 {
+  font-size: 32px; font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  line-height: 1.05;
+  margin-bottom: 16px;
+}
+.detail-meta .tag {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 12px;
+}
+.detail-meta p {
+  font-size: 14px; line-height: 1.8;
+  color: var(--gray); font-weight: 300;
+}
+.detail-images {
+  display: flex; gap: 2px; flex-wrap: wrap;
+}
+.detail-images img {
+  flex: 1 1 calc(50% - 1px);
+  max-width: calc(50% - 1px);
+  object-fit: cover;
+  display: block;
+  cursor: pointer;
+  transition: opacity 0.3s;
+  opacity: 0.9;
+}
+.detail-images img:hover { opacity: 1; }
+
+/* ═══ ABOUT — STARK ═══ */
+.about-stark {
+  padding: 120px 32px;
+  border-top: 1px solid var(--dim);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+}
+.about-stark h2 {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+.about-stark p {
+  font-size: 15px; line-height: 1.9;
+  color: var(--gray); font-weight: 300;
+  margin-top: 20px;
+}
+.about-clients {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+.about-client {
+  padding: 12px 0;
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 1px;
+  color: var(--gray);
+  border-bottom: 1px solid var(--dim);
+  transition: color 0.3s;
+}
+.about-client:hover { color: white; }
+
+/* ═══ CTA ═══ */
+.cta-section {
+  padding: 120px 32px;
+  text-align: center;
+  border-top: 1px solid var(--dim);
+}
+.cta-section h2 {
+  font-size: clamp(48px, 10vw, 120px);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -3px;
+  line-height: 0.9;
+  margin-bottom: 32px;
+}
+.cta-section a.email {
+  font-size: 18px; font-weight: 500;
+  border-bottom: 2px solid white;
+  padding-bottom: 4px;
+  transition: opacity 0.3s;
+}
+.cta-section a.email:hover { opacity: 0.5; }
+
+/* ═══ FOOTER ═══ */
+footer {
+  padding: 24px 32px;
+  display: flex; justify-content: space-between;
+  font-size: 10px; color: var(--gray);
+  letter-spacing: 1px; text-transform: uppercase;
+  border-top: 1px solid var(--dim);
+}
+footer a { transition: color 0.3s; }
+footer a:hover { color: white; }
+.f-links { display: flex; gap: 20px; }
+
+/* ═══ LIGHTBOX ═══ */
+.lb { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; cursor: zoom-out; }
+.lb.open { display: flex; }
+.lb img { max-width: 94vw; max-height: 94vh; object-fit: contain; }
+.lb-x { position: absolute; top: 16px; right: 20px; color: white; font-size: 24px; background: none; border: none; cursor: pointer; font-weight: 300; }
+
+/* ═══ MOBILE ═══ */
+@media (max-width: 768px) {
+  nav { padding: 16px 20px; }
+  .hero { padding: 0 20px 32px; }
+  .hero-content h1 { letter-spacing: -2px; }
+  .grid-section { padding: 40px 20px; }
+  .a24-grid { grid-template-columns: 1fr 1fr; }
+  .g-big, .g-tall, .g-half, .g-wide, .g-third { grid-column: span 1; aspect-ratio: 1; }
+  .g-wide { grid-column: span 2; aspect-ratio: 16/9; }
+  .a24-item .item-info { transform: translateY(0); }
+  .detail-section { padding: 40px 20px; }
+  .detail-row { grid-template-columns: 1fr; gap: 24px; }
+  .detail-meta { position: static; }
+  .detail-images img { flex: 1 1 100%; max-width: 100%; }
+  .about-stark { grid-template-columns: 1fr; gap: 40px; padding: 60px 20px; }
+  .about-clients { grid-template-columns: 1fr; }
+  .cta-section { padding: 60px 20px; }
+  .cta-section h2 { letter-spacing: -1px; }
+  footer { flex-direction: column; gap: 8px; padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#">RING A DINGDING</a>
+  <div class="links">
+    <a href="#grid">WORK</a>
+    <a href="#about">ABOUT</a>
+    <a href="#contact">CONTACT</a>
+    <a href="https://www.instagram.com/dingding.illustration/" target="_blank" rel="noopener">IG ↗</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-img-bg"></div>
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <h1>DING<br>DING</h1>
+    <div class="meta">
+      <span>Illustrator</span>
+      <span>Designer</span>
+      <span>Beijing</span>
+      <span>Est. 2020</span>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>VOGUE</span><span>WALLPAPER*</span><span>NEW WEEKLY</span>
+    <span>XIAOHONGSHU</span><span>LU FILMS</span><span>NEW CLASSICS MEDIA</span>
+    <span>CS-BOOKY</span><span>MIYA</span><span>SUREDESIGN</span>
+    <span>VOGUE</span><span>WALLPAPER*</span><span>NEW WEEKLY</span>
+    <span>XIAOHONGSHU</span><span>LU FILMS</span><span>NEW CLASSICS MEDIA</span>
+    <span>CS-BOOKY</span><span>MIYA</span><span>SUREDESIGN</span>
+  </div>
+</div>
+
+<!-- GRID -->
+<section class="grid-section" id="grid">
+  <div class="grid-label">Selected Work</div>
+  <div class="a24-grid">
+    <div class="a24-item g-big" onclick="openLB(this)">
+      <img src="img/dingding/film-yolo.jpg" alt="YOLO 热辣滚烫">
+      <div class="item-info"><h3>YOLO 热辣滚烫</h3><p>Film Poster</p></div>
+    </div>
+    <div class="a24-item g-tall" onclick="openLB(this)">
+      <img src="img/dingding/poster-smart.jpg" alt="Smart 59">
+      <div class="item-info"><h3>Smart-59</h3><p>Poster</p></div>
+    </div>
+    <div class="a24-item g-half" onclick="openLB(this)">
+      <img src="img/dingding/editorial-learn.jpg" alt="Make Learning Fun">
+      <div class="item-info"><h3>Make Learning Fun</h3><p>Editorial</p></div>
+    </div>
+    <div class="a24-item g-half" onclick="openLB(this)">
+      <img src="img/dingding/production-goto1.jpg" alt="GO TO Museum">
+      <div class="item-info"><h3>GO TO Museum</h3><p>Production</p></div>
+    </div>
+    <div class="a24-item g-third" onclick="openLB(this)">
+      <img src="img/dingding/film-busy.jpg" alt="B for Busy 爱情神话">
+      <div class="item-info"><h3>B for Busy</h3><p>Film Poster</p></div>
+    </div>
+    <div class="a24-item g-third" onclick="openLB(this)">
+      <img src="img/dingding/editorial-world.jpg" alt="Design for a Better World">
+      <div class="item-info"><h3>Better World</h3><p>Editorial</p></div>
+    </div>
+    <div class="a24-item g-third" onclick="openLB(this)">
+      <img src="img/dingding/poster-panda2.jpg" alt="Wangjing Panda">
+      <div class="item-info"><h3>望京熊猫</h3><p>Poster</p></div>
+    </div>
+    <div class="a24-item g-wide" onclick="openLB(this)">
+      <img src="img/dingding/production-goto2.jpg" alt="GO TO Museum Overseas">
+      <div class="item-info"><h3>GO TO Museum — Overseas Edition</h3><p>Production Design</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- DETAIL SECTIONS -->
+<section class="detail-section">
+  <div class="detail-row">
+    <div class="detail-meta">
+      <div class="tag">01 — Film Poster</div>
+      <h2>YOLO<br>热辣滚烫</h2>
+      <p>Poster design for Jia Ling's 2024 film. Bold color, cinematic storytelling — capturing the raw energy and emotional transformation of the story in a single frame.</p>
+    </div>
+    <div class="detail-images">
+      <img src="img/dingding/film-yolo.jpg" alt="YOLO" onclick="openLB(this.parentElement)">
+      <img src="img/dingding/film-busy.jpg" alt="B for Busy" onclick="openLB(this.parentElement)">
+    </div>
+  </div>
+
+  <div class="detail-row">
+    <div class="detail-meta">
+      <div class="tag">02 — Editorial</div>
+      <h2>EDITORIAL<br>ILLUSTRATION</h2>
+      <p>Illustration for VOGUE, Wallpaper*, New Weekly. Making complex ideas visual, accessible, and beautiful.</p>
+    </div>
+    <div class="detail-images">
+      <img src="img/dingding/editorial-learn.jpg" alt="Make Learning Fun" onclick="openLB(this.parentElement)">
+      <img src="img/dingding/editorial-world.jpg" alt="Design for a Better World" onclick="openLB(this.parentElement)">
+    </div>
+  </div>
+
+  <div class="detail-row">
+    <div class="detail-meta">
+      <div class="tag">03 — Poster</div>
+      <h2>POSTER<br>DESIGN</h2>
+      <p>Posters for brands, events, and cultural moments. Vibrant narratives captured in print — from urban Beijing to global campaigns.</p>
+    </div>
+    <div class="detail-images">
+      <img src="img/dingding/poster-smart.jpg" alt="Smart 59" onclick="openLB(this.parentElement)">
+      <img src="img/dingding/poster-panda2.jpg" alt="Wangjing Panda" onclick="openLB(this.parentElement)">
+    </div>
+  </div>
+
+  <div class="detail-row">
+    <div class="detail-meta">
+      <div class="tag">04 — Production</div>
+      <h2>GO TO<br>MUSEUM</h2>
+      <p>Coloring sets that invite children into the world of art museums. From concept to shelf — illustration meets product design.</p>
+    </div>
+    <div class="detail-images">
+      <img src="img/dingding/production-goto1.jpg" alt="GO TO Museum" onclick="openLB(this.parentElement)">
+      <img src="img/dingding/production-goto2.jpg" alt="GO TO Museum Overseas" onclick="openLB(this.parentElement)">
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-stark" id="about">
+  <div>
+    <h2>DING DING IS AN ILLUSTRATOR BASED IN BEIJING</h2>
+    <p>Ring a DingDing illustration studio was established in 2020. She creates vibrant, narrative-driven work across film, editorial, packaging and cultural projects.</p>
+    <p>Available for commissions & collaborations.</p>
+  </div>
+  <div>
+    <div class="grid-label">Clients</div>
+    <div class="about-clients">
+      <div class="about-client">VOGUE</div>
+      <div class="about-client">Wallpaper*</div>
+      <div class="about-client">New Weekly 新周刊</div>
+      <div class="about-client">Xiaohongshu 小红书</div>
+      <div class="about-client">Lu Films 路画影视</div>
+      <div class="about-client">New Classics Media</div>
+      <div class="about-client">XUXUDUODUO</div>
+      <div class="about-client">CS-BOOKY</div>
+      <div class="about-client">MIYA</div>
+      <div class="about-client">MaxTimes</div>
+      <div class="about-client">SUREdesign</div>
+      <div class="about-client">Unitinno</div>
+      <div class="about-client">Makeapoint</div>
+      <div class="about-client">&nbsp;</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <h2>LET'S<br>WORK</h2>
+  <a href="mailto:info@ringadingding" class="email">info@ringadingding</a>
+</section>
+
+<footer>
+  <span>© 2025 RING A DINGDING</span>
+  <div class="f-links">
+    <a href="https://www.instagram.com/dingding.illustration/" target="_blank" rel="noopener">INSTAGRAM</a>
+    <a href="mailto:info@ringadingding">EMAIL</a>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" onclick="closeLB()" role="dialog" aria-label="Image viewer">
+  <button class="lb-x" aria-label="Close">✕</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+function openLB(el) {
+  const i = el.querySelector('img') || el;
+  if (i.tagName !== 'IMG') return;
+  document.getElementById('lb-img').src = i.src;
+  document.getElementById('lb-img').alt = i.alt;
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLB() {
+  document.getElementById('lb').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeLB(); });
+</script>
+</body>
+</html>

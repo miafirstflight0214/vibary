@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ring a DingDing — The Illustrator's Gazette</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ink: #1A1917;
+  --paper: #F5F1E8;
+  --aged: #EDE8DC;
+  --rule: #C8C0B0;
+  --red: #C23B22;
+  --caption: #706860;
+}
+
+body {
+  font-family: 'Lora', serif;
+  background: var(--paper);
+  color: var(--ink);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+::selection { background: var(--red); color: white; }
+
+/* ═══ NEWSPAPER HEADER ═══ */
+.gazette-bar {
+  text-align: center;
+  padding: 12px 0 8px;
+  border-bottom: 1px solid var(--rule);
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 11px; color: var(--caption);
+  font-family: 'Inter', sans-serif;
+}
+.gazette-bar a { color: var(--caption); text-decoration: none; }
+.gazette-bar a:hover { color: var(--red); }
+
+.masthead {
+  text-align: center;
+  padding: 20px 0 16px;
+  border-bottom: 4px double var(--ink);
+}
+.masthead h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 7vw, 72px);
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.masthead .tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--caption);
+  margin-top: 8px;
+}
+
+.edition-bar {
+  display: flex; justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 10px;
+  font-family: 'Inter', sans-serif;
+  color: var(--caption);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ═══ HEADLINE AREA ═══ */
+.headline-grid {
+  display: grid;
+  grid-template-columns: 2fr 1px 1fr;
+  gap: 0;
+  border-bottom: 1px solid var(--rule);
+}
+.headline-main {
+  padding: 32px 32px 32px 0;
+}
+.col-rule {
+  background: var(--rule);
+}
+.headline-side {
+  padding: 32px 0 32px 32px;
+}
+
+.headline-main h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 900;
+  line-height: 1.08;
+  margin-bottom: 16px;
+}
+.headline-main .lead {
+  font-size: 18px;
+  line-height: 1.7;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+.byline {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--caption);
+}
+
+.headline-main .hero-img {
+  width: 100%;
+  margin-top: 20px;
+  cursor: pointer;
+}
+.headline-main .hero-img img {
+  width: 100%;
+  display: block;
+}
+.img-caption {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  color: var(--caption);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+/* Side column */
+.side-story {
+  margin-bottom: 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--rule);
+}
+.side-story:last-child { border-bottom: none; }
+.side-story h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-weight: 700;
+  line-height: 1.2; margin-bottom: 8px;
+}
+.side-story p {
+  font-size: 14px; line-height: 1.7;
+  color: #444;
+}
+.side-story img {
+  width: 100%; display: block;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+/* ═══ MULTI-COLUMN BODY ═══ */
+.body-section {
+  padding: 32px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.section-flag {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--red);
+  font-weight: 500;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--red);
+  display: inline-block;
+}
+.body-grid {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 0;
+}
+.body-col {
+  padding: 0 24px;
+}
+.body-col:first-child { padding-left: 0; }
+.body-col:last-child { padding-right: 0; }
+
+.body-col h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 700;
+  line-height: 1.2; margin-bottom: 12px;
+}
+.body-col p {
+  font-size: 15px; line-height: 1.8;
+  color: #3A3835;
+  margin-bottom: 12px;
+}
+.body-col img {
+  width: 100%; display: block;
+  margin: 12px 0;
+  cursor: pointer;
+}
+
+/* ═══ FULL-WIDTH IMAGE BREAK ═══ */
+.full-break {
+  padding: 32px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.full-break-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.full-break img {
+  width: 100%; display: block;
+  cursor: pointer;
+}
+
+/* ═══ CLASSIFIED ADS (About/Clients) ═══ */
+.classifieds {
+  padding: 32px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.classifieds-grid {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr 1px 1fr;
+  gap: 0;
+}
+.classified-col { padding: 0 24px; }
+.classified-col:first-child { padding-left: 0; }
+.classified-col:last-child { padding-right: 0; }
+.classified-col h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px; font-weight: 700;
+  margin-bottom: 12px;
+  text-align: center;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 8px;
+}
+.classified-col p {
+  font-size: 13px; line-height: 1.8;
+  color: #555;
+  text-align: center;
+}
+.classified-col a { color: var(--red); text-decoration: none; }
+.classified-col a:hover { text-decoration: underline; }
+
+.client-list {
+  list-style: none;
+  text-align: center;
+}
+.client-list li {
+  font-size: 12px;
+  padding: 4px 0;
+  color: #555;
+  border-bottom: 1px dotted var(--rule);
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.5px;
+}
+.client-list li:hover { color: var(--red); }
+
+/* ═══ FOOTER ═══ */
+.colophon {
+  text-align: center;
+  padding: 20px 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  color: var(--caption);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.colophon a { color: var(--red); text-decoration: none; }
+
+/* ═══ LIGHTBOX ═══ */
+.lb { position: fixed; inset: 0; z-index: 300; background: rgba(26,25,23,0.94); display: none; align-items: center; justify-content: center; cursor: zoom-out; }
+.lb.open { display: flex; }
+.lb img { max-width: 92vw; max-height: 92vh; object-fit: contain; }
+.lb-x { position: absolute; top: 16px; right: 20px; color: white; font-size: 28px; background: none; border: none; cursor: pointer; }
+
+/* ═══ MOBILE ═══ */
+@media (max-width: 768px) {
+  body { padding: 0 16px; }
+  .headline-grid { grid-template-columns: 1fr; }
+  .col-rule { display: none; }
+  .headline-main { padding: 24px 0; }
+  .headline-side { padding: 24px 0; border-top: 1px solid var(--rule); }
+  .body-grid { grid-template-columns: 1fr; }
+  .body-col { padding: 0 !important; margin-bottom: 24px; }
+  .full-break-grid { grid-template-columns: 1fr; }
+  .classifieds-grid { grid-template-columns: 1fr; }
+  .classified-col { padding: 0 !important; margin-bottom: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- GAZETTE BAR -->
+<div class="gazette-bar">
+  <span>Sunday, March 15, 2026</span>
+  <span>Beijing, China</span>
+  <a href="https://www.instagram.com/dingding.illustration/" target="_blank" rel="noopener">Instagram ↗</a>
+</div>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <h1>Ring a DingDing</h1>
+  <div class="tagline">Illustration · Design · Visual Storytelling · Est. 2020</div>
+</header>
+
+<div class="edition-bar">
+  <span>Portfolio Edition</span>
+  <span>Vol. I · No. 1</span>
+  <span>"All the art that's fit to print"</span>
+</div>
+
+<!-- HEADLINE -->
+<section class="headline-grid">
+  <div class="headline-main">
+    <h2>Beijing Illustrator Captures Cinema's Soul in a Single Frame</h2>
+    <p class="lead">
+      Ding Ding's film posters for YOLO (热辣滚烫) and B for Busy (爱情神话) 
+      distill entire narratives into vibrant, layered compositions that 
+      reward endless looking.
+    </p>
+    <div class="byline">By Ring a DingDing Studio · Film Poster</div>
+    <div class="hero-img" onclick="openLB(this)">
+      <img src="img/dingding/film-yolo.jpg" alt="YOLO 热辣滚烫 — film poster by Ding Ding">
+      <div class="img-caption">Above: Poster for "YOLO 热辣滚烫" (2024), directed by Jia Ling. Illustration captures the protagonist's raw emotional transformation.</div>
+    </div>
+  </div>
+  
+  <div class="col-rule"></div>
+  
+  <div class="headline-side">
+    <div class="side-story">
+      <img src="img/dingding/film-busy.jpg" alt="B for Busy 爱情神话" onclick="openLB(this.parentElement)">
+      <h3>Shanghai Romance Through an Illustrator's Eye</h3>
+      <p>B for Busy (爱情神话): the everyday magic of Shanghai rendered in layers of urban life and quiet romance. Window views, street corners, the beautiful mundane.</p>
+    </div>
+    <div class="side-story">
+      <h3>Studio Founded 2020</h3>
+      <p>Ring a DingDing illustration studio was established in Beijing. Five years of vibrant, narrative-driven work for VOGUE, Wallpaper*, Lu Films and more.</p>
+    </div>
+    <div class="side-story">
+      <h3>Awards & Recognition</h3>
+      <p>World Illustration Awards 2024, 2020. iJUNGLE Illustration Awards 2023.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EDITORIAL SECTION -->
+<section class="body-section">
+  <div class="section-flag">Editorial Illustration</div>
+  <div class="body-grid">
+    <div class="body-col">
+      <h3>Make Learning Fun</h3>
+      <img src="img/dingding/editorial-learn.jpg" alt="Make Learning Fun — editorial illustration" onclick="openLB(this.parentElement)">
+      <p>
+        Editorial illustration exploring how play and curiosity transform education. 
+        Published in collaboration with leading magazines, each piece makes complex 
+        ideas visual, accessible, and beautiful.
+      </p>
+      <p>
+        Ding Ding's editorial work has appeared in VOGUE, Wallpaper*, 
+        and New Weekly (新周刊), among others.
+      </p>
+    </div>
+    <div class="col-rule"></div>
+    <div class="body-col">
+      <h3>Design for a Better World</h3>
+      <img src="img/dingding/editorial-world.jpg" alt="Design for a Better World" onclick="openLB(this.parentElement)">
+      <p>
+        A visual exploration of how design thinking can address social challenges — 
+        from education access to environmental sustainability. The illustrations 
+        combine data visualization with Ding Ding's signature vibrant style.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- POSTER FULL-WIDTH -->
+<section class="body-section">
+  <div class="section-flag">Poster Design</div>
+  <div class="full-break">
+    <div class="full-break-grid">
+      <div>
+        <img src="img/dingding/poster-smart.jpg" alt="Smart 59 poster" onclick="openLB(this.parentElement)">
+        <div class="img-caption">Smart-59: Bold graphic poster capturing Beijing's rapid modernization and cultural collisions.</div>
+      </div>
+      <div>
+        <img src="img/dingding/poster-panda2.jpg" alt="Wangjing Panda" onclick="openLB(this.parentElement)">
+        <div class="img-caption">Wangjing Panda (望京熊猫): Beijing's Wangjing district reimagined through playful, unmistakably local eyes.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTION DESIGN -->
+<section class="body-section">
+  <div class="section-flag">Production Design</div>
+  <div class="body-grid">
+    <div class="body-col">
+      <h3>GO TO Museum — Coloring Sets</h3>
+      <img src="img/dingding/production-goto1.jpg" alt="GO TO Museum coloring sets" onclick="openLB(this.parentElement)">
+      <p>
+        Illustration for production design and package design. These coloring sets 
+        invite children into the world of art museums — from concept sketches 
+        to retail shelf.
+      </p>
+    </div>
+    <div class="col-rule"></div>
+    <div class="body-col">
+      <h3>Overseas Edition</h3>
+      <img src="img/dingding/production-goto2.jpg" alt="GO TO Museum overseas edition" onclick="openLB(this.parentElement)">
+      <p>
+        Two editions, two markets, one vision: making museum culture accessible 
+        and delightful for young explorers everywhere. 
+        China & international editions available.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CLASSIFIEDS -->
+<section class="classifieds">
+  <div class="classifieds-grid">
+    <div class="classified-col">
+      <h4>Contact</h4>
+      <p>
+        Available for commissions<br>& collaborations<br><br>
+        <a href="mailto:info@ringadingding">info@ringadingding</a>
+      </p>
+    </div>
+    <div class="col-rule"></div>
+    <div class="classified-col">
+      <h4>Clients</h4>
+      <ul class="client-list">
+        <li>VOGUE</li>
+        <li>Wallpaper*</li>
+        <li>New Weekly 新周刊</li>
+        <li>Xiaohongshu 小红书</li>
+        <li>Lu Films 路画影视</li>
+        <li>New Classics Media</li>
+        <li>XUXUDUODUO</li>
+        <li>CS-BOOKY</li>
+        <li>MIYA</li>
+        <li>MaxTimes</li>
+        <li>SUREdesign</li>
+        <li>Unitinno</li>
+        <li>Makeapoint</li>
+      </ul>
+    </div>
+    <div class="col-rule"></div>
+    <div class="classified-col">
+      <h4>Studio</h4>
+      <p>
+        Ring a DingDing<br>
+        Illustration Studio<br>
+        Beijing, China<br>
+        Est. 2020<br><br>
+        <a href="https://www.instagram.com/dingding.illustration/" target="_blank" rel="noopener">@dingding.illustration ↗</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- COLOPHON -->
+<footer class="colophon">
+  © 2025 Ring a DingDing · <a href="https://www.instagram.com/dingding.illustration/" target="_blank" rel="noopener">Instagram</a> · <a href="mailto:info@ringadingding">Email</a>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" onclick="closeLB()" role="dialog" aria-label="Image viewer">
+  <button class="lb-x" aria-label="Close">✕</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+function openLB(el) {
+  const i = el.querySelector('img');
+  if (!i) return;
+  document.getElementById('lb-img').src = i.src;
+  document.getElementById('lb-img').alt = i.alt;
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLB() {
+  document.getElementById('lb').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeLB(); });
+</script>
+</body>
+</html>
