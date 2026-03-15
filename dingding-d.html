@@ -264,11 +264,78 @@ body {
 }
 .colophon a { color: var(--red); text-decoration: none; }
 
-/* ═══ LIGHTBOX ═══ */
-.lb { position: fixed; inset: 0; z-index: 300; background: rgba(26,25,23,0.94); display: none; align-items: center; justify-content: center; cursor: zoom-out; }
-.lb.open { display: flex; }
-.lb img { max-width: 92vw; max-height: 92vh; object-fit: contain; }
-.lb-x { position: absolute; top: 16px; right: 20px; color: white; font-size: 28px; background: none; border: none; cursor: pointer; }
+/* ═══ SCROLL ANIMATIONS ═══ */
+.fade-up {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Image hover — zoom + sepia lift */
+.body-col img, .side-story img, .hero-img img, .full-break img {
+  transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), filter 0.5s;
+  filter: sepia(15%) contrast(0.95);
+}
+.body-col img:hover, .side-story img:hover, .hero-img img:hover, .full-break img:hover {
+  transform: scale(1.02);
+  filter: sepia(0%) contrast(1);
+}
+
+/* Section flag animated underline */
+.section-flag {
+  position: relative;
+  overflow: hidden;
+}
+.section-flag::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 2px;
+  background: var(--red);
+  transition: width 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+.section-flag.visible::after { width: 100%; }
+
+/* Masthead letter-spacing animation */
+.masthead h1 {
+  transition: letter-spacing 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+.masthead:hover h1 {
+  letter-spacing: 8px;
+}
+
+/* Client list stagger */
+.client-list li {
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.4s, transform 0.4s;
+}
+.client-list li.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Lightbox transition */
+.lb {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(26,25,23,0);
+  display: none; align-items: center; justify-content: center;
+  cursor: zoom-out;
+  transition: background 0.3s;
+}
+.lb.open { display: flex; background: rgba(26,25,23,0.94); }
+.lb img {
+  max-width: 92vw; max-height: 92vh; object-fit: contain;
+  transform: scale(0.9); opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.3s;
+}
+.lb.open img { transform: scale(1); opacity: 1; }
+.lb-x { position: absolute; top: 16px; right: 20px; color: white; font-size: 28px; background: none; border: none; cursor: pointer; transition: transform 0.3s; }
+.lb-x:hover { transform: rotate(90deg); }
 
 /* ═══ MOBILE ═══ */
 @media (max-width: 768px) {
@@ -334,7 +401,7 @@ body {
 
 <!-- HEADLINE -->
 <section class="headline-grid">
-  <div class="headline-main">
+  <div class="headline-main fade-up">
     <h2>Beijing Illustrator Captures Cinema's Soul in a Single Frame</h2>
     <p class="lead">
       Ding Ding's film posters for YOLO (热辣滚烫) and B for Busy (爱情神话) 
@@ -351,16 +418,16 @@ body {
   <div class="col-rule"></div>
   
   <div class="headline-side">
-    <div class="side-story">
+    <div class="side-story fade-up">
       <img src="img/dingding/film-busy.jpg" alt="B for Busy 爱情神话" onclick="openLB(this.parentElement)">
       <h3>Shanghai Romance Through an Illustrator's Eye</h3>
       <p>B for Busy (爱情神话): the everyday magic of Shanghai rendered in layers of urban life and quiet romance. Window views, street corners, the beautiful mundane.</p>
     </div>
-    <div class="side-story">
+    <div class="side-story fade-up">
       <h3>Studio Founded 2020</h3>
       <p>Ring a DingDing illustration studio was established in Beijing. Five years of vibrant, narrative-driven work for VOGUE, Wallpaper*, Lu Films and more.</p>
     </div>
-    <div class="side-story">
+    <div class="side-story fade-up">
       <h3>Awards & Recognition</h3>
       <p>World Illustration Awards 2024, 2020. iJUNGLE Illustration Awards 2023.</p>
     </div>
@@ -369,9 +436,9 @@ body {
 
 <!-- EDITORIAL SECTION -->
 <section class="body-section">
-  <div class="section-flag">Editorial Illustration</div>
+  <div class="section-flag fade-up">Editorial Illustration</div>
   <div class="body-grid">
-    <div class="body-col">
+    <div class="body-col fade-up">
       <h3>Make Learning Fun</h3>
       <img src="img/dingding/editorial-learn.jpg" alt="Make Learning Fun — editorial illustration" onclick="openLB(this.parentElement)">
       <p>
@@ -385,7 +452,7 @@ body {
       </p>
     </div>
     <div class="col-rule"></div>
-    <div class="body-col">
+    <div class="body-col fade-up">
       <h3>Design for a Better World</h3>
       <img src="img/dingding/editorial-world.jpg" alt="Design for a Better World" onclick="openLB(this.parentElement)">
       <p>
@@ -399,7 +466,7 @@ body {
 
 <!-- POSTER FULL-WIDTH -->
 <section class="body-section">
-  <div class="section-flag">Poster Design</div>
+  <div class="section-flag fade-up">Poster Design</div>
   <div class="full-break">
     <div class="full-break-grid">
       <div>
@@ -416,9 +483,9 @@ body {
 
 <!-- PRODUCTION DESIGN -->
 <section class="body-section">
-  <div class="section-flag">Production Design</div>
+  <div class="section-flag fade-up">Production Design</div>
   <div class="body-grid">
-    <div class="body-col">
+    <div class="body-col fade-up">
       <h3>GO TO Museum — Coloring Sets</h3>
       <img src="img/dingding/production-goto1.jpg" alt="GO TO Museum coloring sets" onclick="openLB(this.parentElement)">
       <p>
@@ -428,7 +495,7 @@ body {
       </p>
     </div>
     <div class="col-rule"></div>
-    <div class="body-col">
+    <div class="body-col fade-up">
       <h3>Overseas Edition</h3>
       <img src="img/dingding/production-goto2.jpg" alt="GO TO Museum overseas edition" onclick="openLB(this.parentElement)">
       <p>
@@ -443,7 +510,7 @@ body {
 <!-- CLASSIFIEDS -->
 <section class="classifieds">
   <div class="classifieds-grid">
-    <div class="classified-col">
+    <div class="classified-col fade-up">
       <h4>Contact</h4>
       <p>
         Available for commissions<br>& collaborations<br><br>
@@ -451,7 +518,7 @@ body {
       </p>
     </div>
     <div class="col-rule"></div>
-    <div class="classified-col">
+    <div class="classified-col fade-up">
       <h4>Clients</h4>
       <ul class="client-list">
         <li>VOGUE</li>
@@ -470,7 +537,7 @@ body {
       </ul>
     </div>
     <div class="col-rule"></div>
-    <div class="classified-col">
+    <div class="classified-col fade-up">
       <h4>Studio</h4>
       <p>
         Ring a DingDing<br>
@@ -495,16 +562,44 @@ body {
 </div>
 
 <script>
+// Scroll reveal
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+// Client list stagger
+const cobs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const items = e.target.querySelectorAll('li');
+      items.forEach((li, i) => setTimeout(() => li.classList.add('visible'), i * 60));
+      cobs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.2 });
+document.querySelectorAll('.client-list').forEach(el => cobs.observe(el));
+
+// Lightbox
+const lb = document.getElementById('lb');
+const lbImg = document.getElementById('lb-img');
 function openLB(el) {
-  const i = el.querySelector('img');
-  if (!i) return;
-  document.getElementById('lb-img').src = i.src;
-  document.getElementById('lb-img').alt = i.alt;
-  document.getElementById('lb').classList.add('open');
+  const i = el.querySelector('img') || el;
+  if (i.tagName !== 'IMG') return;
+  lbImg.src = i.src;
+  lbImg.alt = i.alt;
+  lb.style.display = 'flex';
+  requestAnimationFrame(() => lb.classList.add('open'));
   document.body.style.overflow = 'hidden';
 }
 function closeLB() {
-  document.getElementById('lb').classList.remove('open');
+  lb.classList.remove('open');
+  setTimeout(() => { lb.style.display = 'none'; }, 350);
   document.body.style.overflow = '';
 }
 document.addEventListener('keydown', e => { if(e.key==='Escape') closeLB(); });

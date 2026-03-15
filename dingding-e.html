@@ -121,29 +121,103 @@ nav a:hover { opacity: 0.5; }
   grid-template-columns: repeat(12, 1fr);
   gap: 2px;
 }
+/* ═══ SCROLL REVEAL ═══ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hero parallax */
+.hero-img-bg {
+  transition: transform 0.1s linear;
+  will-change: transform;
+}
+
+/* Grid items — scale up from 0.95 */
 .a24-item {
   position: relative;
   overflow: hidden;
   cursor: pointer;
   background: var(--dim);
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+.a24-item.visible {
+  opacity: 1;
+  transform: scale(1);
 }
 .a24-item img {
   width: 100%; height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s;
+  transition: transform 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.4s;
   opacity: 0.85;
 }
-.a24-item:hover img { transform: scale(1.05); opacity: 1; }
+.a24-item:hover img { transform: scale(1.08); opacity: 1; }
 
-.a24-item .item-info {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 20px;
-  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-  transform: translateY(100%);
-  transition: transform 0.4s;
+/* Detail images — clip reveal */
+.detail-images img {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.8s cubic-bezier(0.16,1,0.3,1), opacity 0.3s;
 }
-.a24-item:hover .item-info { transform: translateY(0); }
+.detail-images img.visible {
+  clip-path: inset(0 0% 0 0);
+}
+.detail-images img:hover { opacity: 1; }
+
+/* About client hover line */
+.about-client {
+  position: relative;
+  padding: 12px 0;
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 1px;
+  color: var(--gray);
+  border-bottom: 1px solid var(--dim);
+  transition: color 0.3s, padding-left 0.3s;
+}
+.about-client:hover { color: white; padding-left: 8px; }
+
+/* CTA text shimmer */
+.cta-section h2 {
+  background: linear-gradient(90deg, #fff 0%, #fff 40%, #666 50%, #fff 60%, #fff 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+/* Lightbox smooth */
+.lb {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(0,0,0,0);
+  display: none; align-items: center; justify-content: center;
+  cursor: zoom-out;
+  transition: background 0.3s;
+}
+.lb.open { display: flex; background: rgba(0,0,0,0.95); }
+.lb img {
+  max-width: 94vw; max-height: 94vh; object-fit: contain;
+  transform: scale(0.92); opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), opacity 0.3s;
+}
+.lb.open img { transform: scale(1); opacity: 1; }
+.lb-x {
+  position: absolute; top: 16px; right: 20px;
+  color: white; font-size: 24px;
+  background: none; border: none; cursor: pointer;
+  transition: transform 0.3s;
+}
+.lb-x:hover { transform: rotate(90deg); }
 .item-info h3 {
   font-size: 16px; font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.5px;
@@ -153,6 +227,14 @@ nav a:hover { opacity: 0.5; }
   letter-spacing: 2px; text-transform: uppercase;
   margin-top: 4px;
 }
+.a24-item .item-info {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.a24-item:hover .item-info { transform: translateY(0); }
 
 /* Grid sizing */
 .g-big { grid-column: span 8; aspect-ratio: 16/9; }
@@ -231,15 +313,7 @@ nav a:hover { opacity: 0.5; }
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 0;
 }
-.about-client {
-  padding: 12px 0;
-  font-size: 12px; font-weight: 500;
-  letter-spacing: 1px;
-  color: var(--gray);
-  border-bottom: 1px solid var(--dim);
-  transition: color 0.3s;
-}
-.about-client:hover { color: white; }
+/* old about-client removed — see reveal section */
 
 /* ═══ CTA ═══ */
 .cta-section {
@@ -364,7 +438,7 @@ footer a:hover { color: white; }
 
 <!-- GRID -->
 <section class="grid-section" id="grid">
-  <div class="grid-label">Selected Work</div>
+  <div class="grid-label reveal">Selected Work</div>
   <div class="a24-grid">
     <a href="dingding-e-film.html" class="a24-item g-big">
       <img src="img/dingding/film-yolo.jpg" alt="YOLO 热辣滚烫">
@@ -404,7 +478,7 @@ footer a:hover { color: white; }
 <!-- DETAIL SECTIONS -->
 <section class="detail-section">
   <div class="detail-row">
-    <div class="detail-meta">
+    <div class="detail-meta reveal">
       <div class="tag">01 — Film Poster</div>
       <h2>YOLO<br>热辣滚烫</h2>
       <p>Poster design for Jia Ling's 2024 film. Bold color, cinematic storytelling — capturing the raw energy and emotional transformation of the story in a single frame.</p>
@@ -416,7 +490,7 @@ footer a:hover { color: white; }
   </div>
 
   <div class="detail-row">
-    <div class="detail-meta">
+    <div class="detail-meta reveal">
       <div class="tag">02 — Editorial</div>
       <h2>EDITORIAL<br>ILLUSTRATION</h2>
       <p>Illustration for VOGUE, Wallpaper*, New Weekly. Making complex ideas visual, accessible, and beautiful.</p>
@@ -428,7 +502,7 @@ footer a:hover { color: white; }
   </div>
 
   <div class="detail-row">
-    <div class="detail-meta">
+    <div class="detail-meta reveal">
       <div class="tag">03 — Poster</div>
       <h2>POSTER<br>DESIGN</h2>
       <p>Posters for brands, events, and cultural moments. Vibrant narratives captured in print — from urban Beijing to global campaigns.</p>
@@ -440,7 +514,7 @@ footer a:hover { color: white; }
   </div>
 
   <div class="detail-row">
-    <div class="detail-meta">
+    <div class="detail-meta reveal">
       <div class="tag">04 — Production</div>
       <h2>GO TO<br>MUSEUM</h2>
       <p>Coloring sets that invite children into the world of art museums. From concept to shelf — illustration meets product design.</p>
@@ -460,7 +534,7 @@ footer a:hover { color: white; }
     <p>Available for commissions & collaborations.</p>
   </div>
   <div>
-    <div class="grid-label">Clients</div>
+    <div class="grid-label reveal">Clients</div>
     <div class="about-clients">
       <div class="about-client">VOGUE</div>
       <div class="about-client">Wallpaper*</div>
@@ -501,16 +575,50 @@ footer a:hover { color: white; }
 </div>
 
 <script>
+// Scroll reveal
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal, .a24-item').forEach(el => obs.observe(el));
+
+// Detail images clip reveal with stagger
+const imgObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const imgs = e.target.querySelectorAll('img');
+      imgs.forEach((img, i) => setTimeout(() => img.classList.add('visible'), i * 200));
+      imgObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.2 });
+document.querySelectorAll('.detail-images').forEach(el => imgObs.observe(el));
+
+// Hero parallax
+window.addEventListener('scroll', () => {
+  const bg = document.querySelector('.hero-img-bg');
+  if (bg) bg.style.transform = `translateY(${window.scrollY * 0.3}px)`;
+}, { passive: true });
+
+// Lightbox
+const lb = document.getElementById('lb');
+const lbImg = document.getElementById('lb-img');
 function openLB(el) {
   const i = el.querySelector('img') || el;
   if (i.tagName !== 'IMG') return;
-  document.getElementById('lb-img').src = i.src;
-  document.getElementById('lb-img').alt = i.alt;
-  document.getElementById('lb').classList.add('open');
+  lbImg.src = i.src;
+  lbImg.alt = i.alt;
+  lb.style.display = 'flex';
+  requestAnimationFrame(() => lb.classList.add('open'));
   document.body.style.overflow = 'hidden';
 }
 function closeLB() {
-  document.getElementById('lb').classList.remove('open');
+  lb.classList.remove('open');
+  setTimeout(() => { lb.style.display = 'none'; }, 400);
   document.body.style.overflow = '';
 }
 document.addEventListener('keydown', e => { if(e.key==='Escape') closeLB(); });
