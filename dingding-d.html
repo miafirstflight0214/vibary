@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ring a DingDing — The Illustrator's Gazette</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&family=Noto+Serif+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -292,8 +292,15 @@ body {
 
 /* Hide inactive lang */
 [data-zh] { display: none; }
+body.zh { font-family: 'Noto Serif SC', 'Lora', serif; }
 body.zh [data-en] { display: none; }
 body.zh [data-zh] { display: unset; }
+body.zh .masthead h1,
+body.zh .headline-main h2,
+body.zh .side-story h3,
+body.zh .body-col h3,
+body.zh .classified-col h4,
+body.zh .section-flag { font-family: 'Noto Serif SC', 'Playfair Display', serif; }
 
 /* ═══ SCROLL ANIMATIONS ═══ */
 .fade-up {
