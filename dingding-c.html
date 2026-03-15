@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ring a DingDing — Version C: Magazine</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --coral: #D95B43;
+  --cream: #FFFCF7;
+  --dark: #1A1A18;
+  --stone: #8A8278;
+  --rule: rgba(0,0,0,0.08);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--cream);
+  color: var(--dark);
+  overflow-x: hidden;
+}
+
+::selection { background: var(--coral); color: white; }
+
+/* ═══ MASTHEAD ═══ */
+.masthead {
+  border-bottom: 3px solid var(--dark);
+  padding: 16px 40px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.masthead-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-weight: 900;
+  letter-spacing: -0.5px;
+}
+.masthead-links { display: flex; gap: 28px; list-style: none; }
+.masthead-links a {
+  text-decoration: none; color: var(--dark);
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase;
+  transition: color 0.3s;
+}
+.masthead-links a:hover { color: var(--coral); }
+
+/* ═══ HERO SPREAD ═══ */
+.hero-spread {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 90vh;
+  border-bottom: 1px solid var(--rule);
+}
+.hero-left {
+  padding: 80px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid var(--rule);
+}
+.hero-left .issue {
+  font-size: 10px; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--stone);
+  margin-bottom: 24px;
+}
+.hero-left h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(48px, 7vw, 96px);
+  font-weight: 900;
+  line-height: 0.95;
+  margin-bottom: 24px;
+}
+.hero-left h1 .italic { font-style: italic; font-weight: 400; }
+.hero-left .byline {
+  font-size: 15px; line-height: 1.8;
+  color: var(--stone);
+  max-width: 400px;
+  font-weight: 300;
+}
+.hero-right {
+  position: relative;
+  overflow: hidden;
+}
+.hero-right img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 6s ease-out;
+}
+.hero-right:hover img { transform: scale(1.03); }
+
+/* ═══ EDITORIAL SPREAD ═══ */
+.spread {
+  display: grid;
+  border-bottom: 1px solid var(--rule);
+}
+.spread-2col { grid-template-columns: 1fr 1fr; }
+.spread-3col { grid-template-columns: 1fr 2fr; }
+.spread-3col-r { grid-template-columns: 2fr 1fr; }
+
+.spread-text {
+  padding: 60px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid var(--rule);
+}
+.spread-text:last-child { border-right: none; border-left: 1px solid var(--rule); }
+
+.spread-img {
+  position: relative;
+  overflow: hidden;
+  min-height: 400px;
+}
+.spread-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s;
+  cursor: pointer;
+}
+.spread-img:hover img { transform: scale(1.03); }
+
+.spread-label {
+  font-size: 10px; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--coral);
+  margin-bottom: 12px; font-weight: 500;
+}
+.spread-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700; line-height: 1.1;
+  margin-bottom: 16px;
+}
+.spread-body {
+  font-size: 14px; line-height: 1.9;
+  color: var(--stone); font-weight: 300;
+  max-width: 440px;
+}
+
+/* ═══ DOUBLE IMAGE ═══ */
+.double-img {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--rule);
+}
+.double-img .spread-img { border-right: 1px solid var(--rule); }
+.double-img .spread-img:last-child { border-right: none; }
+
+/* ═══ PULL QUOTE ═══ */
+.pull-quote {
+  padding: 80px 48px;
+  text-align: center;
+  border-bottom: 1px solid var(--rule);
+}
+.pull-quote blockquote {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(24px, 3.5vw, 40px);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.5;
+  max-width: 800px;
+  margin: 0 auto;
+  color: var(--dark);
+}
+.pull-quote cite {
+  display: block;
+  margin-top: 20px;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+/* ═══ CLIENTS TICKER ═══ */
+.clients-bar {
+  padding: 24px 48px;
+  border-bottom: 3px solid var(--dark);
+  display: flex; align-items: center; gap: 40px;
+  overflow: hidden;
+}
+.clients-bar .cl {
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--stone);
+  white-space: nowrap;
+  transition: color 0.3s;
+}
+.clients-bar .cl:hover { color: var(--coral); }
+
+/* ═══ COLOPHON (Footer) ═══ */
+.colophon {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  padding: 60px 48px;
+  font-size: 13px;
+  color: var(--stone);
+}
+.colophon a { color: var(--dark); text-decoration: none; }
+.colophon a:hover { color: var(--coral); }
+.colophon h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px; font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 12px;
+}
+.colophon p { line-height: 1.8; }
+
+/* ═══ LIGHTBOX ═══ */
+.lb { position: fixed; inset: 0; z-index: 300; background: rgba(26,26,24,0.94); display: none; align-items: center; justify-content: center; cursor: zoom-out; }
+.lb.open { display: flex; }
+.lb img { max-width: 92vw; max-height: 92vh; object-fit: contain; }
+.lb-x { position: absolute; top: 16px; right: 20px; color: white; font-size: 28px; background: none; border: none; cursor: pointer; }
+
+/* ═══ MOBILE ═══ */
+@media (max-width: 900px) {
+  .masthead { padding: 12px 20px; }
+  .masthead-links { gap: 16px; }
+  .hero-spread { grid-template-columns: 1fr; min-height: auto; }
+  .hero-left { padding: 80px 24px 40px; border-right: none; border-bottom: 1px solid var(--rule); }
+  .hero-right { min-height: 50vh; }
+  .spread-2col, .spread-3col, .spread-3col-r { grid-template-columns: 1fr; }
+  .spread-text { padding: 40px 24px; border-right: none !important; border-left: none !important; }
+  .double-img { grid-template-columns: 1fr; }
+  .double-img .spread-img { border-right: none; }
+  .clients-bar { flex-wrap: wrap; gap: 16px; padding: 20px 24px; }
+  .colophon { grid-template-columns: 1fr; gap: 32px; padding: 40px 24px; }
+}
+@media (max-width: 480px) {
+  .masthead-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-title">Ring a DingDing</div>
+  <ul class="masthead-links">
+    <li><a href="#film">Film</a></li>
+    <li><a href="#editorial">Editorial</a></li>
+    <li><a href="#poster">Poster</a></li>
+    <li><a href="#production">Production</a></li>
+    <li><a href="https://www.instagram.com/dingding.illustration/" target="_blank" rel="noopener">Instagram ↗</a></li>
+  </ul>
+</header>
+
+<!-- HERO SPREAD -->
+<section class="hero-spread">
+  <div class="hero-left">
+    <div class="issue">Portfolio · 2025</div>
+    <h1>
+      DING<br>
+      <span class="italic">DING</span>
+    </h1>
+    <p class="byline">
+      Illustrator & Designer, Beijing.<br>
+      Vibrant narratives. Bold color.<br>
+      Stories that reward close looking.
+    </p>
+  </div>
+  <div class="hero-right">
+    <img src="img/dingding/film-yolo.jpg" alt="YOLO 热辣滚烫 — film poster illustration">
+  </div>
+</section>
+
+<!-- FILM POSTER -->
+<section class="spread spread-3col-r" id="film">
+  <div class="spread-img" onclick="openLB(this)">
+    <img src="img/dingding/film-yolo.jpg" alt="YOLO 热辣滚烫">
+  </div>
+  <div class="spread-text">
+    <div class="spread-label">01 — Film Poster</div>
+    <h2 class="spread-title">YOLO<br>热辣滚烫</h2>
+    <p class="spread-body">
+      Poster design for Jia Ling's 2024 film. The composition captures the 
+      raw emotional transformation of the protagonist — 
+      layers of everyday life compressed into a single frame that 
+      vibrates with color and warmth.
+    </p>
+  </div>
+</section>
+
+<section class="spread spread-3col" id="film2">
+  <div class="spread-text">
+    <div class="spread-label">02 — Film Poster</div>
+    <h2 class="spread-title">B for Busy<br>爱情神话</h2>
+    <p class="spread-body">
+      Shanghai's quiet romance, rendered through the lens of 
+      urban life. Window views, street corners, the beautiful mundane — 
+      a city breathing in illustration.
+    </p>
+  </div>
+  <div class="spread-img" onclick="openLB(this)">
+    <img src="img/dingding/film-busy.jpg" alt="B for Busy 爱情神话">
+  </div>
+</section>
+
+<!-- EDITORIAL -->
+<div class="double-img" id="editorial">
+  <div class="spread-img" onclick="openLB(this)">
+    <img src="img/dingding/editorial-learn.jpg" alt="Make Learning Fun">
+  </div>
+  <div class="spread-img" onclick="openLB(this)">
+    <img src="img/dingding/editorial-world.jpg" alt="Design for a Better World">
+  </div>
+</div>
+
+<section class="spread spread-2col">
+  <div class="spread-text">
+    <div class="spread-label">03 — Editorial Illustration</div>
+    <h2 class="spread-title">Editorial</h2>
+    <p class="spread-body">
+      Illustration for magazines and publications — 
+      VOGUE, Wallpaper*, New Weekly. Making complex ideas 
+      visual, accessible, and beautiful.
+    </p>
+  </div>
+  <div class="spread-text">
+    <div class="spread-label">Featured</div>
+    <h2 class="spread-title">Make Learning Fun</h2>
+    <p class="spread-body">
+      How play and curiosity transform education. 
+      A celebration of the messy, colorful, 
+      unpredictable joy of learning.
+    </p>
+  </div>
+</section>
+
+<!-- PULL QUOTE -->
+<div class="pull-quote">
+  <blockquote>
+    "Every illustration tells a story<br>
+    that rewards close looking."
+  </blockquote>
+  <cite>Ring a DingDing Studio · Beijing</cite>
+</div>
+
+<!-- POSTER -->
+<section class="spread spread-3col-r" id="poster">
+  <div class="spread-img" onclick="openLB(this)">
+    <img src="img/dingding/poster-smart.jpg" alt="Smart 59">
+  </div>
+  <div class="spread-text">
+    <div class="spread-label">04 — Poster Design</div>
+    <h2 class="spread-title">Smart-59</h2>
+    <p class="spread-body">
+      Posters for brands, events, and cultural moments. 
+      Vibrant narratives captured in print — 
+      from urban Beijing to global campaigns.
+    </p>
+  </div>
+</section>
+
+<section class="spread spread-3col">
+  <div class="spread-text">
+    <div class="spread-label">05 — Poster Design</div>
+    <h2 class="spread-title">Wangjing Panda<br>望京熊猫</h2>
+    <p class="spread-body">
+      Beijing's Wangjing district reimagined through 
+      the eyes of a wandering panda — 
+      playful, bold, unmistakably local.
+    </p>
+  </div>
+  <div class="spread-img" onclick="openLB(this)">
+    <img src="img/dingding/poster-panda2.jpg" alt="Wangjing Panda">
+  </div>
+</section>
+
+<!-- PRODUCTION -->
+<div class="double-img" id="production">
+  <div class="spread-img" onclick="openLB(this)">
+    <img src="img/dingding/production-goto1.jpg" alt="GO TO Museum Coloring Sets">
+  </div>
+  <div class="spread-img" onclick="openLB(this)">
+    <img src="img/dingding/production-goto2.jpg" alt="GO TO Museum Overseas Edition">
+  </div>
+</div>
+
+<section class="spread spread-2col">
+  <div class="spread-text">
+    <div class="spread-label">06 — Production Design</div>
+    <h2 class="spread-title">GO TO Museum</h2>
+    <p class="spread-body">
+      Coloring sets that invite children into the world of art museums. 
+      Illustration meets product design — 
+      from concept sketches to retail shelf.
+    </p>
+  </div>
+  <div class="spread-text">
+    <div class="spread-label">Editions</div>
+    <h2 class="spread-title">China & Overseas</h2>
+    <p class="spread-body">
+      Two editions, two markets, one vision: 
+      making museum culture accessible and 
+      delightful for young explorers everywhere.
+    </p>
+  </div>
+</section>
+
+<!-- CLIENTS BAR -->
+<div class="clients-bar">
+  <span class="cl">VOGUE</span>
+  <span class="cl">Wallpaper*</span>
+  <span class="cl">New Weekly</span>
+  <span class="cl">Xiaohongshu</span>
+  <span class="cl">Lu Films</span>
+  <span class="cl">New Classics Media</span>
+  <span class="cl">XUXUDUODUO</span>
+  <span class="cl">CS-BOOKY</span>
+  <span class="cl">MIYA</span>
+  <span class="cl">MaxTimes</span>
+  <span class="cl">SUREdesign</span>
+  <span class="cl">Unitinno</span>
+  <span class="cl">Makeapoint</span>
+</div>
+
+<!-- COLOPHON -->
+<section class="colophon">
+  <div>
+    <h4>Contact</h4>
+    <p>
+      Available for commissions<br>& collaborations<br><br>
+      <a href="mailto:info@ringadingding">info@ringadingding</a>
+    </p>
+  </div>
+  <div>
+    <h4>Studio</h4>
+    <p>
+      Ring a DingDing<br>
+      Illustration Studio<br>
+      Beijing, China<br>
+      Est. 2020
+    </p>
+  </div>
+  <div>
+    <h4>Elsewhere</h4>
+    <p>
+      <a href="https://www.instagram.com/dingding.illustration/" target="_blank" rel="noopener">Instagram ↗</a><br>
+      <a href="mailto:info@ringadingding">Email ↗</a><br><br>
+      © 2025 Ring a DingDing
+    </p>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" onclick="closeLB()" role="dialog" aria-label="Image viewer">
+  <button class="lb-x" aria-label="Close">✕</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+function openLB(el) {
+  const i = el.querySelector('img');
+  document.getElementById('lb-img').src = i.src;
+  document.getElementById('lb-img').alt = i.alt;
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLB() {
+  document.getElementById('lb').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeLB(); });
+</script>
+</body>
+</html>

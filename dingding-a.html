@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ring a DingDing — Version A: Studio Table</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --coral: #D95B43;
+  --cream: #FDF5EF;
+  --dark: #1A1A18;
+  --stone: #9A9590;
+  --paper: #F7F1EA;
+}
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--paper);
+  color: var(--dark);
+  overflow-x: hidden;
+  cursor: default;
+}
+
+::selection { background: var(--coral); color: white; }
+
+/* ═══ NAV ═══ */
+.top-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 20px 32px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 13px;
+}
+.top-bar a { color: var(--dark); text-decoration: none; }
+.top-bar .links { display: flex; gap: 24px; }
+.top-bar .links a { font-weight: 500; letter-spacing: 1px; text-transform: uppercase; font-size: 11px; }
+.top-bar .links a:hover { color: var(--coral); }
+
+/* ═══ HERO — Scattered Studio Table ═══ */
+.hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px;
+}
+
+.hero-title {
+  text-align: center;
+  z-index: 10;
+  pointer-events: none;
+}
+.hero-title h1 {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(60px, 12vw, 140px);
+  font-weight: 700;
+  line-height: 0.95;
+  color: var(--dark);
+}
+.hero-title .sub {
+  font-size: 14px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-top: 16px;
+}
+
+/* Scattered images around hero */
+.scatter-img {
+  position: absolute;
+  border-radius: 4px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s;
+  cursor: grab;
+  z-index: 5;
+  background: white;
+  padding: 6px;
+}
+.scatter-img:hover {
+  transform: scale(1.08) rotate(0deg) !important;
+  box-shadow: 0 16px 50px rgba(0,0,0,0.2);
+  z-index: 20;
+}
+.scatter-img img { display: block; width: 100%; height: auto; }
+
+.s1 { top: 8%; left: 5%; width: 180px; transform: rotate(-8deg); }
+.s2 { top: 12%; right: 8%; width: 200px; transform: rotate(5deg); }
+.s3 { bottom: 15%; left: 8%; width: 160px; transform: rotate(12deg); }
+.s4 { bottom: 10%; right: 5%; width: 190px; transform: rotate(-4deg); }
+.s5 { top: 45%; left: 2%; width: 140px; transform: rotate(7deg); }
+.s6 { top: 40%; right: 3%; width: 150px; transform: rotate(-10deg); }
+
+/* ═══ DIVIDER ═══ */
+.tape-divider {
+  height: 40px;
+  background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(217,91,67,0.08) 10px, rgba(217,91,67,0.08) 20px);
+  border-top: 1px dashed var(--stone);
+  border-bottom: 1px dashed var(--stone);
+}
+
+/* ═══ PROJECT SECTION ═══ */
+.project {
+  padding: 80px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+.project-header {
+  margin-bottom: 48px;
+}
+.project-num {
+  font-family: 'Caveat', cursive;
+  font-size: 80px; font-weight: 700;
+  color: var(--coral);
+  opacity: 0.3;
+  line-height: 1;
+}
+.project-title {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 700;
+  margin-top: -20px;
+}
+.project-desc {
+  font-size: 14px; color: var(--stone);
+  margin-top: 8px; max-width: 500px;
+  line-height: 1.7;
+}
+
+/* Scattered project images */
+.project-scatter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  position: relative;
+}
+.project-card {
+  background: white;
+  padding: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  border-radius: 2px;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+  cursor: pointer;
+}
+.project-card:hover {
+  transform: translateY(-8px) rotate(0deg) !important;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+}
+.project-card img {
+  display: block; width: 100%; height: auto; max-height: 500px; object-fit: cover;
+}
+.project-card .caption {
+  font-family: 'Caveat', cursive;
+  font-size: 16px;
+  padding: 8px 4px 4px;
+  color: var(--dark);
+}
+.pc-r1 { transform: rotate(-2deg); max-width: 380px; }
+.pc-r2 { transform: rotate(1.5deg); max-width: 360px; }
+.pc-r3 { transform: rotate(-1deg); max-width: 400px; }
+.pc-r4 { transform: rotate(3deg); max-width: 350px; }
+
+/* ═══ HANDWRITTEN NOTE (About) ═══ */
+.note-section {
+  padding: 100px 40px;
+  display: flex;
+  justify-content: center;
+}
+.note {
+  background: #FFFDF8;
+  border: 1px solid #E8E2D8;
+  padding: 48px;
+  max-width: 600px;
+  transform: rotate(-1deg);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  position: relative;
+}
+.note::before {
+  content: '📌';
+  position: absolute;
+  top: -12px; left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+}
+.note h2 {
+  font-family: 'Caveat', cursive;
+  font-size: 32px; margin-bottom: 20px;
+  color: var(--coral);
+}
+.note p {
+  font-size: 15px; line-height: 1.9;
+  color: #555; margin-bottom: 16px;
+}
+.note .clients-list {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 16px;
+}
+.note .clients-list span {
+  background: var(--paper);
+  padding: 4px 12px; border-radius: 20px;
+  font-size: 12px; font-weight: 500;
+  color: var(--stone);
+  border: 1px solid #E8E2D8;
+  transition: all 0.3s;
+}
+.note .clients-list span:hover {
+  background: var(--coral); color: white; border-color: var(--coral);
+}
+
+/* ═══ CONTACT ═══ */
+.contact-section {
+  padding: 120px 40px;
+  text-align: center;
+}
+.contact-section h2 {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(40px, 8vw, 80px);
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+.contact-section a {
+  color: var(--coral);
+  font-size: 20px;
+  text-decoration: none;
+  border-bottom: 2px dashed var(--coral);
+  padding-bottom: 2px;
+}
+
+/* ═══ FOOTER ═══ */
+footer {
+  text-align: center;
+  padding: 24px;
+  font-size: 11px;
+  color: var(--stone);
+  border-top: 1px dashed #D8D2C8;
+}
+footer a { color: var(--coral); text-decoration: none; }
+
+/* ═══ LIGHTBOX ═══ */
+.lightbox {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(26,26,24,0.92);
+  display: none; align-items: center; justify-content: center;
+  cursor: zoom-out; backdrop-filter: blur(6px);
+}
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 92vw; max-height: 92vh; object-fit: contain; }
+.lightbox-x { position: absolute; top: 16px; right: 20px; color: white; font-size: 28px; background: none; border: none; cursor: pointer; width: 44px; height: 44px; }
+
+/* ═══ REVEAL ═══ */
+.rv { opacity: 0; transform: translateY(24px); transition: all 0.6s ease-out; }
+.rv.vis { opacity: 1; transform: none; }
+
+/* ═══ MOBILE ═══ */
+@media (max-width: 768px) {
+  .scatter-img { display: none; }
+  .hero { min-height: 60vh; }
+  .project { padding: 60px 20px; }
+  .project-scatter { gap: 16px; }
+  .pc-r1, .pc-r2, .pc-r3, .pc-r4 { transform: none; max-width: 100%; }
+  .note-section { padding: 60px 20px; }
+  .note { transform: none; padding: 32px 24px; }
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <a href="#">Ring a DingDing</a>
+  <div class="links">
+    <a href="#projects">Work</a>
+    <a href="#note">About</a>
+    <a href="#cta">Contact</a>
+    <a href="https://www.instagram.com/dingding.illustration/" target="_blank" rel="noopener">IG ↗</a>
+  </div>
+</div>
+
+<!-- HERO: Scattered studio table -->
+<section class="hero">
+  <div class="scatter-img s1"><img src="img/dingding/film-yolo.jpg" alt="YOLO 热辣滚烫"></div>
+  <div class="scatter-img s2"><img src="img/dingding/editorial-learn.jpg" alt="Make Learning Fun"></div>
+  <div class="scatter-img s3"><img src="img/dingding/poster-smart.jpg" alt="Smart 59"></div>
+  <div class="scatter-img s4"><img src="img/dingding/production-goto1.jpg" alt="Go To Museum"></div>
+  <div class="scatter-img s5"><img src="img/dingding/poster-panda2.jpg" alt="Wangjing Panda"></div>
+  <div class="scatter-img s6"><img src="img/dingding/film-busy.jpg" alt="B for Busy 爱情神话"></div>
+
+  <div class="hero-title">
+    <h1>Ding Ding</h1>
+    <p class="sub">Illustrator · Beijing</p>
+  </div>
+</section>
+
+<div class="tape-divider"></div>
+
+<!-- PROJECTS -->
+<div id="projects">
+
+  <!-- Film Poster -->
+  <section class="project rv">
+    <div class="project-header">
+      <div class="project-num">01</div>
+      <h2 class="project-title">Film Poster</h2>
+      <p class="project-desc">Poster design for films. Bold color, cinematic storytelling, emotional resonance in a single frame.</p>
+    </div>
+    <div class="project-scatter">
+      <div class="project-card pc-r1" onclick="openLB(this)">
+        <img src="img/dingding/film-yolo.jpg" alt="YOLO 热辣滚烫 film poster">
+        <div class="caption">YOLO 热辣滚烫</div>
+      </div>
+      <div class="project-card pc-r2" onclick="openLB(this)">
+        <img src="img/dingding/film-busy.jpg" alt="B for Busy 爱情神话 film poster">
+        <div class="caption">B for Busy 爱情神话</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="tape-divider"></div>
+
+  <!-- Editorial -->
+  <section class="project rv">
+    <div class="project-header">
+      <div class="project-num">02</div>
+      <h2 class="project-title">Editorial Illustration</h2>
+      <p class="project-desc">Illustration for magazines and publications. Making complex ideas visual, accessible, and beautiful.</p>
+    </div>
+    <div class="project-scatter">
+      <div class="project-card pc-r3" onclick="openLB(this)">
+        <img src="img/dingding/editorial-learn.jpg" alt="Make Learning Fun editorial">
+        <div class="caption">Make Learning Fun</div>
+      </div>
+      <div class="project-card pc-r4" onclick="openLB(this)">
+        <img src="img/dingding/editorial-world.jpg" alt="Design for a Better World">
+        <div class="caption">Design for a Better World</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="tape-divider"></div>
+
+  <!-- Poster -->
+  <section class="project rv">
+    <div class="project-header">
+      <div class="project-num">03</div>
+      <h2 class="project-title">Poster</h2>
+      <p class="project-desc">Posters for brands, events, and cultural moments. Vibrant narratives captured in print.</p>
+    </div>
+    <div class="project-scatter">
+      <div class="project-card pc-r2" onclick="openLB(this)">
+        <img src="img/dingding/poster-smart.jpg" alt="Smart 59 poster">
+        <div class="caption">Smart-59</div>
+      </div>
+      <div class="project-card pc-r1" onclick="openLB(this)">
+        <img src="img/dingding/poster-panda2.jpg" alt="Wangjing Panda poster">
+        <div class="caption">Wangjing Panda 望京熊猫</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="tape-divider"></div>
+
+  <!-- Production Design -->
+  <section class="project rv">
+    <div class="project-header">
+      <div class="project-num">04</div>
+      <h2 class="project-title">Production Design</h2>
+      <p class="project-desc">Illustration for production design and package design. From concept to shelf.</p>
+    </div>
+    <div class="project-scatter">
+      <div class="project-card pc-r3" onclick="openLB(this)">
+        <img src="img/dingding/production-goto1.jpg" alt="Go To Museum coloring sets">
+        <div class="caption">GO TO Museum — Coloring Sets</div>
+      </div>
+      <div class="project-card pc-r4" onclick="openLB(this)">
+        <img src="img/dingding/production-goto2.jpg" alt="Go To Museum overseas edition">
+        <div class="caption">GO TO Museum — Overseas Edition</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ABOUT NOTE -->
+<section class="note-section" id="note">
+  <div class="note rv">
+    <h2>About Ding Ding ✍️</h2>
+    <p>Ring a DingDing illustration studio was established in 2020. Ding Ding lives and works in Beijing, China.</p>
+    <p>Her illustrations are vibrant, detail-rich and narrative-driven — every piece tells a story that rewards close looking.</p>
+    <p>Available for commissions & collaborations.</p>
+    <div class="clients-list">
+      <span>VOGUE</span><span>Wallpaper*</span><span>New Weekly</span>
+      <span>Xiaohongshu</span><span>Lu Films</span><span>New Classics Media</span>
+      <span>XUXUDUODUO</span><span>CS-BOOKY</span><span>MIYA</span>
+      <span>MaxTimes</span><span>SUREdesign</span><span>Unitinno</span><span>Makeapoint</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section rv" id="cta">
+  <h2>Let's make something!</h2>
+  <a href="mailto:info@ringadingding">info@ringadingding</a>
+</section>
+
+<footer>
+  © 2025 Ring a DingDing · <a href="https://www.instagram.com/dingding.illustration/" target="_blank" rel="noopener">@dingding.illustration</a>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lb" onclick="closeLB()" role="dialog" aria-label="Image viewer">
+  <button class="lightbox-x" aria-label="Close">✕</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+// Reveal
+const obs = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis') }), { threshold: 0.15 });
+document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+
+// Lightbox
+function openLB(el) {
+  const i = el.querySelector('img');
+  document.getElementById('lb-img').src = i.src;
+  document.getElementById('lb-img').alt = i.alt;
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLB() {
+  document.getElementById('lb').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeLB(); });
+</script>
+</body>
+</html>
