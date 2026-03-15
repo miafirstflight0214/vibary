@@ -136,42 +136,36 @@ html, body {
   text-transform: uppercase; color: rgba(255,255,255,0.8);
 }
 
-/* ═══ P3: OFFSET LAYOUT — image bleeds, text card floats ═══ */
-.s-offset {
-  display: block !important;
-  position: relative;
+/* ═══ P3: TEAL SIDEBAR + IMAGE ═══ */
+.s-split3 {
+  display: grid !important;
+  grid-template-columns: 38% 62%;
+  grid-template-rows: 100vh;
+  align-items: stretch;
+  gap: 0; width: 100%;
 }
-.s-offset .bg-img {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%; object-fit: cover;
+.s-split3 .sidebar {
+  background: var(--teal);
+  color: white;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 48px 36px;
 }
-.s-offset .text-card {
-  position: absolute;
-  bottom: 6vh; left: 5vw;
-  width: clamp(320px, 42vw, 520px);
-  background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(8px);
-  padding: 40px 36px;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+.s-split3 .sidebar .section-bar .bar { background: white; }
+.s-split3 .sidebar .section-bar .label { color: rgba(255,255,255,0.7); }
+.s-split3 .point {
+  display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px;
 }
-.s-offset h2 {
-  font-family: 'Noto Serif SC', serif;
-  font-size: clamp(22px, 3vw, 36px);
-  font-weight: 700; line-height: 1.3; margin-bottom: 16px;
-}
-.s-offset p { font-size: 14px; line-height: 2; color: var(--gray); }
-.s-offset .point {
-  display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px;
-}
-.s-offset .point .num {
+.s-split3 .point .num {
   font-family: 'Inter'; font-size: 28px; font-weight: 600;
-  color: var(--teal); line-height: 1; min-width: 28px;
+  color: white; opacity: 0.5; line-height: 1; min-width: 28px;
 }
-.s-offset .point .desc h3 {
+.s-split3 .point .desc h3 {
   font-family: 'Noto Serif SC', serif;
-  font-size: 16px; font-weight: 700; margin-bottom: 4px;
+  font-size: 16px; font-weight: 700; margin-bottom: 4px; color: white;
 }
-.s-offset .point .desc p { font-size: 13px; line-height: 1.8; margin: 0; }
+.s-split3 .point .desc p { font-size: 13px; line-height: 1.8; margin: 0; color: rgba(255,255,255,0.8); }
+.s-split3 .col-img { overflow: hidden; }
+.s-split3 .col-img img { width: 100%; height: 100%; object-fit: cover; }
 
 /* ═══ P4: 3/5 ASYMMETRIC ═══ */
 .s-asym {
@@ -413,13 +407,16 @@ html, body {
     gap: 2px;
   }
 
-  /* P3 offset → stacked */
-  .s-offset .bg-img { height: 45vh; position: relative; }
-  .s-offset .text-card {
-    position: relative; bottom: auto; left: auto;
-    width: 100%; box-shadow: none;
-    padding: 24px 20px;
+  /* P3 split → stacked */
+  .s-split3 {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: 55vh 45vh !important;
   }
+  .s-split3 .sidebar {
+    padding: 24px 20px; order: 2;
+    overflow-y: auto; -webkit-overflow-scrolling: touch;
+  }
+  .s-split3 .col-img { order: 1; }
 
   /* P4 asym → stacked */
   .s-asym {
@@ -517,11 +514,10 @@ html, body {
     </div>
   </section>
 
-  <!-- 3. WHY STONE — full bleed image + floating card -->
-  <section class="slide s-offset" data-i="2">
-    <img class="bg-img" src="img/stones/tex1.jpg" alt="石砌墙">
-    <div class="text-card anim">
-      <div class="section-bar">
+  <!-- 3. WHY STONE — teal sidebar + image -->
+  <section class="slide s-split3" data-i="2">
+    <div class="sidebar">
+      <div class="section-bar anim">
         <div class="bar"></div>
         <div class="label">第一部分 · 为什么是石头</div>
       </div>
@@ -539,6 +535,9 @@ html, body {
           <p>深圳是填海填出来的城市。<br>石头是地基，是骨架。</p>
         </div>
       </div>
+    </div>
+    <div class="col-img">
+      <img src="img/stones/tex1.jpg" alt="石砌墙">
     </div>
   </section>
 
