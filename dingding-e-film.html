@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FILM POSTER — DING DING</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--black:#000;--white:#FFF;--gray:#999;--dim:#333}
+body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:white;color:black}
+a{color:inherit;text-decoration:none}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 32px;display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px)}
+nav .links{display:flex;gap:24px}
+nav a{transition:opacity 0.3s}
+nav a:hover{opacity:0.5}
+
+.hero-detail{min-height:70vh;position:relative;display:flex;align-items:flex-end}
+.hero-detail .bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0.35}
+.hero-detail .grad{position:absolute;inset:0;background:linear-gradient(to top,#000 0%,transparent 60%)}
+.hero-detail .content{position:relative;z-index:2;padding:60px 32px;max-width:700px}
+.hero-detail .tag{font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--gray);margin-bottom:12px}
+.hero-detail h1{font-size:clamp(48px,8vw,96px);font-weight:900;text-transform:uppercase;letter-spacing:-2px;line-height:0.9;margin-bottom:16px}
+.hero-detail .sub{font-size:14px;line-height:1.8;color:var(--gray);font-weight:300;max-width:500px}
+
+.project-body{padding:80px 32px;max-width:1000px;margin:0 auto}
+.project-row{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:60px}
+.project-row img{width:100%;display:block;cursor:pointer;opacity:0.9;transition:opacity 0.3s}
+.project-row img:hover{opacity:1}
+.project-text{margin-bottom:60px}
+.project-text h2{font-size:28px;font-weight:900;text-transform:uppercase;letter-spacing:-0.5px;margin-bottom:16px}
+.project-text p{font-size:15px;line-height:1.9;color:var(--gray);font-weight:300;margin-bottom:14px}
+.project-text .meta{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);border-top:1px solid var(--dim);padding-top:16px;margin-top:24px}
+
+.divider{height:1px;background:var(--dim);margin:0 32px}
+
+.back-link{text-align:center;padding:60px 32px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase}
+.back-link a{border-bottom:1px solid white;padding-bottom:4px;transition:opacity 0.3s}
+.back-link a:hover{opacity:0.5}
+
+.lb{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.95);display:none;align-items:center;justify-content:center;cursor:zoom-out}
+.lb.open{display:flex}
+.lb img{max-width:94vw;max-height:94vh;object-fit:contain}
+.lb-x{position:absolute;top:16px;right:20px;color:white;font-size:24px;background:none;border:none;cursor:pointer}
+
+@media(max-width:768px){
+  nav{padding:16px 20px}
+  .hero-detail .content{padding:40px 20px}
+  .project-body{padding:40px 20px}
+  .project-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="dingding-e.html">DING DING</a>
+  <div class="links">
+    <a href="dingding-e-film.html" style="opacity:1;border-bottom:1px solid white;padding-bottom:2px">FILM</a>
+    <a href="dingding-e-editorial.html">EDITORIAL</a>
+    <a href="dingding-e-poster.html">POSTER</a>
+    <a href="dingding-e-production.html">PRODUCTION</a>
+  </div>
+</nav>
+
+<section class="hero-detail">
+  <div class="bg" style="background-image:url(img/dingding/film-yolo.jpg)"></div>
+  <div class="grad"></div>
+  <div class="content">
+    <div class="tag">01 — Film Poster</div>
+    <h1>FILM<br>POSTER</h1>
+    <p class="sub">Poster design for films. Bold color, cinematic storytelling, emotional resonance in a single frame.</p>
+  </div>
+</section>
+
+<div class="project-body">
+  <div class="project-text">
+    <h2>YOLO 热辣滚烫</h2>
+    <p>This poster captures the raw emotional transformation at the heart of Jia Ling's 2024 film. The composition layers everyday life — food stalls, gym equipment, boxing gloves — into a vibrant tapestry that mirrors the protagonist's journey from passivity to self-determination.</p>
+    <p>The color palette shifts from warm, comfortable tones at the bottom to intense, electric hues at the top, echoing the film's narrative arc. Every detail rewards close inspection: hidden faces, symbolic objects, visual rhymes between foreground and background.</p>
+    <p>Ding Ding's approach to film poster illustration rejects conventional photographic key art. Instead, she builds an entire world within the frame — one that captures not just the plot, but the feeling of watching the film.</p>
+    <div class="meta">Client: Lu Films 路画影视 · Year: 2024 · Medium: Digital illustration</div>
+  </div>
+
+  <div class="project-row">
+    <img src="img/dingding/film-yolo.jpg" alt="YOLO 热辣滚烫" onclick="openLB(this)">
+    <img src="img/dingding/film-busy.jpg" alt="B for Busy 爱情神话" onclick="openLB(this)">
+  </div>
+
+  <div class="divider" style="margin:0;margin-bottom:60px"></div>
+
+  <div class="project-text">
+    <h2>B FOR BUSY 爱情神话</h2>
+    <p>Shanghai's quiet romance, rendered through the lens of urban life. Window views, street corners, the beautiful mundane — a city breathing in illustration.</p>
+    <p>The poster for "B for Busy" (爱情神话) captures the film's spirit of accidental beauty and understated romance. Unlike the explosive energy of YOLO, this piece whispers. The viewer discovers the story gradually: a glance through a window, a bicycle leaning against a plane tree, laundry drying on a balcony.</p>
+    <p>The color treatment is notably restrained — warm ochres, muted greens, the particular gray-blue of Shanghai winter light. Romantic but never sentimental, warm but never saccharine.</p>
+    <div class="meta">Year: 2021 · Medium: Digital illustration</div>
+  </div>
+</div>
+
+<div class="back-link"><a href="dingding-e.html">← BACK TO PORTFOLIO</a></div>
+
+<div class="lb" id="lb" onclick="closeLB()" role="dialog" aria-label="Image viewer"><button class="lb-x" aria-label="Close">✕</button><img id="lb-img" src="" alt=""></div>
+<script>
+function openLB(el){document.getElementById('lb-img').src=el.src;document.getElementById('lb-img').alt=el.alt;document.getElementById('lb').classList.add('open');document.body.style.overflow='hidden'}
+function closeLB(){document.getElementById('lb').classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB()});
+</script>
+</body>
+</html>

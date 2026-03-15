@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Poster — Ring a DingDing</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#1A1917;--paper:#F5F1E8;--rule:#C8C0B0;--red:#C23B22;--caption:#706860}
+body{font-family:'Lora',serif;background:var(--paper);color:var(--ink);max-width:1200px;margin:0 auto;padding:0 24px}
+::selection{background:var(--red);color:white}a{color:inherit;text-decoration:none}
+.top{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--rule);font-family:'Inter',sans-serif;font-size:11px;color:var(--caption)}.top a:hover{color:var(--red)}
+.mast{text-align:center;padding:16px 0 12px;border-bottom:4px double var(--ink)}.mast h1{font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,48px);font-weight:900;letter-spacing:2px;text-transform:uppercase}.mast a{color:inherit}
+.nav-bar{display:flex;justify-content:center;gap:32px;padding:10px 0;border-bottom:1px solid var(--rule);font-family:'Inter',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--caption)}.nav-bar a:hover{color:var(--red)}.nav-bar .active{color:var(--red);font-weight:600}
+.page-title{padding:40px 0 24px;border-bottom:2px solid var(--red)}.page-title .flag{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--red);font-weight:500;margin-bottom:8px}.page-title h2{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,52px);font-weight:900;line-height:1.08}
+.article{padding:40px 0;border-bottom:1px solid var(--rule)}.article-grid{display:grid;grid-template-columns:1fr 1px 1fr;gap:0}.col-rule{background:var(--rule)}.article-col{padding:0 24px}.article-col:first-child{padding-left:0}.article-col:last-child{padding-right:0}
+.article h3{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;line-height:1.2;margin-bottom:8px}.article .byline{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--caption);margin-bottom:16px}.article p{font-size:15px;line-height:1.85;color:#3A3835;margin-bottom:14px}.article img{width:100%;display:block;margin:16px 0;cursor:pointer}.img-cap{font-family:'Inter',sans-serif;font-size:10px;color:var(--caption);line-height:1.5;margin-top:-8px;margin-bottom:16px}
+.back{text-align:center;padding:40px 0;font-family:'Inter',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase}.back a{border-bottom:1px solid var(--ink);padding-bottom:2px}.back a:hover{color:var(--red);border-color:var(--red)}
+.lb{position:fixed;inset:0;z-index:300;background:rgba(26,25,23,0.94);display:none;align-items:center;justify-content:center;cursor:zoom-out}.lb.open{display:flex}.lb img{max-width:92vw;max-height:92vh;object-fit:contain}.lb-x{position:absolute;top:16px;right:20px;color:white;font-size:28px;background:none;border:none;cursor:pointer}
+@media(max-width:768px){.article-grid{grid-template-columns:1fr}.col-rule{display:none}.article-col{padding:0!important;margin-bottom:24px}}
+</style>
+</head>
+<body>
+<div class="top"><a href="dingding-d.html">← Back to Front Page</a><span>Ring a DingDing Gazette</span></div>
+<header class="mast"><h1><a href="dingding-d.html">Ring a DingDing</a></h1></header>
+<nav class="nav-bar">
+  <a href="dingding-d-film.html">Film Poster</a>
+  <a href="dingding-d-editorial.html">Editorial</a>
+  <a href="dingding-d-poster.html" class="active">Poster</a>
+  <a href="dingding-d-production.html">Production</a>
+</nav>
+<div class="page-title">
+  <div class="flag">Poster Design</div>
+  <h2>Vibrant Narratives in Print</h2>
+</div>
+
+<section class="article">
+  <div class="article-grid">
+    <div class="article-col">
+      <h3>Smart-59</h3>
+      <div class="byline">Poster Design</div>
+      <img src="img/dingding/poster-smart.jpg" alt="Smart 59 poster" onclick="openLB(this)">
+      <div class="img-cap">Smart-59: Bold graphic poster capturing Beijing's rapid modernization and cultural collisions.</div>
+      <p>A bold graphic poster that captures Beijing's rapid modernization — the tension between old hutongs and glass towers, between tradition and disruption. The "59" is both address and countdown: a city reinventing itself at speed.</p>
+      <p>The poster uses isometric perspective to create a sense of simultaneous overview and intimacy. You see the whole city, but you also see individual lives playing out in each window, on each rooftop.</p>
+    </div>
+    <div class="col-rule"></div>
+    <div class="article-col">
+      <p>Ding Ding's poster work distills complex urban narratives into single, impactful compositions. Each poster is designed to stop you in motion — on a subway platform, walking past a construction wall, scrolling through a feed.</p>
+      <p>"A poster has about half a second to grab you," she says. "Everything — color, composition, typography — has to serve that half-second. But then it has to reward the second look, the third look, the hundredth look."</p>
+      <p>This dual mandate — instant impact plus sustained depth — is the signature tension of her poster work.</p>
+      <p style="font-style:italic;color:var(--caption);border-top:1px solid var(--rule);padding-top:16px;margin-top:24px">Medium: Digital illustration<br>Format: Print poster</p>
+    </div>
+  </div>
+</section>
+
+<section class="article">
+  <div class="article-grid">
+    <div class="article-col">
+      <h3>Wangjing Panda 望京熊猫</h3>
+      <div class="byline">Poster Design</div>
+      <p>Beijing's Wangjing district reimagined through the eyes of a wandering panda. The piece is playful, bold, and unmistakably local — a love letter to a neighborhood that embodies Beijing's cosmopolitan energy.</p>
+      <p>The panda serves as both mascot and guide, leading the viewer through Wangjing's landmarks: the SOHO towers, Korean BBQ strips, tech campus courtyards, and the particular chaos of a neighborhood where startup culture meets immigrant communities.</p>
+      <p>The color palette is deliberately maximalist — a riot of oranges, pinks, teals, and golds that reflects the district's visual cacophony.</p>
+    </div>
+    <div class="col-rule"></div>
+    <div class="article-col">
+      <img src="img/dingding/poster-panda2.jpg" alt="Wangjing Panda 望京熊猫" onclick="openLB(this)">
+      <div class="img-cap">Wangjing Panda (望京熊猫): a neighborhood's soul captured in illustration.</div>
+    </div>
+  </div>
+</section>
+
+<div class="back"><a href="dingding-d.html">← Return to Front Page</a></div>
+<div class="lb" id="lb" onclick="closeLB()" role="dialog" aria-label="Image viewer"><button class="lb-x" aria-label="Close">✕</button><img id="lb-img" src="" alt=""></div>
+<script>
+function openLB(el){document.getElementById('lb-img').src=el.src;document.getElementById('lb-img').alt=el.alt;document.getElementById('lb').classList.add('open');document.body.style.overflow='hidden'}
+function closeLB(){document.getElementById('lb').classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB()});
+</script>
+</body>
+</html>

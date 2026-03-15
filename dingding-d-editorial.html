@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Editorial — Ring a DingDing</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#1A1917;--paper:#F5F1E8;--rule:#C8C0B0;--red:#C23B22;--caption:#706860}
+body{font-family:'Lora',serif;background:var(--paper);color:var(--ink);max-width:1200px;margin:0 auto;padding:0 24px}
+::selection{background:var(--red);color:white}
+a{color:inherit;text-decoration:none}
+.top{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--rule);font-family:'Inter',sans-serif;font-size:11px;color:var(--caption)}
+.top a:hover{color:var(--red)}
+.mast{text-align:center;padding:16px 0 12px;border-bottom:4px double var(--ink)}
+.mast h1{font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,48px);font-weight:900;letter-spacing:2px;text-transform:uppercase}
+.mast a{color:inherit}
+.nav-bar{display:flex;justify-content:center;gap:32px;padding:10px 0;border-bottom:1px solid var(--rule);font-family:'Inter',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--caption)}
+.nav-bar a:hover{color:var(--red)}
+.nav-bar .active{color:var(--red);font-weight:600}
+.page-title{padding:40px 0 24px;border-bottom:2px solid var(--red)}
+.page-title .flag{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--red);font-weight:500;margin-bottom:8px}
+.page-title h2{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,52px);font-weight:900;line-height:1.08}
+.article{padding:40px 0;border-bottom:1px solid var(--rule)}
+.article-grid{display:grid;grid-template-columns:1fr 1px 1fr;gap:0}
+.col-rule{background:var(--rule)}
+.article-col{padding:0 24px}
+.article-col:first-child{padding-left:0}
+.article-col:last-child{padding-right:0}
+.article h3{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;line-height:1.2;margin-bottom:8px}
+.article .byline{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--caption);margin-bottom:16px}
+.article p{font-size:15px;line-height:1.85;color:#3A3835;margin-bottom:14px}
+.article img{width:100%;display:block;margin:16px 0;cursor:pointer}
+.img-cap{font-family:'Inter',sans-serif;font-size:10px;color:var(--caption);line-height:1.5;margin-top:-8px;margin-bottom:16px}
+.back{text-align:center;padding:40px 0;font-family:'Inter',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase}
+.back a{border-bottom:1px solid var(--ink);padding-bottom:2px}
+.back a:hover{color:var(--red);border-color:var(--red)}
+.lb{position:fixed;inset:0;z-index:300;background:rgba(26,25,23,0.94);display:none;align-items:center;justify-content:center;cursor:zoom-out}
+.lb.open{display:flex}
+.lb img{max-width:92vw;max-height:92vh;object-fit:contain}
+.lb-x{position:absolute;top:16px;right:20px;color:white;font-size:28px;background:none;border:none;cursor:pointer}
+@media(max-width:768px){.article-grid{grid-template-columns:1fr}.col-rule{display:none}.article-col{padding:0!important;margin-bottom:24px}}
+</style>
+</head>
+<body>
+<div class="top"><a href="dingding-d.html">← Back to Front Page</a><span>Ring a DingDing Gazette</span></div>
+<header class="mast"><h1><a href="dingding-d.html">Ring a DingDing</a></h1></header>
+<nav class="nav-bar">
+  <a href="dingding-d-film.html">Film Poster</a>
+  <a href="dingding-d-editorial.html" class="active">Editorial</a>
+  <a href="dingding-d-poster.html">Poster</a>
+  <a href="dingding-d-production.html">Production</a>
+</nav>
+<div class="page-title">
+  <div class="flag">Editorial Illustration</div>
+  <h2>Making Ideas Visible</h2>
+</div>
+
+<section class="article">
+  <div class="article-grid">
+    <div class="article-col">
+      <h3>Make Learning Fun</h3>
+      <div class="byline">Editorial Illustration</div>
+      <img src="img/dingding/editorial-learn.jpg" alt="Make Learning Fun" onclick="openLB(this)">
+      <div class="img-cap">Editorial illustration exploring how play and curiosity transform education.</div>
+      <p>This piece celebrates the messy, colorful, unpredictable joy of learning. Children surrounded by books, experiments, and creative chaos — a visual argument that education works best when it feels like play.</p>
+      <p>The composition deliberately avoids the sterile order of a typical classroom, instead presenting learning as an organic, explosive process. Colors spill across boundaries, objects overlap, scale shifts playfully.</p>
+    </div>
+    <div class="col-rule"></div>
+    <div class="article-col">
+      <p>Ding Ding's editorial work brings the same narrative density she applies to film posters, but with a different challenge: making abstract ideas tangible. Where a film poster has a story to anchor it, an editorial illustration must create its own world from a concept alone.</p>
+      <p>"The hardest part is finding the visual metaphor," she notes. "Once you have that, the rest follows."</p>
+      <p>Her editorial clients include VOGUE, Wallpaper*, and New Weekly (新周刊) — publications that value illustration not as decoration, but as a form of visual thinking.</p>
+      <p style="font-style:italic;color:var(--caption);border-top:1px solid var(--rule);padding-top:16px;margin-top:24px">Published in: Various magazines<br>Medium: Digital illustration</p>
+    </div>
+  </div>
+</section>
+
+<section class="article">
+  <div class="article-grid">
+    <div class="article-col">
+      <h3>Design for a Better World</h3>
+      <div class="byline">Editorial Illustration</div>
+      <p>A visual exploration of how design thinking can address social challenges — from education access to environmental sustainability. The illustration combines data visualization with Ding Ding's signature vibrant style, creating a piece that is both informative and emotionally engaging.</p>
+      <p>The compositional strategy uses architecture as metaphor: buildings and structures become vessels for human aspiration, each window revealing a different dimension of "better."</p>
+    </div>
+    <div class="col-rule"></div>
+    <div class="article-col">
+      <img src="img/dingding/editorial-world.jpg" alt="Design for a Better World" onclick="openLB(this)">
+      <div class="img-cap">"Design for a Better World" — architecture as metaphor for human aspiration.</div>
+      <p>What distinguishes this work is its optimism without naïveté. The "better world" depicted is not utopian — it's messy, under construction, full of scaffolding. It's a world being actively built by visible hands.</p>
+    </div>
+  </div>
+</section>
+
+<div class="back"><a href="dingding-d.html">← Return to Front Page</a></div>
+<div class="lb" id="lb" onclick="closeLB()" role="dialog" aria-label="Image viewer"><button class="lb-x" aria-label="Close">✕</button><img id="lb-img" src="" alt=""></div>
+<script>
+function openLB(el){document.getElementById('lb-img').src=el.src;document.getElementById('lb-img').alt=el.alt;document.getElementById('lb').classList.add('open');document.body.style.overflow='hidden'}
+function closeLB(){document.getElementById('lb').classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB()});
+</script>
+</body>
+</html>

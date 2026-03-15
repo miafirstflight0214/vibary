@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDITORIAL — DING DING</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--black:#000;--white:#FFF;--gray:#999;--dim:#333}
+body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:white;color:black}a{color:inherit;text-decoration:none}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 32px;display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px)}
+nav .links{display:flex;gap:24px}nav a{transition:opacity 0.3s}nav a:hover{opacity:0.5}
+.hero-detail{min-height:70vh;position:relative;display:flex;align-items:flex-end}
+.hero-detail .bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0.35}
+.hero-detail .grad{position:absolute;inset:0;background:linear-gradient(to top,#000 0%,transparent 60%)}
+.hero-detail .content{position:relative;z-index:2;padding:60px 32px;max-width:700px}
+.hero-detail .tag{font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--gray);margin-bottom:12px}
+.hero-detail h1{font-size:clamp(48px,8vw,96px);font-weight:900;text-transform:uppercase;letter-spacing:-2px;line-height:0.9;margin-bottom:16px}
+.hero-detail .sub{font-size:14px;line-height:1.8;color:var(--gray);font-weight:300;max-width:500px}
+.project-body{padding:80px 32px;max-width:1000px;margin:0 auto}
+.project-row{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:60px}
+.project-row img{width:100%;display:block;cursor:pointer;opacity:0.9;transition:opacity 0.3s}
+.project-row img:hover{opacity:1}
+.project-text{margin-bottom:60px}
+.project-text h2{font-size:28px;font-weight:900;text-transform:uppercase;letter-spacing:-0.5px;margin-bottom:16px}
+.project-text p{font-size:15px;line-height:1.9;color:var(--gray);font-weight:300;margin-bottom:14px}
+.project-text .meta{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);border-top:1px solid var(--dim);padding-top:16px;margin-top:24px}
+.divider{height:1px;background:var(--dim);margin-bottom:60px}
+.back-link{text-align:center;padding:60px 32px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase}
+.back-link a{border-bottom:1px solid white;padding-bottom:4px;transition:opacity 0.3s}.back-link a:hover{opacity:0.5}
+.lb{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.95);display:none;align-items:center;justify-content:center;cursor:zoom-out}.lb.open{display:flex}.lb img{max-width:94vw;max-height:94vh;object-fit:contain}.lb-x{position:absolute;top:16px;right:20px;color:white;font-size:24px;background:none;border:none;cursor:pointer}
+@media(max-width:768px){nav{padding:16px 20px}.hero-detail .content{padding:40px 20px}.project-body{padding:40px 20px}.project-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="dingding-e.html">DING DING</a>
+  <div class="links">
+    <a href="dingding-e-film.html">FILM</a>
+    <a href="dingding-e-editorial.html" style="opacity:1;border-bottom:1px solid white;padding-bottom:2px">EDITORIAL</a>
+    <a href="dingding-e-poster.html">POSTER</a>
+    <a href="dingding-e-production.html">PRODUCTION</a>
+  </div>
+</nav>
+
+<section class="hero-detail">
+  <div class="bg" style="background-image:url(img/dingding/editorial-learn.jpg)"></div>
+  <div class="grad"></div>
+  <div class="content">
+    <div class="tag">02 — Editorial Illustration</div>
+    <h1>EDITORIAL</h1>
+    <p class="sub">Illustration for magazines and publications. Making complex ideas visual, accessible, and beautiful.</p>
+  </div>
+</section>
+
+<div class="project-body">
+  <div class="project-text">
+    <h2>MAKE LEARNING FUN</h2>
+    <p>This piece celebrates the messy, colorful, unpredictable joy of learning. Children surrounded by books, experiments, and creative chaos — a visual argument that education works best when it feels like play.</p>
+    <p>The composition deliberately avoids the sterile order of a typical classroom, presenting learning as an organic, explosive process. Colors spill across boundaries, objects overlap, scale shifts playfully.</p>
+    <p>"The hardest part is finding the visual metaphor," Ding Ding notes. "Once you have that, the rest follows."</p>
+    <div class="meta">Published in: Various magazines · Medium: Digital illustration</div>
+  </div>
+
+  <div class="project-row">
+    <img src="img/dingding/editorial-learn.jpg" alt="Make Learning Fun" onclick="openLB(this)">
+    <img src="img/dingding/editorial-world.jpg" alt="Design for a Better World" onclick="openLB(this)">
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="project-text">
+    <h2>DESIGN FOR A BETTER WORLD</h2>
+    <p>A visual exploration of how design thinking can address social challenges — from education access to environmental sustainability. The illustration combines data visualization with Ding Ding's signature vibrant style.</p>
+    <p>The compositional strategy uses architecture as metaphor: buildings and structures become vessels for human aspiration, each window revealing a different dimension of "better." The "better world" depicted is not utopian — it's messy, under construction, full of scaffolding.</p>
+    <p>Her editorial clients include VOGUE, Wallpaper*, and New Weekly (新周刊) — publications that value illustration as a form of visual thinking.</p>
+  </div>
+</div>
+
+<div class="back-link"><a href="dingding-e.html">← BACK TO PORTFOLIO</a></div>
+<div class="lb" id="lb" onclick="closeLB()" role="dialog" aria-label="Image viewer"><button class="lb-x" aria-label="Close">✕</button><img id="lb-img" src="" alt=""></div>
+<script>
+function openLB(el){document.getElementById('lb-img').src=el.src;document.getElementById('lb-img').alt=el.alt;document.getElementById('lb').classList.add('open');document.body.style.overflow='hidden'}
+function closeLB(){document.getElementById('lb').classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB()});
+</script>
+</body>
+</html>
