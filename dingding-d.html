@@ -264,6 +264,37 @@ body {
 }
 .colophon a { color: var(--red); text-decoration: none; }
 
+/* ═══ LANG SWITCH ═══ */
+.lang-switch {
+  position: fixed; top: 12px; right: 16px; z-index: 200;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px; letter-spacing: 1px;
+  display: flex; gap: 0;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.lang-switch button {
+  background: var(--paper);
+  color: var(--caption);
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  transition: background 0.3s, color 0.3s;
+}
+.lang-switch button.active {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* Hide inactive lang */
+[data-zh] { display: none; }
+body.zh [data-en] { display: none; }
+body.zh [data-zh] { display: unset; }
+
 /* ═══ SCROLL ANIMATIONS ═══ */
 .fade-up {
   opacity: 0;
@@ -373,6 +404,12 @@ body {
 </head>
 <body>
 
+<!-- LANG SWITCH -->
+<div class="lang-switch">
+  <button class="active" onclick="setLang('en')">EN</button>
+  <button onclick="setLang('zh')">中</button>
+</div>
+
 <!-- GAZETTE BAR -->
 <div class="gazette-bar">
   <span>Sunday, March 15, 2026</span>
@@ -383,35 +420,36 @@ body {
 <!-- MASTHEAD -->
 <header class="masthead">
   <h1>Ring a DingDing</h1>
-  <div class="tagline">Illustration · Design · Visual Storytelling · Est. 2020</div>
+  <div class="tagline"><span data-en>Illustration · Design · Visual Storytelling · Est. 2020</span><span data-zh>插画 · 设计 · 视觉叙事 · 成立于2020</span></div>
 </header>
 
 <div class="edition-bar">
-  <span>Portfolio Edition</span>
+  <span><span data-en>Portfolio Edition</span><span data-zh>作品集版</span></span>
   <span>Vol. I · No. 1</span>
-  <span>"All the art that's fit to print"</span>
+  <span><span data-en>"All the art that's fit to print"</span><span data-zh>"值得印刷的艺术"</span></span>
 </div>
 
 <nav style="display:flex;justify-content:center;gap:16px;padding:10px 0;border-bottom:1px solid var(--rule);font-family:'Inter',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--caption);flex-wrap:wrap">
-  <a href="dingding-d-film.html" style="color:var(--red);font-weight:600;text-decoration:none">Film Poster</a>
-  <a href="dingding-d-editorial.html" style="color:inherit;text-decoration:none">Editorial</a>
-  <a href="dingding-d-poster.html" style="color:inherit;text-decoration:none">Poster</a>
-  <a href="dingding-d-production.html" style="color:inherit;text-decoration:none">Production</a>
+  <a href="dingding-d-film.html" style="color:var(--red);font-weight:600;text-decoration:none"><span data-en>Film Poster</span><span data-zh>电影海报</span></a>
+  <a href="dingding-d-editorial.html" style="color:inherit;text-decoration:none"><span data-en>Editorial</span><span data-zh>编辑插画</span></a>
+  <a href="dingding-d-poster.html" style="color:inherit;text-decoration:none"><span data-en>Poster</span><span data-zh>海报</span></a>
+  <a href="dingding-d-production.html" style="color:inherit;text-decoration:none"><span data-en>Production</span><span data-zh>产品</span></a>
 </nav>
 
 <!-- HEADLINE -->
 <section class="headline-grid">
   <div class="headline-main fade-up">
-    <h2>Beijing Illustrator Captures Cinema's Soul in a Single Frame</h2>
+    <h2><span data-en>Beijing Illustrator Captures Cinema's Soul in a Single Frame</span><span data-zh>北京插画师：一帧画面捕捉电影的灵魂</span></h2>
     <p class="lead">
-      Ding Ding's film posters for YOLO (热辣滚烫) and B for Busy (爱情神话) 
+      <span data-en>Ding Ding's film posters for YOLO (热辣滚烫) and B for Busy (爱情神话) 
       distill entire narratives into vibrant, layered compositions that 
-      reward endless looking.
+      reward endless looking.</span>
+      <span data-zh>丁丁为《热辣滚烫》和《爱情神话》创作的电影海报，将完整叙事浓缩为鲜活的、层次丰富的画面，经得起反复凝视。</span>
     </p>
-    <div class="byline">By Ring a DingDing Studio · Film Poster</div>
+    <div class="byline"><span data-en>By Ring a DingDing Studio · Film Poster</span><span data-zh>Ring a DingDing 工作室 · 电影海报</span></div>
     <div class="hero-img" onclick="openLB(this)">
       <img src="img/dingding/film-yolo.jpg" alt="YOLO 热辣滚烫 — film poster by Ding Ding">
-      <div class="img-caption">Above: Poster for "YOLO 热辣滚烫" (2024), directed by Jia Ling. Illustration captures the protagonist's raw emotional transformation.</div>
+      <div class="img-caption"><span data-en>Above: Poster for "YOLO 热辣滚烫" (2024), directed by Jia Ling. Illustration captures the protagonist's raw emotional transformation.</span><span data-zh>上图：《热辣滚烫》(2024) 电影海报，导演贾玲。插画捕捉了主角原始的情感蜕变。</span></div>
     </div>
   </div>
   
@@ -420,45 +458,48 @@ body {
   <div class="headline-side">
     <div class="side-story fade-up">
       <img src="img/dingding/film-busy.jpg" alt="B for Busy 爱情神话" onclick="openLB(this.parentElement)">
-      <h3>Shanghai Romance Through an Illustrator's Eye</h3>
-      <p>B for Busy (爱情神话): the everyday magic of Shanghai rendered in layers of urban life and quiet romance. Window views, street corners, the beautiful mundane.</p>
+      <h3><span data-en>Shanghai Romance Through an Illustrator's Eye</span><span data-zh>插画师眼中的上海浪漫</span></h3>
+      <p><span data-en>B for Busy (爱情神话): the everyday magic of Shanghai rendered in layers of urban life and quiet romance. Window views, street corners, the beautiful mundane.</span><span data-zh>《爱情神话》：上海日常的魔法，用城市生活的层次和安静的浪漫来呈现。窗外的风景、街角、美丽的平凡。</span></p>
     </div>
     <div class="side-story fade-up">
-      <h3>Studio Founded 2020</h3>
-      <p>Ring a DingDing illustration studio was established in Beijing. Five years of vibrant, narrative-driven work for VOGUE, Wallpaper*, Lu Films and more.</p>
+      <h3><span data-en>Studio Founded 2020</span><span data-zh>工作室成立于2020年</span></h3>
+      <p><span data-en>Ring a DingDing illustration studio was established in Beijing. Five years of vibrant, narrative-driven work for VOGUE, Wallpaper*, Lu Films and more.</span><span data-zh>Ring a DingDing 插画工作室在北京成立。五年来为 VOGUE、Wallpaper*、路画影视等客户创作鲜活的、叙事驱动的作品。</span></p>
     </div>
     <div class="side-story fade-up">
-      <h3>Awards & Recognition</h3>
-      <p>World Illustration Awards 2024, 2020. iJUNGLE Illustration Awards 2023.</p>
+      <h3><span data-en>Awards & Recognition</span><span data-zh>获奖与荣誉</span></h3>
+      <p><span data-en>World Illustration Awards 2024, 2020. iJUNGLE Illustration Awards 2023.</span><span data-zh>世界插画奖 2024、2020。iJUNGLE 插画奖 2023。</span></p>
     </div>
   </div>
 </section>
 
 <!-- EDITORIAL SECTION -->
 <section class="body-section">
-  <div class="section-flag fade-up">Editorial Illustration</div>
+  <div class="section-flag fade-up"><span data-en>Editorial Illustration</span><span data-zh>编辑插画</span></div>
   <div class="body-grid">
     <div class="body-col fade-up">
-      <h3>Make Learning Fun</h3>
+      <h3><span data-en>Make Learning Fun</span><span data-zh>让学习变有趣</span></h3>
       <img src="img/dingding/editorial-learn.jpg" alt="Make Learning Fun — editorial illustration" onclick="openLB(this.parentElement)">
       <p>
-        Editorial illustration exploring how play and curiosity transform education. 
+        <span data-en>Editorial illustration exploring how play and curiosity transform education. 
         Published in collaboration with leading magazines, each piece makes complex 
-        ideas visual, accessible, and beautiful.
+        ideas visual, accessible, and beautiful.</span>
+        <span data-zh>编辑插画，探索游戏和好奇心如何改变教育。与顶级杂志合作发表，让复杂的想法变得可视化、易理解、且美丽。</span>
       </p>
       <p>
-        Ding Ding's editorial work has appeared in VOGUE, Wallpaper*, 
-        and New Weekly (新周刊), among others.
+        <span data-en>Ding Ding's editorial work has appeared in VOGUE, Wallpaper*, 
+        and New Weekly (新周刊), among others.</span>
+        <span data-zh>丁丁的编辑插画作品曾刊登于 VOGUE、Wallpaper*、新周刊等杂志。</span>
       </p>
     </div>
     <div class="col-rule"></div>
     <div class="body-col fade-up">
-      <h3>Design for a Better World</h3>
+      <h3><span data-en>Design for a Better World</span><span data-zh>为更好的世界设计</span></h3>
       <img src="img/dingding/editorial-world.jpg" alt="Design for a Better World" onclick="openLB(this.parentElement)">
       <p>
-        A visual exploration of how design thinking can address social challenges — 
+        <span data-en>A visual exploration of how design thinking can address social challenges — 
         from education access to environmental sustainability. The illustrations 
-        combine data visualization with Ding Ding's signature vibrant style.
+        combine data visualization with Ding Ding's signature vibrant style.</span>
+        <span data-zh>视觉探索设计思维如何应对社会挑战——从教育普及到环境可持续性。插画将数据可视化与丁丁标志性的鲜活风格结合。</span>
       </p>
     </div>
   </div>
@@ -466,16 +507,16 @@ body {
 
 <!-- POSTER FULL-WIDTH -->
 <section class="body-section">
-  <div class="section-flag fade-up">Poster Design</div>
+  <div class="section-flag fade-up"><span data-en>Poster Design</span><span data-zh>海报设计</span></div>
   <div class="full-break">
     <div class="full-break-grid">
       <div>
         <img src="img/dingding/poster-smart.jpg" alt="Smart 59 poster" onclick="openLB(this.parentElement)">
-        <div class="img-caption">Smart-59: Bold graphic poster capturing Beijing's rapid modernization and cultural collisions.</div>
+        <div class="img-caption"><span data-en>Smart-59: Bold graphic poster capturing Beijing's rapid modernization and cultural collisions.</span><span data-zh>Smart-59: 大胆的图形海报，捕捉北京快速现代化与文化碰撞。</span></div>
       </div>
       <div>
         <img src="img/dingding/poster-panda2.jpg" alt="Wangjing Panda" onclick="openLB(this.parentElement)">
-        <div class="img-caption">Wangjing Panda (望京熊猫): Beijing's Wangjing district reimagined through playful, unmistakably local eyes.</div>
+        <div class="img-caption"><span data-en>Wangjing Panda: Beijing's Wangjing district reimagined through playful, unmistakably local eyes.</span><span data-zh>望京熊猫：以俏皮的、无法模仿的本地视角重新想象北京望京。</span></div>
       </div>
     </div>
   </div>
@@ -483,25 +524,27 @@ body {
 
 <!-- PRODUCTION DESIGN -->
 <section class="body-section">
-  <div class="section-flag fade-up">Production Design</div>
+  <div class="section-flag fade-up"><span data-en>Production Design</span><span data-zh>产品设计</span></div>
   <div class="body-grid">
     <div class="body-col fade-up">
-      <h3>GO TO Museum — Coloring Sets</h3>
+      <h3><span data-en>GO TO Museum — Coloring Sets</span><span data-zh>GO TO Museum — 填色套装</span></h3>
       <img src="img/dingding/production-goto1.jpg" alt="GO TO Museum coloring sets" onclick="openLB(this.parentElement)">
       <p>
-        Illustration for production design and package design. These coloring sets 
+        <span data-en>Illustration for production design and package design. These coloring sets 
         invite children into the world of art museums — from concept sketches 
-        to retail shelf.
+        to retail shelf.</span>
+        <span data-zh>产品与包装设计插画。填色套装邀请孩子们走进艺术博物馆的世界——从概念草图到零售货架。</span>
       </p>
     </div>
     <div class="col-rule"></div>
     <div class="body-col fade-up">
-      <h3>Overseas Edition</h3>
+      <h3><span data-en>Overseas Edition</span><span data-zh>海外版</span></h3>
       <img src="img/dingding/production-goto2.jpg" alt="GO TO Museum overseas edition" onclick="openLB(this.parentElement)">
       <p>
-        Two editions, two markets, one vision: making museum culture accessible 
+        <span data-en>Two editions, two markets, one vision: making museum culture accessible 
         and delightful for young explorers everywhere. 
-        China & international editions available.
+        China & international editions available.</span>
+        <span data-zh>两个版本，两个市场，一个愿景：让博物馆文化对全世界的小探索家们变得触手可及。中国版与国际版均有发售。</span>
       </p>
     </div>
   </div>
@@ -511,15 +554,15 @@ body {
 <section class="classifieds">
   <div class="classifieds-grid">
     <div class="classified-col fade-up">
-      <h4>Contact</h4>
+      <h4><span data-en>Contact</span><span data-zh>联系</span></h4>
       <p>
-        Available for commissions<br>& collaborations<br><br>
+        <span data-en>Available for commissions<br>& collaborations</span><span data-zh>接受委托<br>与合作</span><br><br>
         <a href="mailto:info@ringadingding">info@ringadingding</a>
       </p>
     </div>
     <div class="col-rule"></div>
     <div class="classified-col fade-up">
-      <h4>Clients</h4>
+      <h4><span data-en>Clients</span><span data-zh>客户</span></h4>
       <ul class="client-list">
         <li>VOGUE</li>
         <li>Wallpaper*</li>
@@ -538,10 +581,10 @@ body {
     </div>
     <div class="col-rule"></div>
     <div class="classified-col fade-up">
-      <h4>Studio</h4>
+      <h4><span data-en>Studio</span><span data-zh>工作室</span></h4>
       <p>
         Ring a DingDing<br>
-        Illustration Studio<br>
+        <span data-en>Illustration Studio</span><span data-zh>插画工作室</span><br>
         Beijing, China<br>
         Est. 2020<br><br>
         <a href="https://www.instagram.com/dingding.illustration/" target="_blank" rel="noopener">@dingding.illustration ↗</a>
@@ -602,7 +645,15 @@ function closeLB() {
   setTimeout(() => { lb.style.display = 'none'; }, 350);
   document.body.style.overflow = '';
 }
-document.addEventListener('keydown', e => { if(e.key==='Escape') closeLB(); });
+// Lang switch
+function setLang(lang) {
+  document.body.classList.toggle('zh', lang === 'zh');
+  document.querySelectorAll('.lang-switch button').forEach(b => {
+    b.classList.toggle('active', b.textContent.trim() === (lang === 'zh' ? '中' : 'EN'));
+  });
+  localStorage.setItem('dd-lang', lang);
+}
+(function() { const l = localStorage.getItem('dd-lang'); if (l) setLang(l); })();
 </script>
 </body>
 </html>
