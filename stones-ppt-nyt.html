@@ -4,22 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>投石问路 — 明湾学校插画系统提案</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@400;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --cream: #FAF8F3;
-  --ink: #1A1A1A;
-  --gray: #666;
-  --rule: #C4C0B8;
-  --accent: #6B4C3B;
+  --teal: #7CA3AB;
+  --teal-dark: #5E8A94;
+  --bg: #FFFFFF;
+  --ink: #2A2A2A;
+  --gray: #888;
+  --light-gray: #E8E8E8;
+  --cream: #F5F3EF;
 }
 
 html, body {
   height: 100%; overflow: hidden;
-  font-family: 'Lora', 'Noto Serif SC', Georgia, serif;
-  background: var(--cream); color: var(--ink);
+  font-family: 'Noto Sans SC', sans-serif;
+  background: var(--bg); color: var(--ink);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -34,21 +36,20 @@ html, body {
 }
 .slide.active { opacity: 1; pointer-events: auto; }
 
-/* ═══ NAV BAR ═══ */
+/* ═══ NAV ═══ */
 .nav-bar {
   position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
   z-index: 100;
   display: flex; align-items: center; gap: 16px;
-  background: rgba(250,248,243,0.92);
-  border: 1px solid var(--rule);
+  background: rgba(255,255,255,0.9);
+  border: 1px solid var(--light-gray);
   padding: 6px 20px;
   font-size: 12px;
 }
 .nav-bar button {
   background: none; border: none; color: var(--ink);
   cursor: pointer; font-size: 14px; padding: 4px 8px;
-  opacity: 0.4; transition: opacity 0.3s;
-  font-family: inherit;
+  opacity: 0.3; transition: opacity 0.3s;
 }
 .nav-bar button:hover { opacity: 1; }
 .nav-bar .counter {
@@ -57,7 +58,6 @@ html, body {
   letter-spacing: 2px;
 }
 
-/* ═══ DOTS ═══ */
 .dots {
   position: fixed; right: 20px; top: 50%; transform: translateY(-50%);
   z-index: 100;
@@ -65,102 +65,125 @@ html, body {
 }
 .dot {
   width: 5px; height: 5px; border-radius: 50%;
-  background: var(--rule);
+  background: var(--light-gray);
   cursor: pointer;
   transition: background 0.3s, transform 0.3s;
 }
-.dot.active { background: var(--ink); transform: scale(1.5); }
-
-/* ═══ NEWSPAPER HEADER ═══ */
-.masthead {
-  position: absolute; top: 0; left: 0; right: 0;
-  text-align: center;
-  padding: 20px 40px 12px;
-  border-bottom: 3px double var(--ink);
-  z-index: 2;
-}
-.masthead .date {
-  font-family: 'Inter', sans-serif;
-  font-size: 9px; letter-spacing: 3px;
-  text-transform: uppercase; color: var(--gray);
-}
-.masthead .flag {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(10px, 1.5vw, 14px);
-  font-weight: 400;
-  letter-spacing: 6px;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-top: 4px;
-}
+.dot.active { background: var(--teal); transform: scale(1.5); }
 
 /* ═══ PAGE 1: TITLE ═══ */
 .s-title {
   flex-direction: column; gap: 0;
-  background: var(--cream);
-  padding-top: 80px;
+  position: relative;
 }
-.s-title .headline {
-  font-family: 'Playfair Display', 'Noto Serif SC', serif;
-  font-size: clamp(56px, 11vw, 140px);
+.s-title .teal-block {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 55vh;
+  background: var(--teal);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 12px;
+}
+.s-title .teal-block h1 {
+  font-size: clamp(48px, 10vw, 120px);
   font-weight: 900;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.12em;
+  color: white;
   line-height: 1;
-  text-align: center;
 }
-.s-title .deck-line {
-  font-family: 'Lora', serif;
+.s-title .teal-block .sub-en {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
   font-size: clamp(14px, 1.8vw, 20px);
-  font-weight: 400;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 2px;
+}
+.s-title .bottom-half {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 45vh;
+  background: var(--bg);
+  display: flex; align-items: flex-start;
+  padding: 40px 64px;
+  border-top: 1px solid var(--light-gray);
+}
+.s-title .toc {
+  flex: 1;
+}
+.s-title .toc-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 28px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--light-gray);
+}
+.s-title .toc-header span:first-child { font-weight: 700; font-size: 13px; }
+.s-title .toc-header span:last-child {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 12px; color: var(--gray);
+}
+.s-title .toc-item {
+  display: flex; gap: 24px; align-items: baseline;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+.s-title .toc-item .num {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; color: var(--gray);
+  min-width: 20px;
+}
+.s-title .toc-item .label-zh { font-weight: 500; }
+.s-title .toc-item .label-en {
+  font-family: 'Instrument Serif', serif;
   font-style: italic;
   color: var(--gray);
-  margin-top: 20px;
-  text-align: center;
-  letter-spacing: 1px;
+  font-size: 13px;
+  margin-left: 8px;
 }
-.s-title .byline {
+.s-title .page-num {
+  position: absolute; bottom: 24px; right: 48px;
   font-family: 'Inter', sans-serif;
-  font-size: 9px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-top: 32px;
-  text-align: center;
-}
-.s-title .rule {
-  width: 60px; height: 1px;
-  background: var(--rule);
-  margin: 16px auto 0;
+  font-size: 10px; color: var(--gray);
 }
 
-/* ═══ PAGE 2: PHOTO GRID ═══ */
-.s-photos {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 100vh;
-  align-items: stretch;
-  gap: 3px; padding: 0;
-  width: 100%;
-  background: var(--cream);
+/* ═══ PAGE 2: COLLAGE ═══ */
+.s-collage {
+  background: var(--bg);
+  position: relative;
 }
-.s-photos .photo-col {
-  position: relative; overflow: hidden;
+.s-collage .collage-grid {
+  position: absolute; inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 0.8fr;
+  grid-template-rows: 0.6fr 1fr 0.5fr;
+  gap: 6px;
+  padding: 32px;
 }
-.s-photos .photo-col img {
+.s-collage .ci {
+  overflow: hidden;
+  position: relative;
+}
+.s-collage .ci img {
   width: 100%; height: 100%; object-fit: cover;
-  filter: grayscale(20%) contrast(1.05);
+  transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);
 }
-.s-photos .photo-col .caption {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  background: linear-gradient(transparent, rgba(26,26,26,0.7));
-  padding: 40px 16px 16px;
+.s-collage .ci:hover img { transform: scale(1.05); }
+/* Irregular grid placement */
+.s-collage .ci-1 { grid-column: 1 / 2; grid-row: 1 / 3; }
+.s-collage .ci-2 { grid-column: 2 / 3; grid-row: 1 / 2; transform: translateY(40px); }
+.s-collage .ci-3 { grid-column: 3 / 4; grid-row: 1 / 3; transform: translateY(-20px); }
+.s-collage .ci-4 { grid-column: 2 / 3; grid-row: 2 / 4; }
+.s-collage .ci-5 { grid-column: 1 / 2; grid-row: 3 / 4; transform: translateX(20px); }
+.s-collage .ci-6 { grid-column: 3 / 4; grid-row: 3 / 4; transform: translateY(-30px); }
+.s-collage .ci .cap {
+  position: absolute; bottom: 8px; left: 10px;
   font-family: 'Inter', sans-serif;
-  font-size: 9px; letter-spacing: 2px;
+  font-size: 8px; letter-spacing: 2px;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.8);
+  color: white;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
 }
 
-/* ═══ CONTENT SLIDES (newspaper columns) ═══ */
+/* ═══ CONTENT SLIDES ═══ */
 .s-content {
   display: grid !important;
   grid-template-columns: 1fr 1fr;
@@ -171,37 +194,53 @@ html, body {
 }
 .s-content .col-text {
   display: flex; flex-direction: column; justify-content: center;
-  padding: 80px 48px 48px;
-  border-right: 1px solid var(--rule);
+  padding: 64px 48px;
+  border-right: 1px solid var(--light-gray);
 }
-.s-content .col-text.no-rule { border-right: none; border-left: 1px solid var(--rule); }
+.s-content .col-text.right { border-right: none; border-left: 1px solid var(--light-gray); }
 .s-content .col-img {
-  overflow: hidden;
+  overflow: hidden; position: relative;
 }
 .s-content .col-img img {
   width: 100%; height: 100%; object-fit: cover;
-  filter: grayscale(15%);
 }
+/* Collage-style image overlay for content pages */
+.s-content .col-img .img-accent {
+  position: absolute;
+  width: 35%; height: 30%;
+  object-fit: cover;
+  border: 3px solid white;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  z-index: 2;
+}
+.s-content .col-img .img-accent.pos-br { bottom: 10%; right: -5%; transform: rotate(2deg); }
+.s-content .col-img .img-accent.pos-tl { top: 8%; left: -3%; transform: rotate(-3deg); }
+
 .s-content .section-label {
-  font-family: 'Inter', sans-serif;
-  font-size: 8px; font-weight: 500;
+  font-size: 9px; font-weight: 500;
   letter-spacing: 4px; text-transform: uppercase;
-  color: var(--accent);
+  color: var(--teal);
   margin-bottom: 20px;
+  display: flex; justify-content: space-between;
   padding-bottom: 8px;
-  border-bottom: 1px solid var(--rule);
-  display: inline-block;
+  border-bottom: 1px solid var(--light-gray);
+}
+.s-content .section-label .en {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--gray);
 }
 .s-content h2 {
-  font-family: 'Playfair Display', 'Noto Serif SC', serif;
-  font-size: clamp(24px, 3.5vw, 42px);
-  font-weight: 700;
-  line-height: 1.25;
+  font-size: clamp(24px, 3.5vw, 40px);
+  font-weight: 900;
+  line-height: 1.3;
   margin-bottom: 20px;
 }
 .s-content p {
-  font-size: 14px; line-height: 1.9;
-  color: var(--gray);
+  font-size: 14px; line-height: 2;
+  color: #555;
   max-width: 400px;
 }
 .s-content .point {
@@ -209,15 +248,14 @@ html, body {
   margin-bottom: 20px;
 }
 .s-content .point .num {
-  font-family: 'Playfair Display', serif;
-  font-size: 36px; font-weight: 900;
-  color: var(--accent);
+  font-family: 'Inter', sans-serif;
+  font-size: 28px; font-weight: 300;
+  color: var(--teal);
   line-height: 1;
-  min-width: 36px;
+  min-width: 32px;
 }
 .s-content .point .desc h3 {
-  font-family: 'Playfair Display', 'Noto Serif SC', serif;
-  font-size: 17px; font-weight: 700;
+  font-size: 16px; font-weight: 700;
   margin-bottom: 4px;
 }
 .s-content .point .desc p {
@@ -228,59 +266,63 @@ html, body {
 /* ═══ PAGE 5: DIAGRAM ═══ */
 .s-diagram {
   flex-direction: column; gap: 28px;
-  padding: 80px 48px 48px;
-  background: var(--cream);
+  padding: 64px 48px;
+  background: var(--bg);
+}
+.s-diagram .section-top {
+  display: flex; justify-content: space-between; align-items: baseline;
+  width: 100%; max-width: 700px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--light-gray);
+}
+.s-diagram .section-top span:first-child {
+  font-size: 9px; font-weight: 500;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--teal);
+}
+.s-diagram .section-top .en {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic; color: var(--gray); font-size: 12px;
 }
 .s-diagram h2 {
-  font-family: 'Playfair Display', 'Noto Serif SC', serif;
   font-size: clamp(28px, 4vw, 44px);
-  font-weight: 700;
+  font-weight: 900;
   text-align: center;
-}
-.s-diagram .sub {
-  font-style: italic; color: var(--gray);
-  font-size: 14px; text-align: center;
-  max-width: 520px;
 }
 .flow {
   display: flex; align-items: center; gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
+  justify-content: center; flex-wrap: wrap;
 }
 .flow-box {
   background: transparent;
   border: 1px solid var(--ink);
   padding: 16px 28px;
   text-align: center;
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 13px; font-weight: 500;
 }
 .flow-box.accent {
-  background: var(--ink);
-  color: var(--cream);
-  border-color: var(--ink);
+  background: var(--teal);
+  color: white;
+  border-color: var(--teal);
+  font-weight: 700;
 }
-.flow-arrow { font-size: 20px; color: var(--accent); }
+.flow-arrow { font-size: 20px; color: var(--teal); }
 .app-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1px;
-  width: 100%;
-  max-width: 640px;
-  background: var(--rule);
-  border: 1px solid var(--rule);
+  width: 100%; max-width: 640px;
+  background: var(--light-gray);
+  border: 1px solid var(--light-gray);
 }
 .app-item {
-  background: var(--cream);
+  background: white;
   padding: 18px;
   text-align: center;
   font-size: 12px;
-  letter-spacing: 0.5px;
   transition: background 0.3s;
 }
-.app-item:hover {
-  background: #F0ECE4;
-}
+.app-item:hover { background: rgba(124,163,171,0.08); }
 
 /* ═══ APPLICATION SLIDES ═══ */
 .s-app {
@@ -296,69 +338,78 @@ html, body {
 }
 .s-app .visual img {
   width: 100%; height: 100%; object-fit: cover;
-  filter: grayscale(20%);
 }
 .s-app .visual .overlay-text {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Playfair Display', 'Noto Serif SC', serif;
-  font-size: clamp(40px, 6vw, 72px);
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 40px 24px 24px;
+  background: linear-gradient(transparent, rgba(42,42,42,0.6));
+  font-size: clamp(36px, 5vw, 64px);
   font-weight: 900;
   letter-spacing: 0.08em;
   color: white;
-  text-shadow: 0 2px 32px rgba(0,0,0,0.4);
-  background: linear-gradient(transparent 30%, rgba(26,26,26,0.25));
 }
+/* Collage accent on visual */
+.s-app .visual .float-img {
+  position: absolute;
+  width: 30%; height: 25%;
+  object-fit: cover;
+  border: 3px solid white;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  z-index: 3;
+}
+.s-app .visual .float-img.pos-1 { top: 8%; right: 8%; transform: rotate(3deg); }
+.s-app .visual .float-img.pos-2 { bottom: 15%; left: 5%; transform: rotate(-2deg); }
+
 .s-app .detail {
   display: flex; flex-direction: column; justify-content: center;
-  padding: 80px 48px 48px;
-  border-left: 1px solid var(--rule);
+  padding: 64px 48px;
+  border-left: 1px solid var(--light-gray);
 }
-.s-app .detail.left-detail { border-left: none; border-right: 1px solid var(--rule); }
+.s-app .detail.left-detail { border-left: none; border-right: 1px solid var(--light-gray); }
 .s-app .detail .section-label {
-  font-family: 'Inter', sans-serif;
-  font-size: 8px; font-weight: 500;
+  font-size: 9px; font-weight: 500;
   letter-spacing: 4px; text-transform: uppercase;
-  color: var(--accent);
+  color: var(--teal);
   margin-bottom: 20px;
+  display: flex; justify-content: space-between;
   padding-bottom: 8px;
-  border-bottom: 1px solid var(--rule);
-  display: inline-block;
+  border-bottom: 1px solid var(--light-gray);
+}
+.s-app .detail .section-label .en {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic; text-transform: none;
+  letter-spacing: 0; color: var(--gray);
 }
 .s-app .detail h2 {
-  font-family: 'Playfair Display', 'Noto Serif SC', serif;
   font-size: clamp(22px, 3vw, 32px);
-  font-weight: 700;
+  font-weight: 900;
   margin-bottom: 16px;
   line-height: 1.3;
 }
 .s-app .detail p {
-  font-size: 14px; line-height: 1.9;
-  color: var(--gray);
+  font-size: 14px; line-height: 2;
+  color: #555;
   max-width: 380px;
 }
 .s-app .detail .mock {
   margin-top: 20px;
-  padding: 14px;
-  border-top: 1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
+  padding: 14px 0;
+  border-top: 1px solid var(--light-gray);
   font-size: 11px; color: var(--gray);
   line-height: 1.9;
-  font-style: italic;
 }
 
 /* ═══ PAGE 9: UNITY ═══ */
 .s-unity {
   position: relative;
   flex-direction: column; gap: 20px;
-  background: var(--ink);
-  color: var(--cream);
+  background: var(--teal);
+  color: white;
 }
 .s-unity .bg-img {
   position: absolute; inset: 0; z-index: 0;
   object-fit: cover; width: 100%; height: 100%;
-  opacity: 0.2;
-  filter: grayscale(100%);
+  opacity: 0.15; mix-blend-mode: multiply;
 }
 .s-unity .content {
   position: relative; z-index: 1;
@@ -367,7 +418,6 @@ html, body {
   padding: 48px;
 }
 .s-unity h2 {
-  font-family: 'Playfair Display', 'Noto Serif SC', serif;
   font-size: clamp(32px, 5vw, 64px);
   font-weight: 900;
   line-height: 1.2;
@@ -375,87 +425,81 @@ html, body {
 }
 .s-unity p {
   font-size: 15px; line-height: 2;
-  color: rgba(250,248,243,0.75);
+  color: rgba(255,255,255,0.8);
 }
 .s-unity .formula {
   display: flex; align-items: center; justify-content: center; gap: 14px;
   margin-top: 28px;
-  font-family: 'Playfair Display', 'Noto Serif SC', serif;
   font-size: 18px; font-weight: 700;
 }
-.s-unity .formula span { color: var(--accent); }
+.s-unity .formula span { color: rgba(255,255,255,0.5); }
 .s-unity .endmark {
-  margin-top: 24px;
-  font-family: 'Playfair Display', serif;
-  font-size: 24px;
-  color: var(--accent);
+  width: 40px; height: 3px;
+  background: white;
+  margin: 28px auto 0;
 }
 
 /* ═══ ANIMATIONS ═══ */
 .slide .anim {
-  opacity: 0; transform: translateY(24px);
+  opacity: 0; transform: translateY(20px);
   transition: opacity 0.5s 0.15s, transform 0.5s 0.15s;
 }
 .slide.active .anim { opacity: 1; transform: translateY(0); }
 .slide .anim-d1 { transition-delay: 0.25s; }
 .slide .anim-d2 { transition-delay: 0.4s; }
 .slide .anim-d3 { transition-delay: 0.55s; }
-.slide .anim-d4 { transition-delay: 0.7s; }
 
 /* ═══ MOBILE ═══ */
 @media (max-width: 768px) {
-  .masthead { padding: 12px 16px 8px; }
-  .masthead .flag { font-size: 9px; letter-spacing: 3px; }
+  .s-title .teal-block { height: 50vh; }
+  .s-title .teal-block h1 { font-size: clamp(36px, 12vw, 64px); }
+  .s-title .bottom-half { padding: 24px 20px; height: 50vh; }
+  .s-title .toc-item { font-size: 13px; gap: 12px; }
+  .s-title .toc-header { margin-bottom: 16px; }
 
-  .s-title { padding-top: 60px; }
-  .s-title .headline { font-size: clamp(40px, 14vw, 72px); }
-  .s-title .deck-line { font-size: 13px; padding: 0 24px; }
-
-  .s-photos {
-    grid-template-columns: 1fr !important;
-    grid-template-rows: repeat(3, 1fr) !important;
-    gap: 2px;
+  .s-collage .collage-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    padding: 16px;
+    gap: 4px;
   }
-  .s-photos .photo-col img { height: 100%; }
+  .s-collage .ci-1 { grid-column: 1/2; grid-row: 1/2; transform: none; }
+  .s-collage .ci-2 { grid-column: 2/3; grid-row: 1/2; transform: none; }
+  .s-collage .ci-3 { grid-column: 1/3; grid-row: 2/3; transform: none; }
+  .s-collage .ci-4 { grid-column: 1/2; grid-row: 3/4; transform: none; }
+  .s-collage .ci-5 { grid-column: 2/3; grid-row: 3/4; transform: none; }
+  .s-collage .ci-6 { display: none; }
 
   .s-content, .s-app {
     grid-template-columns: 1fr !important;
-    grid-template-rows: 45vh 55vh !important;
+    grid-template-rows: 42vh 58vh !important;
   }
   .s-content .col-text,
   .s-app .detail {
-    padding: 24px 20px;
-    border-right: none !important;
-    border-left: none !important;
-    border-top: 1px solid var(--rule);
+    padding: 20px;
+    border: none !important;
+    border-top: 1px solid var(--light-gray) !important;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-  }
-  .s-content .col-text { order: 2; }
-  .s-content .col-img { order: 1; }
-  /* For slides where text is first (slide 4, 7) */
-  .s-content .col-text.no-rule { order: 2; }
-  .s-app .detail.left-detail {
     order: 2;
-    border-right: none !important;
-    border-top: 1px solid var(--rule);
   }
+  .s-content .col-img,
   .s-app .visual { order: 1; }
+  .s-content .col-img .img-accent { display: none; }
+  .s-app .visual .float-img { display: none; }
+  .s-app .detail.left-detail { order: 2; border: none !important; border-top: 1px solid var(--light-gray) !important; }
 
   .s-content h2 { font-size: clamp(20px, 6vw, 28px); }
-  .s-content .point .num { font-size: 28px; min-width: 28px; }
-  .s-content .point .desc h3 { font-size: 15px; }
+  .s-content .point .num { font-size: 22px; min-width: 24px; }
+  .s-content .point .desc h3 { font-size: 14px; }
   .s-content .point .desc p { font-size: 12px; }
-  .s-content .section-label { font-size: 7px; }
 
   .s-app .detail h2 { font-size: clamp(18px, 5vw, 24px); }
   .s-app .detail p { font-size: 13px; }
   .s-app .detail .mock { font-size: 10px; }
-  .s-app .detail .section-label { font-size: 7px; }
 
-  .s-diagram { padding: 60px 20px 20px; gap: 16px; }
+  .s-diagram { padding: 48px 20px; gap: 16px; }
   .s-diagram h2 { font-size: clamp(24px, 7vw, 32px); }
-  .s-diagram .sub { font-size: 12px; }
   .flow { gap: 6px; }
   .flow-box { padding: 10px 14px; font-size: 11px; }
   .flow-arrow { font-size: 16px; }
@@ -472,11 +516,9 @@ html, body {
 }
 
 @media (max-width: 380px) {
-  .s-title .headline { font-size: 36px; }
-  .s-content, .s-app {
-    grid-template-rows: 40vh 60vh !important;
-  }
-  .app-grid { grid-template-columns: 1fr 1fr; }
+  .s-title .teal-block h1 { font-size: 32px; letter-spacing: 0.06em; }
+  .s-title .bottom-half { padding: 16px; }
+  .s-content, .s-app { grid-template-rows: 38vh 62vh !important; }
 }
 </style>
 </head>
@@ -484,42 +526,47 @@ html, body {
 
 <div class="deck" id="deck">
 
-  <!-- 1. TITLE -->
+  <!-- 1. TITLE (teal block + TOC) -->
   <section class="slide s-title active" data-i="0">
-    <div class="masthead">
-      <div class="date">March 2026</div>
-      <div class="flag">The Mingwan School Illustrated</div>
+    <div class="teal-block">
+      <h1 class="anim">投石问路</h1>
+      <div class="sub-en anim anim-d1">Throwing Stones, Finding the Way</div>
     </div>
-    <div class="headline anim">投石问路</div>
-    <div class="deck-line anim anim-d1">明湾学校 · 插画视觉系统提案</div>
-    <div class="byline anim anim-d2">Ring a DingDing Studio</div>
-    <div class="rule anim anim-d3"></div>
-  </section>
-
-  <!-- 2. STONE PHOTOS -->
-  <section class="slide s-photos" data-i="1">
-    <div class="photo-col anim">
-      <img src="img/stones/tex5.jpg" alt="暗色岩石">
-      <div class="caption">Dark Basalt</div>
-    </div>
-    <div class="photo-col anim anim-d1">
-      <img src="img/stones/stone-stack.jpg" alt="鹅卵石">
-      <div class="caption">River Pebbles</div>
-    </div>
-    <div class="photo-col anim anim-d2">
-      <img src="img/stones/tex4.jpg" alt="石墙">
-      <div class="caption">Stacked Stone</div>
+    <div class="bottom-half">
+      <div class="toc anim anim-d2">
+        <div class="toc-header">
+          <span>提案目录</span>
+          <span>Contents of This Proposal</span>
+        </div>
+        <div class="toc-item"><span class="num">1</span><span class="label-zh">为什么是石头</span><span class="label-en">Why Stone</span></div>
+        <div class="toc-item"><span class="num">2</span><span class="label-zh">五个理由</span><span class="label-en">Five Reasons</span></div>
+        <div class="toc-item"><span class="num">3</span><span class="label-zh">怎么用</span><span class="label-en">How It Works</span></div>
+        <div class="toc-item"><span class="num">4</span><span class="label-zh">应用场景</span><span class="label-en">Applications</span></div>
+        <div class="toc-item"><span class="num">5</span><span class="label-zh">统一性</span><span class="label-en">Unity</span></div>
+      </div>
+      <div class="page-num">1</div>
     </div>
   </section>
 
-  <!-- 3. WHY STONE: 投石问路 + 深圳填海 -->
+  <!-- 2. COLLAGE (irregular grid) -->
+  <section class="slide s-collage" data-i="1">
+    <div class="collage-grid">
+      <div class="ci ci-1 anim"><img src="img/stones/tex5.jpg" alt=""><div class="cap">Basalt</div></div>
+      <div class="ci ci-2 anim anim-d1"><img src="img/stones/stone-stack.jpg" alt=""><div class="cap">River Pebbles</div></div>
+      <div class="ci ci-3 anim anim-d2"><img src="img/stones/tex1.jpg" alt=""><div class="cap">Stacked Wall</div></div>
+      <div class="ci ci-4 anim anim-d1"><img src="img/stones/penguin-stones.jpg" alt=""><div class="cap">Penguin Island</div></div>
+      <div class="ci ci-5 anim anim-d2"><img src="img/stones/tex3.jpg" alt=""><div class="cap">Gravel</div></div>
+      <div class="ci ci-6 anim anim-d3"><img src="img/stones/tex4.jpg" alt=""><div class="cap">Masonry</div></div>
+    </div>
+  </section>
+
+  <!-- 3. WHY: 投石问路 + 深圳 -->
   <section class="slide s-content" data-i="2">
     <div class="col-text">
-      <div class="masthead" style="position:absolute">
-        <div class="date">Part I</div>
-        <div class="flag">Why Stone</div>
+      <div class="section-label anim">
+        <span>第一部分 · 为什么是石头</span>
+        <span class="en">Why Stone</span>
       </div>
-      <div class="section-label anim">第一部分 · 为什么是石头</div>
       <div class="point anim anim-d1">
         <div class="num">1</div>
         <div class="desc">
@@ -537,15 +584,17 @@ html, body {
     </div>
     <div class="col-img">
       <img src="img/stones/tex1.jpg" alt="石砌墙">
+      <img src="img/stones/tex3.jpg" alt="" class="img-accent pos-br anim anim-d3">
     </div>
   </section>
 
-  <!-- 4. WHY STONE: 企鹅岛 + 校训 + 工程 -->
+  <!-- 4. WHY: 企鹅 + 校训 + 工程 -->
   <section class="slide s-content" data-i="3">
     <div class="col-img">
-      <img src="img/stones/penguin-stones.jpg" alt="企鹅与石头">
+      <img src="img/stones/penguin-stones.jpg" alt="企鹅">
+      <img src="img/stones/stone-stack.jpg" alt="" class="img-accent pos-tl anim anim-d3">
     </div>
-    <div class="col-text no-rule">
+    <div class="col-text right">
       <div class="point anim">
         <div class="num">3</div>
         <div class="desc">
@@ -564,7 +613,7 @@ html, body {
         <div class="num">5</div>
         <div class="desc">
           <h3>工程 × 环保</h3>
-          <p>学校本身用了大量工程石材。<br>顶级环保概念——石头既是建筑语言也是自然语言。</p>
+          <p>学校本身用了大量工程石材。<br>石头既是建筑语言也是自然语言。</p>
         </div>
       </div>
     </div>
@@ -572,12 +621,11 @@ html, body {
 
   <!-- 5. HOW -->
   <section class="slide s-diagram" data-i="4">
-    <div class="masthead" style="position:absolute">
-      <div class="date">Part II</div>
-      <div class="flag">How It Works</div>
+    <div class="section-top anim">
+      <span>第二部分 · 怎么用</span>
+      <span class="en">How It Works</span>
     </div>
-    <h2 class="anim">怎么用</h2>
-    <div class="sub anim anim-d1">一张母图，拆解为无数元素，散布全校</div>
+    <h2 class="anim anim-d1">一张母图，无数元素</h2>
     <div class="flow anim anim-d2">
       <div class="flow-box accent">主视觉插画</div>
       <div class="flow-arrow">→</div>
@@ -598,11 +646,15 @@ html, body {
   <!-- 6. APP: 导视 -->
   <section class="slide s-app" data-i="5">
     <div class="visual">
-      <img src="img/stones/tex6.jpg" alt="石砖纹理">
+      <img src="img/stones/tex6.jpg" alt="">
       <div class="overlay-text anim">导视</div>
+      <img src="img/stones/tex4.jpg" alt="" class="float-img pos-1 anim anim-d2">
     </div>
     <div class="detail">
-      <div class="section-label anim">应用场景 01</div>
+      <div class="section-label anim">
+        <span>应用场景 01</span>
+        <span class="en">Wayfinding & Signage</span>
+      </div>
       <h2 class="anim anim-d1">导视系统 &<br>楼层标识</h2>
       <p class="anim anim-d2">
         从母图中提取石头轮廓作为图标基底。
@@ -620,7 +672,10 @@ html, body {
   <!-- 7. APP: 墙绘 -->
   <section class="slide s-app" data-i="6">
     <div class="detail left-detail">
-      <div class="section-label anim">应用场景 02</div>
+      <div class="section-label anim">
+        <span>应用场景 02</span>
+        <span class="en">Murals & Floor Graphics</span>
+      </div>
       <h2 class="anim anim-d1">文化墙 /<br>墙绘 / 地贴</h2>
       <p class="anim anim-d2">
         主插画的完整版本可以直接用于文化墙。
@@ -634,19 +689,23 @@ html, body {
       </div>
     </div>
     <div class="visual">
-      <img src="img/stones/tex2.jpg" alt="石砖纹理">
+      <img src="img/stones/tex2.jpg" alt="">
       <div class="overlay-text anim">墙绘</div>
+      <img src="img/stones/tex5.jpg" alt="" class="float-img pos-2 anim anim-d2">
     </div>
   </section>
 
   <!-- 8. APP: 玻璃贴 -->
   <section class="slide s-app" data-i="7">
     <div class="visual">
-      <img src="img/stones/tex3.jpg" alt="彩色碎石">
+      <img src="img/stones/tex3.jpg" alt="">
       <div class="overlay-text anim">玻璃贴</div>
     </div>
     <div class="detail">
-      <div class="section-label anim">应用场景 03</div>
+      <div class="section-label anim">
+        <span>应用场景 03</span>
+        <span class="en">Bird-safe Glass Film</span>
+      </div>
       <h2 class="anim anim-d1">防鸟撞<br>玻璃贴</h2>
       <p class="anim anim-d2">
         石头元素的半透明轮廓贴于玻璃幕墙，
@@ -673,7 +732,7 @@ html, body {
       <div class="formula anim anim-d2">
         不同楼层 <span>×</span> 同一套元素 <span>=</span> 统一校园
       </div>
-      <div class="endmark anim anim-d3">■</div>
+      <div class="endmark anim anim-d3"></div>
     </div>
   </section>
 
