@@ -4,24 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ring a DingDing — Illustrator & Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
   --coral: #D95B43;
-  --cream: #FDF0E8;
-  --warm-white: #FFF8F4;
-  --dark: #1A1A1A;
-  --stone: #8A8278;
-  --light-coral: #F2C4B5;
+  --coral-light: #E8725D;
+  --cream: #FDF5EF;
+  --warm-bg: #FAF4EE;
+  --dark: #1A1A18;
+  --stone: #9A9590;
+  --text: #3A3835;
 }
 
 html { scroll-behavior: smooth; }
 
 body {
   font-family: 'Space Grotesk', sans-serif;
-  background: var(--warm-white);
+  background: var(--cream);
   color: var(--dark);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -32,136 +34,153 @@ body {
 /* ══ NAV ══ */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  padding: 24px 40px;
+  padding: 20px 40px;
   display: flex; justify-content: space-between; align-items: center;
-  mix-blend-mode: difference;
-  color: white;
+  transition: background 0.4s, box-shadow 0.4s;
 }
-nav.scrolled { mix-blend-mode: normal; background: rgba(255,248,244,0.9); backdrop-filter: blur(12px); color: var(--dark); }
+nav.scrolled {
+  background: rgba(253,245,239,0.92);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+}
 .nav-logo {
-  font-weight: 700; font-size: 15px; letter-spacing: 1px;
-  text-decoration: none; color: inherit;
+  font-weight: 700; font-size: 16px; letter-spacing: 0.5px;
+  text-decoration: none; color: var(--dark);
 }
 .nav-links { display: flex; gap: 32px; list-style: none; }
 .nav-links a {
-  text-decoration: none; color: inherit;
+  text-decoration: none; color: var(--text);
   font-size: 13px; font-weight: 500; letter-spacing: 1px;
-  text-transform: uppercase; position: relative;
-  transition: opacity 0.3s;
+  text-transform: uppercase;
+  transition: color 0.3s;
 }
-.nav-links a:hover { opacity: 0.6; }
-.nav-links a::after {
-  content: ''; position: absolute; bottom: -4px; left: 0;
-  width: 0; height: 1.5px; background: currentColor;
-  transition: width 0.3s;
-}
-.nav-links a:hover::after { width: 100%; }
+.nav-links a:hover { color: var(--coral); }
 
 /* ══ HERO ══ */
 .hero {
   min-height: 100vh;
-  display: flex; align-items: center;
-  padding: 120px 40px 80px;
-  position: relative;
-  background: var(--coral);
-  color: white;
-  overflow: hidden;
+  display: grid; grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 100px 40px 60px;
+  gap: 60px;
 }
-.hero-content { max-width: 800px; position: relative; z-index: 2; }
-.hero h1 {
+.hero-text h1 {
   font-family: 'DM Serif Display', serif;
-  font-size: clamp(48px, 8vw, 100px);
-  line-height: 1.05;
-  margin-bottom: 32px;
+  font-size: clamp(42px, 6vw, 80px);
+  line-height: 1.08;
+  margin-bottom: 28px;
   font-weight: 400;
 }
-.hero h1 em { font-style: italic; }
+.hero-text h1 .coral { color: var(--coral); }
 .hero-sub {
-  font-size: clamp(16px, 2vw, 20px);
-  line-height: 1.7;
-  opacity: 0.85;
-  max-width: 500px;
+  font-size: 17px; line-height: 1.8;
+  color: var(--text); max-width: 420px;
   font-weight: 300;
 }
-.hero-scroll {
-  position: absolute; bottom: 40px; left: 40px;
-  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
-  opacity: 0.5;
+.hero-img {
+  position: relative;
+  display: flex; justify-content: center;
 }
-/* Decorative blob */
-.hero-blob {
-  position: absolute; right: -10%; top: 10%;
-  width: 50vw; height: 50vw; max-width: 600px; max-height: 600px;
-  background: rgba(255,255,255,0.08);
-  border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%;
-  animation: blob 8s ease-in-out infinite;
+.hero-img img {
+  width: 80%; max-width: 400px;
+  border-radius: 12px;
+  box-shadow: 24px 24px 0 var(--coral);
+  transition: box-shadow 0.4s;
 }
-@keyframes blob {
-  0%, 100% { border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%; }
-  50% { border-radius: 40% 60% 50% 50% / 60% 40% 50% 50%; }
+.hero-img img:hover {
+  box-shadow: 16px 16px 0 var(--coral);
 }
 
-/* ══ SECTION COMMON ══ */
-.section-header {
-  padding: 120px 40px 60px;
-  max-width: 1400px; margin: 0 auto;
+/* ══ MARQUEE ══ */
+.marquee {
+  padding: 20px 0;
+  overflow: hidden;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
 }
-.section-label {
-  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-  color: var(--stone); margin-bottom: 16px;
+.marquee-track {
+  display: flex; gap: 60px;
+  animation: marquee 20s linear infinite;
+  white-space: nowrap;
 }
-.section-title {
+.marquee-track span {
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--stone);
+  flex-shrink: 0;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ══ WORK GRID ══ */
+.work-section { padding: 100px 40px; }
+.work-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 60px;
+}
+.work-header h2 {
   font-family: 'DM Serif Display', serif;
   font-size: clamp(32px, 5vw, 56px);
-  font-weight: 400; line-height: 1.15;
+  font-weight: 400;
+}
+.work-header .count {
+  font-size: 13px; color: var(--stone);
+  letter-spacing: 1px;
 }
 
-/* ══ PORTFOLIO GRID ══ */
-.portfolio-grid {
-  max-width: 1400px; margin: 0 auto;
-  padding: 0 40px 120px;
+.work-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
 }
-.portfolio-item {
+
+.work-item {
   position: relative; overflow: hidden;
   border-radius: 8px; cursor: pointer;
-  aspect-ratio: 4/3;
-  background: var(--cream);
+  background: #eee;
 }
-.portfolio-item img {
-  width: 100%; height: 100%; object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+.work-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  display: block;
 }
-.portfolio-item:hover img { transform: scale(1.05); }
-.portfolio-overlay {
+.work-item:hover img { transform: scale(1.06); }
+
+.work-item .overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%);
-  display: flex; flex-direction: column;
-  justify-content: flex-end; padding: 32px;
+  background: linear-gradient(to top, rgba(26,26,24,0.75) 0%, rgba(26,26,24,0) 50%);
+  padding: 24px;
+  display: flex; flex-direction: column; justify-content: flex-end;
   opacity: 0; transition: opacity 0.4s;
 }
-.portfolio-item:hover .portfolio-overlay { opacity: 1; }
-.portfolio-overlay h3 {
+.work-item:hover .overlay { opacity: 1; }
+.overlay h3 {
   color: white; font-family: 'DM Serif Display', serif;
-  font-size: 24px; font-weight: 400; margin-bottom: 4px;
+  font-size: 22px; font-weight: 400;
 }
-.portfolio-overlay p {
+.overlay p {
   color: rgba(255,255,255,0.7);
-  font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  margin-top: 4px;
 }
 
-/* Featured item spans full width */
-.portfolio-item.featured {
-  grid-column: 1 / -1;
-  aspect-ratio: 21/9;
-}
+/* Grid layout — asymmetric masonry feel */
+.w1 { grid-column: span 7; aspect-ratio: 16/10; }
+.w2 { grid-column: span 5; aspect-ratio: 4/5; }
+.w3 { grid-column: span 5; aspect-ratio: 4/3; }
+.w4 { grid-column: span 7; aspect-ratio: 16/10; }
+.w5 { grid-column: span 6; aspect-ratio: 3/4; }
+.w6 { grid-column: span 6; aspect-ratio: 3/4; }
+.w7 { grid-column: span 12; aspect-ratio: 21/9; }
 
 /* ══ ABOUT ══ */
 .about {
-  background: var(--cream);
   padding: 120px 40px;
+  background: var(--dark);
+  color: white;
 }
 .about-inner {
   max-width: 1200px; margin: 0 auto;
@@ -170,157 +189,148 @@ nav.scrolled { mix-blend-mode: normal; background: rgba(255,248,244,0.9); backdr
 }
 .about-text h2 {
   font-family: 'DM Serif Display', serif;
-  font-size: clamp(32px, 4vw, 48px);
-  font-weight: 400; line-height: 1.3;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 400; line-height: 1.35;
   margin-bottom: 32px;
 }
 .about-text p {
   font-size: 16px; line-height: 1.9;
-  color: #555; margin-bottom: 20px;
+  color: #B0ACA8; margin-bottom: 20px;
   font-weight: 300;
 }
-.about-text .highlight {
-  color: var(--coral); font-weight: 500;
+.coral-link {
+  color: var(--coral-light);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
 }
+.coral-link:hover { border-color: var(--coral-light); }
 
 /* ══ CLIENTS ══ */
+.clients-label {
+  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--stone); margin-bottom: 20px;
+}
 .clients-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 0;
-  border-top: 1px solid rgba(0,0,0,0.08);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-top: 1px solid rgba(255,255,255,0.1);
 }
 .client-item {
-  padding: 20px 16px;
-  font-size: 13px; font-weight: 500;
-  letter-spacing: 0.5px;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-  border-right: 1px solid rgba(0,0,0,0.08);
-  transition: all 0.3s;
+  padding: 16px 0;
+  font-size: 14px; font-weight: 400;
+  color: #C8C4C0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: color 0.3s;
 }
-.client-item:hover {
-  background: var(--coral); color: white;
-}
+.client-item:hover { color: var(--coral-light); }
 
-/* ══ AWARDS ══ */
-.awards {
-  padding: 80px 40px;
-  max-width: 1200px; margin: 0 auto;
-}
-.award-row {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 24px 0;
-  border-bottom: 1px solid rgba(0,0,0,0.06);
-  font-size: 14px;
-}
-.award-name { font-weight: 600; }
-.award-year { color: var(--stone); font-size: 13px; }
-
-/* ══ CONTACT / FOOTER ══ */
+/* ══ CONTACT ══ */
 .contact {
-  background: var(--dark); color: white;
-  padding: 120px 40px;
+  padding: 140px 40px;
   text-align: center;
+  position: relative;
 }
 .contact h2 {
   font-family: 'DM Serif Display', serif;
   font-size: clamp(36px, 6vw, 72px);
-  font-weight: 400; margin-bottom: 40px;
-  line-height: 1.2;
+  font-weight: 400; margin-bottom: 32px;
+  line-height: 1.15;
 }
+.contact h2 em { font-style: italic; color: var(--coral); }
 .contact-email {
   display: inline-block;
-  font-size: clamp(16px, 2.5vw, 24px);
-  color: var(--coral);
+  font-size: clamp(18px, 2.5vw, 28px);
+  color: var(--dark);
   text-decoration: none;
-  border-bottom: 2px solid transparent;
-  transition: border-color 0.3s;
+  border-bottom: 2px solid var(--coral);
   padding-bottom: 4px;
+  transition: color 0.3s;
 }
-.contact-email:hover { border-color: var(--coral); }
-.contact-sub {
+.contact-email:hover { color: var(--coral); }
+.contact-note {
   font-size: 14px; color: var(--stone);
   margin-top: 16px; font-weight: 300;
 }
 
-.footer-bottom {
-  background: var(--dark); color: var(--stone);
+/* ══ FOOTER ══ */
+footer {
   padding: 24px 40px;
   display: flex; justify-content: space-between; align-items: center;
-  font-size: 11px; letter-spacing: 1px;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  font-size: 12px; color: var(--stone);
+  border-top: 1px solid rgba(0,0,0,0.06);
 }
-.footer-bottom a {
-  color: var(--stone); text-decoration: none;
+footer a {
+  color: var(--text); text-decoration: none;
   transition: color 0.3s;
 }
-.footer-bottom a:hover { color: white; }
-.social-links { display: flex; gap: 24px; }
-
-/* ══ ANIMATIONS ══ */
-.fade-up {
-  opacity: 0; transform: translateY(40px);
-  transition: opacity 0.8s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.fade-up.visible { opacity: 1; transform: translateY(0); }
+footer a:hover { color: var(--coral); }
+.footer-links { display: flex; gap: 24px; }
 
 /* ══ LIGHTBOX ══ */
 .lightbox {
   position: fixed; inset: 0; z-index: 200;
-  background: rgba(0,0,0,0.92);
+  background: rgba(26,26,24,0.94);
   display: none; align-items: center; justify-content: center;
-  cursor: zoom-out;
-  opacity: 0; transition: opacity 0.3s;
+  cursor: zoom-out; backdrop-filter: blur(4px);
 }
-.lightbox.open { display: flex; opacity: 1; }
+.lightbox.open { display: flex; }
 .lightbox img {
-  max-width: 90vw; max-height: 90vh; object-fit: contain;
-  border-radius: 4px;
+  max-width: 90vw; max-height: 90vh;
+  object-fit: contain; border-radius: 4px;
 }
 .lightbox-close {
-  position: absolute; top: 24px; right: 24px;
-  width: 40px; height: 40px;
+  position: absolute; top: 20px; right: 24px;
   background: none; border: none; color: white;
-  font-size: 24px; cursor: pointer;
+  font-size: 28px; cursor: pointer;
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
 }
 
+/* ══ ANIMATIONS ══ */
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.7s ease-out, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
 /* ══ MOBILE ══ */
-@media (max-width: 768px) {
-  nav { padding: 16px 20px; }
-  .nav-links { gap: 16px; }
+@media (max-width: 900px) {
+  nav { padding: 16px 24px; }
+  .nav-links { gap: 20px; }
   .nav-links a { font-size: 11px; }
   
-  .hero { padding: 100px 24px 60px; }
-  .hero-scroll { left: 24px; bottom: 24px; }
-  .hero-blob { display: none; }
-  
-  .section-header { padding: 80px 24px 40px; }
-  
-  .portfolio-grid {
+  .hero {
     grid-template-columns: 1fr;
-    padding: 0 24px 80px;
-    gap: 16px;
+    padding: 120px 24px 60px;
+    min-height: auto;
   }
-  .portfolio-item { aspect-ratio: 4/3; }
-  .portfolio-item.featured { aspect-ratio: 16/10; }
-  .portfolio-overlay { opacity: 1; }
+  .hero-img { order: -1; }
+  .hero-img img { width: 60%; max-width: 280px; box-shadow: 16px 16px 0 var(--coral); }
+  
+  .work-section { padding: 60px 24px; }
+  .work-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .w1, .w2, .w3, .w4, .w5, .w6 { grid-column: span 1; aspect-ratio: 1; }
+  .w7 { grid-column: span 2; aspect-ratio: 16/9; }
+  .work-item .overlay { opacity: 1; }
   
   .about { padding: 80px 24px; }
   .about-inner { grid-template-columns: 1fr; gap: 48px; }
   
-  .clients-grid { grid-template-columns: repeat(2, 1fr); }
-  
-  .awards { padding: 60px 24px; }
-  
   .contact { padding: 80px 24px; }
   
-  .footer-bottom { 
-    flex-direction: column; gap: 12px; text-align: center;
-    padding: 20px 24px;
+  footer {
+    flex-direction: column; gap: 12px;
+    text-align: center; padding: 20px 24px;
   }
 }
 
 @media (max-width: 480px) {
   .nav-links { display: none; }
+  .work-grid { grid-template-columns: 1fr; }
+  .w7 { grid-column: span 1; }
   .clients-grid { grid-template-columns: 1fr; }
 }
 </style>
@@ -334,211 +344,198 @@ nav.scrolled { mix-blend-mode: normal; background: rgba(255,248,244,0.9); backdr
     <li><a href="#work">Work</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="https://www.instagram.com/dingding.illustration/" target="_blank">Instagram</a></li>
+    <li><a href="https://www.instagram.com/dingding.illustration/" target="_blank" rel="noopener">Instagram ↗</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-blob"></div>
-  <div class="hero-content">
+  <div class="hero-text reveal">
     <h1>
-      <em>Ding Ding</em><br>
+      <span class="coral">Ding Ding</span><br>
       Illustrator &<br>
       Designer
     </h1>
     <p class="hero-sub">
-      Creating vibrant, narrative-driven illustrations<br>
-      from Beijing, China. Est. 2020.
+      Vibrant, narrative-driven illustrations from Beijing.<br>
+      Film posters, editorials, books & beyond.
     </p>
   </div>
-  <div class="hero-scroll">↓ Scroll to explore</div>
+  <div class="hero-img reveal">
+    <img src="img/dingding/film-poster.jpg" alt="Ding Ding illustration — Film Poster for Say Cheese" width="400" height="567">
+  </div>
 </section>
 
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>VOGUE</span><span>Wallpaper*</span><span>New Weekly</span>
+    <span>Xiaohongshu</span><span>Lu Films</span><span>New Classics Media</span>
+    <span>CS-BOOKY</span><span>MIYA</span><span>MaxTimes</span><span>SUREdesign</span>
+    <span>VOGUE</span><span>Wallpaper*</span><span>New Weekly</span>
+    <span>Xiaohongshu</span><span>Lu Films</span><span>New Classics Media</span>
+    <span>CS-BOOKY</span><span>MIYA</span><span>MaxTimes</span><span>SUREdesign</span>
+  </div>
+</div>
+
 <!-- WORK -->
-<div id="work">
-  <div class="section-header fade-up">
-    <div class="section-label">Selected Work</div>
-    <h2 class="section-title">Projects</h2>
+<section class="work-section" id="work">
+  <div class="work-header reveal">
+    <h2>Selected Work</h2>
+    <span class="count">7 Projects</span>
   </div>
 
-  <div class="portfolio-grid">
-    <!-- Film Poster -->
-    <div class="portfolio-item featured fade-up" onclick="openLightbox(this)">
-      <img src="https://static.wixstatic.com/media/8df56d_e82cfbb9c08840dcbe0e2cef1e0dd3cc~mv2.png/v1/fill/w_1600,h_900,al_c,q_90/8df56d_e82cfbb9c08840dcbe0e2cef1e0dd3cc~mv2.png" alt="Film Poster — Say Cheese" loading="lazy">
-      <div class="portfolio-overlay">
-        <h3>Say Cheese 热辣滚烫</h3>
+  <div class="work-grid">
+    <div class="work-item w1 reveal" onclick="openLightbox(this)">
+      <img src="img/dingding/film1.jpg" alt="Film poster illustration — Say Cheese (热辣滚烫)" loading="lazy" width="820" height="1162">
+      <div class="overlay">
+        <h3>热辣滚烫 Say Cheese</h3>
         <p>Film Poster</p>
       </div>
     </div>
 
-    <!-- Editorial -->
-    <div class="portfolio-item fade-up" onclick="openLightbox(this)">
-      <img src="https://static.wixstatic.com/media/8df56d_2c14d81dfff94a6d9f2a0e370a7b24a4~mv2.png/v1/fill/w_980,h_735,al_c,q_90/8df56d_2c14d81dfff94a6d9f2a0e370a7b24a4~mv2.png" alt="Editorial Illustration — Make Learning Fun" loading="lazy">
-      <div class="portfolio-overlay">
+    <div class="work-item w2 reveal" onclick="openLightbox(this)">
+      <img src="img/dingding/film2.jpg" alt="Film poster illustration — detail view" loading="lazy" width="820" height="1160">
+      <div class="overlay">
+        <h3>Say Cheese — Detail</h3>
+        <p>Film Poster</p>
+      </div>
+    </div>
+
+    <div class="work-item w3 reveal" onclick="openLightbox(this)">
+      <img src="img/dingding/editorial.jpg" alt="Editorial illustration — Make Learning Fun" loading="lazy" width="800" height="734">
+      <div class="overlay">
         <h3>Make Learning Fun</h3>
         <p>Editorial Illustration</p>
       </div>
     </div>
 
-    <!-- Poster -->
-    <div class="portfolio-item fade-up" onclick="openLightbox(this)">
-      <img src="https://static.wixstatic.com/media/8df56d_a7d0f439a5de40ac89c42e46e8e4e6e4~mv2.png/v1/fill/w_980,h_735,al_c,q_90/8df56d_a7d0f439a5de40ac89c42e46e8e4e6e4~mv2.png" alt="Poster — Smart 39 / The Beijingren" loading="lazy">
-      <div class="portfolio-overlay">
-        <h3>Smart 39 / The Beijingren</h3>
-        <p>Poster Design</p>
-      </div>
-    </div>
-
-    <!-- Production Design -->
-    <div class="portfolio-item fade-up" onclick="openLightbox(this)">
-      <img src="https://static.wixstatic.com/media/8df56d_f37e19e3fe1f49a7a1ec2a4fac5c4b39~mv2.png/v1/fill/w_980,h_735,al_c,q_90/8df56d_f37e19e3fe1f49a7a1ec2a4fac5c4b39~mv2.png" alt="Production Design — Go To Museum" loading="lazy">
-      <div class="portfolio-overlay">
+    <div class="work-item w4 reveal" onclick="openLightbox(this)">
+      <img src="img/dingding/production.jpg" alt="Production design — Go To Museum packaging" loading="lazy" width="800" height="598">
+      <div class="overlay">
         <h3>Go To Museum</h3>
         <p>Production Design</p>
       </div>
     </div>
 
-    <!-- Book Cover -->
-    <div class="portfolio-item fade-up" onclick="openLightbox(this)">
-      <img src="https://static.wixstatic.com/media/8df56d_07c59a8ac1d14281b4aeb1c9f3a7f5c0~mv2.jpg/v1/fill/w_980,h_735,al_c,q_85/8df56d_07c59a8ac1d14281b4aeb1c9f3a7f5c0~mv2.jpg" alt="迷人的太空 Book Cover" loading="lazy">
-      <div class="portfolio-overlay">
-        <h3>迷人的太空</h3>
-        <p>Book Cover</p>
+    <div class="work-item w5 reveal" onclick="openLightbox(this)">
+      <img src="img/dingding/poster1.jpg" alt="Poster design — Smart 39" loading="lazy" width="820" height="1160">
+      <div class="overlay">
+        <h3>Smart 39</h3>
+        <p>Poster Design</p>
       </div>
     </div>
 
-    <!-- Glass Tower / Linden -->
-    <div class="portfolio-item fade-up" onclick="openLightbox(this)">
-      <img src="https://static.wixstatic.com/media/8df56d_0e3f4c6ca88c4f8589e84c8de6a43b19~mv2.jpg/v1/fill/w_980,h_735,al_c,q_85/8df56d_0e3f4c6ca88c4f8589e84c8de6a43b19~mv2.jpg" alt="Linden Summer Collection" loading="lazy">
-      <div class="portfolio-overlay">
-        <h3>Linden Summer</h3>
-        <p>Package Design</p>
+    <div class="work-item w6 reveal" onclick="openLightbox(this)">
+      <img src="img/dingding/poster2.jpg" alt="Poster design — The Beijingren" loading="lazy" width="495" height="700">
+      <div class="overlay">
+        <h3>The Beijingren</h3>
+        <p>Poster Design</p>
+      </div>
+    </div>
+
+    <div class="work-item w7 reveal" onclick="openLightbox(this)">
+      <img src="img/dingding/poster.jpg" alt="Poster collection overview" loading="lazy" width="800" height="1420">
+      <div class="overlay">
+        <h3>Poster Collection</h3>
+        <p>Mixed Media</p>
       </div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- ABOUT -->
 <section class="about" id="about">
   <div class="about-inner">
-    <div class="about-text fade-up">
-      <h2>Ring a DingDing illustration studio was established in <span class="highlight">2020</span>.</h2>
+    <div class="about-text reveal">
+      <h2>Ring a DingDing illustration studio was established in 2020.</h2>
       <p>
-        Ding Ding is an illustrator and designer based in Beijing, China.
-        Her work spans film posters, editorial illustration, book covers,
-        and production design — always vibrant, always full of stories.
+        Ding Ding lives and works in Beijing, China. Her illustrations are vibrant,
+        detail-rich and narrative-driven — every piece tells a story that rewards
+        close looking.
       </p>
       <p>
-        Reach out with your collaboration ideas;<br>
-        she'd love to work together.
+        She works across film posters, editorial illustration, book covers,
+        package design and brand identity.
+      </p>
+      <p>
+        <a href="mailto:info@ringadingding" class="coral-link">Reach out for collaborations →</a>
       </p>
     </div>
     
-    <div class="fade-up">
-      <div class="section-label" style="margin-bottom: 24px;">Clients</div>
+    <div class="reveal">
+      <div class="clients-label">Clients</div>
       <div class="clients-grid">
         <div class="client-item">VOGUE</div>
+        <div class="client-item">Lu Films</div>
         <div class="client-item">Wallpaper*</div>
+        <div class="client-item">New Classics Media</div>
         <div class="client-item">New Weekly</div>
         <div class="client-item">Xiaohongshu</div>
-        <div class="client-item">Lu Films</div>
-        <div class="client-item">New Classics Media</div>
         <div class="client-item">XUXUDUODUO</div>
-        <div class="client-item">CS-BOOKY</div>
-        <div class="client-item">MIYA</div>
-        <div class="client-item">MaxTimes</div>
         <div class="client-item">SUREdesign</div>
+        <div class="client-item">CS-BOOKY</div>
         <div class="client-item">Unitinno</div>
+        <div class="client-item">MIYA</div>
         <div class="client-item">Makeapoint</div>
+        <div class="client-item">MaxTimes</div>
+        <div class="client-item">&nbsp;</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- AWARDS -->
-<div class="awards fade-up">
-  <div class="section-label" style="margin-bottom: 24px;">Recognition</div>
-  <div class="award-row">
-    <span class="award-name">World Illustration Awards</span>
-    <span class="award-year">2024</span>
-  </div>
-  <div class="award-row">
-    <span class="award-name">iJUNGLE Illustration Awards</span>
-    <span class="award-year">2023</span>
-  </div>
-  <div class="award-row">
-    <span class="award-name">World Illustration Awards</span>
-    <span class="award-year">2020</span>
-  </div>
-</div>
-
 <!-- CONTACT -->
 <section class="contact" id="contact">
-  <div class="fade-up">
-    <h2>Let's create<br>something <em style="font-family:'DM Serif Display',serif;font-style:italic">together</em></h2>
+  <div class="reveal">
+    <h2>Let's make<br>something <em>together</em></h2>
     <a href="mailto:info@ringadingding" class="contact-email">info@ringadingding</a>
-    <p class="contact-sub">Available for commissions & collaborations</p>
+    <p class="contact-note">Available for commissions & collaborations</p>
   </div>
 </section>
 
 <!-- FOOTER -->
-<div class="footer-bottom">
-  <span>© 2025 Ring a DingDing. All rights reserved.</span>
-  <div class="social-links">
-    <a href="https://www.instagram.com/dingding.illustration/" target="_blank">Instagram</a>
+<footer>
+  <span>© 2025 Ring a DingDing</span>
+  <div class="footer-links">
+    <a href="https://www.instagram.com/dingding.illustration/" target="_blank" rel="noopener">Instagram</a>
     <a href="mailto:info@ringadingding">Email</a>
   </div>
-</div>
+</footer>
 
 <!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+<div class="lightbox" id="lightbox" onclick="closeLightbox()" role="dialog" aria-label="Image viewer">
+  <button class="lightbox-close" aria-label="Close image viewer">✕</button>
   <img id="lightbox-img" src="" alt="">
 </div>
 
 <script>
-// Nav scroll effect
+// Nav scroll
 const nav = document.getElementById('main-nav');
 window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 100);
-});
+  nav.classList.toggle('scrolled', scrollY > 60);
+}, { passive: true });
 
-// Intersection Observer for fade-up
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+// Reveal on scroll
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
 // Lightbox
 function openLightbox(item) {
   const img = item.querySelector('img');
   const lb = document.getElementById('lightbox');
-  const lbImg = document.getElementById('lightbox-img');
-  lbImg.src = img.src;
-  lbImg.alt = img.alt;
-  lb.style.display = 'flex';
-  requestAnimationFrame(() => lb.style.opacity = '1');
+  document.getElementById('lightbox-img').src = img.src;
+  document.getElementById('lightbox-img').alt = img.alt;
+  lb.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-
 function closeLightbox() {
-  const lb = document.getElementById('lightbox');
-  lb.style.opacity = '0';
-  setTimeout(() => {
-    lb.style.display = 'none';
-    document.body.style.overflow = '';
-  }, 300);
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
 }
-
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeLightbox();
-});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 </script>
 </body>
 </html>
