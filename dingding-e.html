@@ -266,12 +266,14 @@ body.zh { font-family: 'Noto Sans SC', 'Inter', sans-serif; }
 }
 .a24-item:hover .item-info { transform: translateY(0); }
 
-/* Grid sizing */
-.g-big { grid-column: span 8; aspect-ratio: 16/9; }
-.g-tall { grid-column: span 4; aspect-ratio: 3/5; }
-.g-half { grid-column: span 6; aspect-ratio: 4/3; }
-.g-wide { grid-column: span 12; aspect-ratio: 21/9; }
-.g-third { grid-column: span 4; aspect-ratio: 1; }
+/* Grid sizing — aspect ratios match source images */
+.g-big { grid-column: span 8; aspect-ratio: 1200/1699; }
+.g-tall { grid-column: span 4; aspect-ratio: 1200/1696; }
+.g-half { grid-column: span 6; }
+.g-half img { object-fit: contain; background: #111; }
+.g-wide { grid-column: span 12; aspect-ratio: 1199/800; }
+.g-third { grid-column: span 4; }
+.g-third img { object-fit: contain; background: #111; }
 
 /* ═══ PROJECT DETAIL — HORIZONTAL ═══ */
 .detail-section {
@@ -311,7 +313,8 @@ body.zh { font-family: 'Noto Sans SC', 'Inter', sans-serif; }
 .detail-images img {
   flex: 1 1 calc(50% - 1px);
   max-width: calc(50% - 1px);
-  object-fit: cover;
+  object-fit: contain;
+  background: #111;
   display: block;
   cursor: pointer;
   transition: opacity 0.3s;
