@@ -74,10 +74,9 @@ html, body {
 /* ═══ PAGE 1: TITLE ═══ */
 .s-title {
   flex-direction: column; gap: 0;
-  position: relative;
 }
 .s-title .teal-block {
-  position: absolute; top: 0; left: 0; right: 0;
+  width: 100%; flex-shrink: 0;
   height: 55vh;
   background: var(--teal);
   display: flex; flex-direction: column;
@@ -99,7 +98,7 @@ html, body {
   letter-spacing: 2px;
 }
 .s-title .bottom-half {
-  position: absolute; bottom: 0; left: 0; right: 0;
+  width: 100%; flex-shrink: 0;
   height: 45vh;
   background: var(--bg);
   display: flex; align-items: flex-start;
@@ -148,7 +147,6 @@ html, body {
 /* ═══ PAGE 2: COLLAGE ═══ */
 .s-collage {
   background: var(--bg);
-  position: relative;
 }
 .s-collage .collage-grid {
   position: absolute; inset: 0;
@@ -199,7 +197,7 @@ html, body {
 }
 .s-content .col-text.right { border-right: none; border-left: 1px solid var(--light-gray); }
 .s-content .col-img {
-  overflow: hidden; position: relative;
+  overflow: hidden;
 }
 .s-content .col-img img {
   width: 100%; height: 100%; object-fit: cover;
@@ -334,7 +332,7 @@ html, body {
   width: 100%;
 }
 .s-app .visual {
-  position: relative; overflow: hidden;
+  overflow: hidden;
 }
 .s-app .visual img {
   width: 100%; height: 100%; object-fit: cover;
@@ -401,7 +399,6 @@ html, body {
 
 /* ═══ PAGE 9: UNITY ═══ */
 .s-unity {
-  position: relative;
   flex-direction: column; gap: 20px;
   background: var(--teal);
   color: white;
